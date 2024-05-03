@@ -8,6 +8,7 @@ class UserController extends Controller
 {
     public function loginView()
     {
-    return view('LoginView'); // 
+    return view('Login.LoginView'); // 
     }
+
 }

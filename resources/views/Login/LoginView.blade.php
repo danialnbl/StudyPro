@@ -18,9 +18,11 @@
             <input type="password" id="password" name="password" required placeholder=Password>
             <p>Forgot password?</p>
         </div>
-        <div>
-            <button type="submit">Login</button>
-            <p>First time user?Click here</p>
+        <div class=btn>
+        <button type="button" class="btn btn-primary"
+        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+        Login
+        </button>
         </div>
     </form>
 </body>
