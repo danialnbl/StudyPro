@@ -1,5 +1,5 @@
 <!-- resources/views/LoginView.blade.php -->
-<!--
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,5 +25,5 @@
     </form>
 </body>
 </html>
--->
+
 

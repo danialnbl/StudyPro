@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /*public function loginView()
+    public function loginView()
     {
     return view('LoginView'); // 
-    }*/
+    }
 }
