@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('P_Status');
             $table->string('P_Title');
             $table->unsignedInteger('PE_Id');
-            $table->unsignedInteger('PR_Id');
+            $table->unsignedInteger('PR_Id')->nullable(true);
             $table->foreign('PE_Id')->references('PE_Id')->on('platinumeducation')->onDelete('cascade');
             $table->foreign('PR_Id')->references('PR_Id')->on('PlatinumReferral')->onDelete('cascade');
         });

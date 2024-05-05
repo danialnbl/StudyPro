@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('PG_ID');
             $table->string('S_IC');
             $table->string('P_IC');
+            $table->foreign('S_IC')->references('S_IC')->on('Staff')->onDelete('cascade');
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
         });
     }
