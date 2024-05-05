@@ -11,4 +11,9 @@ class UserController extends Controller
     return view('Login.LoginView'); // 
     }
 
+    public function newRegisterView()
+    {
+        return view('manageRegistration.newRegisterView');
+    }
+
 }
