@@ -20,4 +20,6 @@ Route::get('/loginReset',[UserController::class, 'ResetPasswordView']);
 
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
+Route::get('/publication', [ExpertController::class, 'addPublicationDataView']);
+
 
