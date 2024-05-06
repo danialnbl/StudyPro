@@ -13,6 +13,8 @@ Route::get('/login', [UserController::class, 'loginView'])->name('login');
 
 Route::get('/register',[UserController::class, 'newRegisterView']);
 
+Route::get('/loginReset',[UserController::class, 'ResetPasswordView']);
+
 Route::get('/expert', [ExpertController::class, 'expertListView'])->name('expert');
 
 
