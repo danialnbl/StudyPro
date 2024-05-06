@@ -18,15 +18,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Experts
+                        Expert Domain
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">My Expert</a></li>
-                        <li><a class="dropdown-item" href="/expert">View All Experts</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Expert Report</a></li>
+                        <li><a class="dropdown-item" href="#">Add New Expert</a></li>
+                        <li><a class="dropdown-item" href="/expert">View My Experts</a></li>
+                        <li><a class="dropdown-item" href="#">View All Experts</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
