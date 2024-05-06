@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{{ url('assets/StudyProLogo.png') }}" />
     {{-- styles --}}
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ url('resources/css/app.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.min.css">
     <!-- Option 1: Include in HTML -->
