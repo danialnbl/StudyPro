@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('ER_ID');
             $table->unsignedInteger('E_ID');
             $table->string('ER_Title');
-            $table->foreign('E_ID')->references('E_ID')->on('Expert')->onDelete('cascade');
+            $table->foreign('E_ID')->references('E_ID')->on('Experts')->onDelete('cascade');
         });
     }
 

@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ExpertPaper', function (Blueprint $table) {
+        Schema::create('ExpertPapers', function (Blueprint $table) {
             $table->increments('EP_ID');
             $table->unsignedInteger('E_ID');
             $table->unsignedInteger('ER_ID');
             $table->string('EP_Paper');
             $table->date('EP_Year');
-            $table->foreign('E_ID')->references('E_ID')->on('Expert')->onDelete('cascade');
+            $table->foreign('E_ID')->references('E_ID')->on('Experts')->onDelete('cascade');
             $table->foreign('ER_ID')->references('ER_ID')->on('ExpertResearch')->onDelete('cascade');
         });
     }

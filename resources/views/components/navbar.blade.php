@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">StudyPro</a>
+        <a class="navbar-brand" href="#">
+            <img src="{{ url('assets/StudyProLogo.png') }}" alt="logoStudyPro" style="width:90px;height:90px;">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -20,7 +22,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">My Expert</a></li>
-                        <li><a class="dropdown-item" href="#">View All Experts</a></li>
+                        <li><a class="dropdown-item" href="/expert">View All Experts</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

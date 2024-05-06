@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('PublicationData', function (Blueprint $table) {
-            $table->increments('PD_ID');          
+            $table->increments('PD_ID');
             $table->string('PD_Title');
             $table->string('PD_University');
             $table->string('PD_Type');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('PD_File');
             $table->date('PD_Date');
             $table->unsignedInteger('EP_ID');
-            $table->foreign('EP_ID')->references('EP_ID')->on('ExpertPaper')->onDelete('cascade');
+            $table->foreign('EP_ID')->references('EP_ID')->on('ExpertPapers')->onDelete('cascade');
         });
     }
 
