@@ -22,8 +22,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Add New Expert</a></li>
-                        <li><a class="dropdown-item" href="/expert">View My Experts</a></li>
-                        <li><a class="dropdown-item" href="#">View All Experts</a></li>
+                        <li><a class="dropdown-item" href="#">View My Experts</a></li>
+                        <li><a class="dropdown-item" href="/expert">View All Experts</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
