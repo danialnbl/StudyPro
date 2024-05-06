@@ -13,7 +13,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Platinum</a>
+                    <a class="nav-link" href="#">Profile</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -26,8 +26,26 @@
                         <li><a class="dropdown-item" href="/expert">View All Experts</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Publications</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Progress
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Weekly Focus</a></li>
+                        <li><a class="dropdown-item" href="#">Draft Thesis Performance</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Publication
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Add New Publication</a></li>
+                        <li><a class="dropdown-item" href="#">View My Publications</a></li>
+                        <li><a class="dropdown-item" href="#">View All Publications</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

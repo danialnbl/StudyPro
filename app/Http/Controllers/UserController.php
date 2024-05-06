@@ -11,6 +11,11 @@ class UserController extends Controller
     return view('Login.LoginView'); // 
     }
 
+    public function ResetPasswordView()
+    {
+    return view('Login.ResetPasswordView'); // 
+    }
+
     public function newRegisterView()
     {
         return view('manageRegistration.newRegisterView');

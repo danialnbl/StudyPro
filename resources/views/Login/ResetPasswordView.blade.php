@@ -1,5 +1,4 @@
 <!-- resources/views/ResetPasswordView.blade.php -->
-<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,4 +35,4 @@
     @endif
 </body>
 </html>
--->
+

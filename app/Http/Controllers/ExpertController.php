@@ -14,4 +14,11 @@ class ExpertController extends Controller
         'expert'=> Expert::all(),
     ]);
     }
+
+    public function addExpertView()
+    {
+    return view('manageExpertDomain.addExpertView', [
+        'expert'=> Expert::all(),
+    ]);
+    }
 }
