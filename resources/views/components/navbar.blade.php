@@ -2,7 +2,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="/expert" class="logo d-flex align-items-center">
+        <a href="/login" class="logo d-flex align-items-center">
             <img src="{{ url('assets/StudyProDark.png') }}" alt="">
             <span class="d-none d-lg-block">StudyPro</span>
         </a>
@@ -34,7 +34,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="#">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -44,7 +44,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a class="dropdown-item d-flex align-items-center" href="#">
                             <i class="bi bi-gear"></i>
                             <span>Account Settings</span>
                         </a>
@@ -74,7 +74,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="/login">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>
@@ -86,12 +86,12 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="components-accordion.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>View Profile</span>
                     </a>
                 </li>
@@ -104,17 +104,17 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
+                    <a href="/expertAdd">
                         <i class="bi bi-circle"></i><span>Add new expert</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>View my experts</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-editors.html">
+                    <a href="/expert">
                         <i class="bi bi-circle"></i><span>View all experts</span>
                     </a>
                 </li>
@@ -127,12 +127,12 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="tables-general.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Weekly focus</span>
                     </a>
                 </li>
                 <li>
-                    <a href="tables-data.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Draft thesis performance</span>
                     </a>
                 </li>
@@ -146,17 +146,17 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Add new publication</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>View my publications</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-editors.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>View all publications</span>
                     </a>
                 </li>
