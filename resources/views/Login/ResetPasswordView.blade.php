@@ -1,38 +1,28 @@
-<!-- resources/views/ResetPasswordView.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password</title>
+    <title>StudyPro | Forgot Password</title>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <h1>Reset Password</h1>
-    <form method="POST" action="{{ route('reset.password.post') }}">
-        @csrf
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+<div class="card text-center" style="width: 300px;">
+    <div class="card-header h5 text-white bg-primary">Password Reset</div>
+    <div class="card-body px-5">
+        <p class="card-text py-2">
+            Enter your email address and we'll send you an email with instructions to reset your password.
+        </p>
+        <div data-mdb-input-init class="form-outline">
+            <input type="email" id="typeEmail" class="form-control my-3" />
+            <label class="form-label" for="typeEmail">Email input</label>
         </div>
-        <div>
-            <label for="username">Current Username:</label>
-            <input type="text" id="username" name="username" required>
+        <a href="#" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary w-100">Reset password</a>
+        <div class="d-flex justify-content-between mt-4">
+            <a class="" href="#">Login</a>
+            <a class="" href="#">Register</a>
         </div>
-        <div>
-            <label for="password">New Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <label for="password_confirmation">Confirm New Password:</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" required>
-        </div>
-        <input type="hidden" name="token" value="{{ $token }}">
-        <button type="submit">Reset Password</button>
-    </form>
-
-    @if (session('invalid_username'))
-        <p style="color: red;">{{ session('invalid_username') }}</p>
-    @endif
+    </div>
+</div>
 </body>
 </html>
-
