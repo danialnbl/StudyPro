@@ -20,5 +20,9 @@ class UserController extends Controller
     {
         return view('manageRegistration.newRegisterView');
     }
+    public function VerifyAccountView()
+    {
+        return view('Login.VerifyAccountView');
+    }
 
 }

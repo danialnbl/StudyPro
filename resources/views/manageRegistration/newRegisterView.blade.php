@@ -11,27 +11,166 @@
        <!-- START FORM -->
        <form action='' method='post'>
         <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h1>Platinum Registration</h1>
+        <h2>Platinum details:</h2>
             <div class="mb-3 row">
-                <label for="nim" class="col-sm-2 col-form-label">NIM</label>
+                <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name='nim' id="nim">
+                    <input type="text" class="form-control" name='name' id="name">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                <label for="ic" class="col-sm-2 col-form-label">NR IC</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='nama' id="nama">
+                    <input type="text" class="form-control" name='ic' id="ic">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="jurusan" class="col-sm-2 col-form-label">Jurusan</label>
+                <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='jurusan' id="jurusan">
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
                 </div>
             </div>
+            <div class="mb-3 row">
+                <label for="religion" class="col-sm-2 col-form-label">Religion</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='religion' id="religion">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="race" class="col-sm-2 col-form-label">Race</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='race' id="race">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="citizenship" class="col-sm-2 col-form-label">Citizenship</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='citizenship' id="citizenship">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="address" class="col-sm-2 col-form-label">Address</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='address' id="address">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="city" class="col-sm-2 col-form-label">City</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='city' id="city">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="state" class="col-sm-2 col-form-label">State</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='state' id="state">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="country" class="col-sm-2 col-form-label">Country</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='country' id="country">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="zip" class="col-sm-2 col-form-label">Zip Code</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='zip' id="zip">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="phoneNum" class="col-sm-2 col-form-label">Phone Number</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='phoneNum' id="phoneNum">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" name='email' id="email">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="facebook" class="col-sm-2 col-form-label">Facebook</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='facebook' id="facebook">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="tshirtSize" class="col-sm-2 col-form-label">T-Shirt Size</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='tshirtSize' id="tshirtSize">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="dateApply" class="col-sm-2 col-form-label">Date Apply</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name='dateApply' id="dateApply">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="program" class="col-sm-2 col-form-label">Program</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='program' id="program">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="batch" class="col-sm-2 col-form-label">Batch</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name='batch' id="batch">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="status" class="col-sm-2 col-form-label">Status</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='status' id="status">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="title" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='title' id="title">
+                </div>
+            </div>
+            <h2>Education details: </h2>
+            <div class="mb-3 row">
+                <label for="eduIns" class="col-sm-2 col-form-label">Education Institute</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='eduIns' id="eduIns">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="sponsorship" class="col-sm-2 col-form-label">Sponsorship</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='sponsorship' id="sponsorship">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="programFee" class="col-sm-2 col-form-label">Program Fee</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='programFee' id="programFee">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="eduLevel" class="col-sm-2 col-form-label">Education Level</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='eduLevel' id="eduLevel">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="occupation" class="col-sm-2 col-form-label">Occupation</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name='occupation' id="occupation">
+                </div>
+            </div>
+            <!--button-->
             <div class="mb-3 row">
                 <label for="jurusan" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
+                <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="register">Register User</button></div>
             </div>
           </form>
         </div>

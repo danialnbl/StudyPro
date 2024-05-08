@@ -22,6 +22,8 @@ Route::get('/loginReset', [UserController::class, 'ResetPasswordView']);
 
 Route::get('/publication', [PublicationDataController::class, 'addPublicationDataView']);
 
+Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
+
 
 
 

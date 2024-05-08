@@ -16,6 +16,12 @@ background: #eee;
 .h-custom {
 height: calc(100% - 73px);
 }
+h1{
+  text-align: center;
+}
+h2{
+  text-align: center;
+}
 @media (max-width: 450px) {
 .h-custom {
 height: 100%;
@@ -36,17 +42,19 @@ height: 100%;
         <form>
 
           <!-- Username input -->
+          <h1>StudyPro</h1>
+          <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
+          <label class="form-label" for="form3Example3">Username</label>
             <input type="username" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter a valid username" />
-            <label class="form-label" for="form3Example3">Username</label>
+              placeholder="Enter username" required/>
           </div>
 
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
+          <label class="form-label" for="form3Example4">Password</label>
             <input type="password" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter password" />
-            <label class="form-label" for="form3Example4">Password</label>
+              placeholder="Enter password" required/>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
@@ -57,13 +65,13 @@ height: 100%;
                 Remember me
               </label>
             </div>
-            <a href="#!" class="text-body">Forgot password?</a>
+            <a href="/loginReset" class="text-body">Forgot password?</a>
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">First time user? <a href="#!"
+            <p class="small fw-bold mt-2 pt-1 mb-0">First time user? <a href="/loginVerify"
                 class="link-danger">Verify account</a></p>
           </div>
 
@@ -79,22 +87,7 @@ height: 100%;
     </div>
     <!-- Copyright -->
 
-    <!-- Right -->
-    <div>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="#!" class="text-white">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-    </div>
-    <!-- Right -->
+    
   </div>
 </section>
 
