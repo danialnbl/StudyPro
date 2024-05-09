@@ -9,7 +9,8 @@
   <body class="bg-light">
     <main class="container">
        <!-- START FORM -->
-       <form action='' method='post'>
+       <form action="{{ url('insert-RegData') }}" method='post'>
+        @csrf  
         <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h1>Platinum Registration</h1>
         <h2>Platinum details:</h2>
@@ -28,28 +29,45 @@
             <div class="mb-3 row">
                 <label for="gender" class="col-sm-2 col-form-label">Gender</label>
                 <div class="col-sm-10">
-                <select name="gender" id="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="female"> Female
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="religion" class="col-sm-2 col-form-label">Religion</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='religion' id="religion">
+                <input type="radio" name="religion" value="islam"> Islam
+                <input type="radio" name="religion" value="christian"> Christian
+                <input type="radio" name="religion" value="buddha"> Buddha
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="race" class="col-sm-2 col-form-label">Race</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='race' id="race">
-                </div>
+            <label for="race" class="col-sm-2 col-form-label">Race</label>
+            <div class="col-sm-10">
+                <input type="radio" name="race" value="malay"> Malay
+                <input type="radio" name="race" value="indian"> Indian
+                <input type="radio" name="race" value="chinese"> Chinese
+                <input type="radio" name="race" value="others" id="race_others"> Others
+                <input type="text" name="race_others_textbox" id="race_others_textbox" style="display:none;">
             </div>
+        </div>
+
+        <script>
+            document.getElementById('race_others').addEventListener('change', function() {
+                var othersInput = document.getElementById('race_others_textbox');
+                if (this.checked) {
+                    othersInput.style.display = 'block';
+                } else {
+                    othersInput.style.display = 'none';
+                }
+            });
+        </script>
+
             <div class="mb-3 row">
                 <label for="citizenship" class="col-sm-2 col-form-label">Citizenship</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='citizenship' id="citizenship">
+                <input type="radio" name="citizenship" value="malaysian"> Malaysian
+                <input type="radio" name="citizenship" value="nonMalay"> Non-Malaysian
                 </div>
             </div>
             <div class="mb-3 row">
@@ -103,7 +121,12 @@
             <div class="mb-3 row">
                 <label for="tshirtSize" class="col-sm-2 col-form-label">T-Shirt Size</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='tshirtSize' id="tshirtSize">
+                <input type="radio" name="tshirtSize" value="xs"> XS
+                <input type="radio" name="tshirtSize" value="s"> S
+                <input type="radio" name="tshirtSize" value="m"> M
+                <input type="radio" name="tshirtSize" value="l"> L
+                <input type="radio" name="tshirtSize" value="xl"> XL
+                <input type="radio" name="tshirtSize" value="xxl"> XXL
                 </div>
             </div>
             <div class="mb-3 row">

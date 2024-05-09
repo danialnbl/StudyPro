@@ -24,6 +24,8 @@ Route::get('/publication', [PublicationDataController::class, 'addPublicationDat
 
 Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
 
+Route::post('insert-RegData',[UserController::class]);
+
 
 
 
