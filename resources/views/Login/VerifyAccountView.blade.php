@@ -19,6 +19,9 @@ height: calc(100% - 73px);
 h1{
     text-align: center;
 }
+p{
+  text-align: center;
+}
 @media (max-width: 450px) {
 .h-custom {
 height: 100%;
@@ -39,7 +42,7 @@ height: 100%;
 
           <div data-mdb-input-init class="form-outline mb-4">
             <h1>Verify your account</h1>
-            <p>Enter your associated email. We will send a verification code to your email.</p>
+            <p>Enter your associated email. We will send verification notification thorugh your email.Please check your inbox or spam.</p>
           </div>
 
           <!-- Email input -->
@@ -61,12 +64,12 @@ height: 100%;
               placeholder="Enter password" required/>
           </div>
 
-
+          <!--Button-->
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Verify</button>
             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Resend Code</button>
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Resend Verification</button>
           </div>
 
         </form>

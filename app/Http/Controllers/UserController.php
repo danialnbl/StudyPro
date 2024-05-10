@@ -51,7 +51,7 @@ class UserController extends Controller
         //$platinum ->PR_Id = input('ic');
         $platinum->save();
 
-        return redirect('/register')->with('status',"User Registered Successfully !");
+        return redirect('/register')->with('status',"Success Registration!");
     }
 
 }
