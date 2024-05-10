@@ -114,7 +114,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/myexpert">
                         <i class="bi bi-circle"></i><span>View my experts</span>
                     </a>
                 </li>

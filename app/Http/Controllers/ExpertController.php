@@ -10,15 +10,22 @@ class ExpertController extends Controller
 {
     public function expertListView()
     {
-    return view('manageExpertDomain.expertListView', [
-        'expert'=> Expert::all(),
-    ]);
+        return view('manageExpertDomain.expertListView', [
+            'expert' => Expert::all(),
+        ]);
     }
 
     public function addExpertView()
     {
-    return view('manageExpertDomain.addExpertView', [
-        'expert'=> Expert::all(),
-    ]);
+        return view('manageExpertDomain.addExpertView', [
+            'expert' => Expert::all(),
+        ]);
+    }
+
+    public function myExpertView()
+    {
+        return view('manageExpertDomain.myExpertListView', [
+            'expert' => Expert::all(),
+        ]);
     }
 }

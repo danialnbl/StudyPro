@@ -16,6 +16,8 @@ Route::get('/register', [UserController::class, 'newRegisterView']);
 
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
+Route::get('/myexpert', [ExpertController::class, 'myExpertView']);
+
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView']);
 
 Route::get('/loginReset', [UserController::class, 'ResetPasswordView']);
@@ -24,7 +26,7 @@ Route::get('/publication', [PublicationDataController::class, 'addPublicationDat
 
 Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
 
-Route::post('insert-RegData',[UserController::class]);
+Route::post('insert-RegData', [UserController::class]);
 
 
 
