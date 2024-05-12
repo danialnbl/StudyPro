@@ -54,4 +54,8 @@ class UserController extends Controller
         return redirect('/register')->with('status',"Success Registration!");
     }
 
+    public function platinumList(){
+        return view('manageRegistration.platinumList');
+    }
+
 }

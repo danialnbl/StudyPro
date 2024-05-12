@@ -26,7 +26,9 @@ Route::get('/publication', [PublicationDataController::class, 'addPublicationDat
 
 Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
 
-Route::post('insert-RegData', [UserController::class]);
+Route::post('insert-RegData', [UserController::class]);//nak insert data dalam database
+
+Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
 
 
