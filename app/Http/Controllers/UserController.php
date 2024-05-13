@@ -96,7 +96,7 @@ class UserController extends Controller
         return redirect('/register')->with('status',"Success Registration!");
     }
 
-    //Verification -login
+    //Verification
 
     public function VerifyAccountView()
     {
