@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    //Login
     public function loginView()
     {
     return view('Login.LoginView'); // 
@@ -16,13 +17,54 @@ class UserController extends Controller
     return view('Login.ResetPasswordView'); // 
     }
 
+    public function login(Request $request) //ni nak masuk kan info dalam database
+    {
+        // Validate form data
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+        // Attempt to authenticate user
+        $user = LoginAccount::where('LA_Username', $validatedData['username'])
+                            ->where('LA_Password', $validatedData['password'])
+                            ->where('role', $validatedData['role'])
+                            ->first();
+
+        if ($user) {
+            // User authenticated successfully
+            // You can add your authentication logic here, such as setting session variables
+            return redirect()->route('dashboard'); // Redirect to dashboard or any other route
+        } else {
+            // Authentication failed
+            return back()->with('error', 'Invalid credentials'); // Redirect back with error message
+        }
+    }
+
+    //Registration
     public function newRegisterView()
     {
         return view('manageRegistration.newRegisterView');
     }
-    public function VerifyAccountView()
+
+    public function register(Request $request)
     {
-        return view('Login.VerifyAccountView');
+        // Validate the registration form data
+        $validatedData = $request->validate([
+            // Add validation rules for registration fields
+        ]);
+
+        // Create a new user (unverified by default)
+        $user = User::create([
+            // Assign form fields to the User model attributes
+        ]);
+
+        // Send verification email
+        Mail::to($user->email)->send(new VerificationNotification($user));
+
+        // Redirect to verification page
+        return redirect()->route('verify')->with('success', 'Please verify your email.');
     }
 
     public function insert(Request $request){
@@ -52,6 +94,25 @@ class UserController extends Controller
         $platinum->save();
 
         return redirect('/register')->with('status',"Success Registration!");
+    }
+
+    //Verification -login
+
+    public function VerifyAccountView()
+    {
+        return view('Login.VerifyAccountView');
+    }
+
+    public function verificationView()
+    {
+        return view('VerifyAccountView');
+    }
+
+    public function verify(Request $request)
+    {
+        // Verify user based on token or other verification method
+        // Update user status to "verified"
+        // Redirect user to login page with a success message
     }
 
     public function platinumList(){

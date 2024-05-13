@@ -12,6 +12,12 @@ Route::get('/', function () {
 
 Route::get('/login', [UserController::class, 'loginView'])->name('login');
 
+Route::post('/login', [UserController::class, 'login'])->name('login.submit');
+
+Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
+
+Route::post('/register', [UserController::class, 'register'])->name('register');
+
 Route::get('/register', [UserController::class, 'newRegisterView']);
 
 Route::get('/expert', [ExpertController::class, 'expertListView']);

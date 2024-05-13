@@ -39,23 +39,32 @@ height: 100%;
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
-
+        <form method="POST" action="{{ route('login') }}">
+          @csrf
           <!-- Username input -->
           <h1>StudyPro</h1>
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Username</label>
-            <input type="username" id="form3Example3" class="form-control form-control-lg"
-              placeholder="Enter username" required/>
+            <input type="username" id="form3Example3" class="form-control form-control-lg" required/>
           </div>
 
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
           <label class="form-label" for="form3Example4">Password</label>
-            <input type="password" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter password" required/>
+            <input type="password" id="form3Example4" class="form-control form-control-lg" required/>
           </div>
+          <!--Role-->
+          <div data-mdb-input-init class="form-outline mb-3">
+              <label class="form-label" for="form3Example4">Role</label>
+              <select id="form3Example4" class="form-select form-select-lg" required>
+                  <option value="">Select Role</option>
+                  <option value="Staff">Staff</option>
+                  <option value="Mentor">Mentor</option>
+                  <option value="Platinum">Platinum</option>
+              </select>
+          </div>
+
 
           <div class="d-flex justify-content-between align-items-center">
             <!-- Checkbox -->
@@ -69,7 +78,7 @@ height: 100%;
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
             <p class="small fw-bold mt-2 pt-1 mb-0">First time user? <a href="/loginVerify"
                 class="link-danger">Verify account</a></p>

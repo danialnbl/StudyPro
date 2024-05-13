@@ -9,7 +9,7 @@
   <body class="bg-light">
     <main class="container">
        <!-- START FORM -->
-       <form action="{{ url('insert-RegData') }}" method='post'>
+       <form action="{{ route('register') }}" method='post'>
         @csrf  
         <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h1>Platinum Registration</h1>
@@ -192,7 +192,7 @@
             </div>
             <!--button-->
             <div class="mb-3 row">
-                <label for="jurusan" class="col-sm-2 col-form-label"></label>
+                <label for="submit" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="register">Register User</button></div>
             </div>
           </form>

@@ -38,18 +38,19 @@ height: 100%;
           class="img-fluid" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+      <form action="{{ route('verify') }}" method="post">
+         @csrf
 
           <div data-mdb-input-init class="form-outline mb-4">
             <h1>Verify your account</h1>
-            <p>Enter your associated email. We will send verification notification thorugh your email.Please check your inbox or spam.</p>
+            <p>Enter your associated email, username, and password. We will send verification notification thorugh your email.Please check your inbox or spam.</p>
           </div>
 
           <!-- Email input -->
           <div data-mdb-input-init class="form-outline mb-3">
           <label class="form-label" for="form3Example4">Email</label>
             <input type="email" id="form3Example4" class="form-control form-control-lg"
-              placeholder="Enter email" />
+              placeholder="Enter email" required/>
           </div>
           <!--Username Input-->
           <div data-mdb-input-init class="form-outline mb-4">
@@ -66,9 +67,9 @@ height: 100%;
 
           <!--Button-->
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Verify</button>
-            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Resend Verification</button>
           </div>
 
