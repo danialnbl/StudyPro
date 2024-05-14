@@ -91,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/profile">
                         <i class="bi bi-circle"></i><span>View Profile</span>
                     </a>
                 </li>

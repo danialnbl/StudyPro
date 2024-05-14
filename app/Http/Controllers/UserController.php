@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Platinum;
+use App\Models\PlatinumEducation;
 class UserController extends Controller
 {
     //Login
@@ -17,7 +18,11 @@ class UserController extends Controller
     return view('Login.ResetPasswordView'); // 
     }
 
-    public function login(Request $request) //ni nak masuk kan info dalam database
+    public function loginPost(Request $request){
+        
+    }
+
+    /*public function login(Request $request) //ni nak masuk kan info dalam database
     {
         // Validate form data
         $validatedData = $request->validate([
@@ -40,15 +45,110 @@ class UserController extends Controller
             // Authentication failed
             return back()->with('error', 'Invalid credentials'); // Redirect back with error message
         }
-    }
+    }*/
 
     //Registration
     public function newRegisterView()
     {
         return view('manageRegistration.newRegisterView');
     }
+    public function registerPost(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "name" => "required",
+            "ic" => "required",
+            "gender" => "required",
+            "religion" => "required",
+            "race" => "required",
+            "citizenship" => "required",
+            "address" => "required",
+            "city" => "required",
+            "state" => "required",
+            "country" => "required",
+            "zip" => "required",
+            "phoneNum" => "required",
+            "email" => "required",
+            "facebook" => "required",
+            "tshirtSize" => "required",
+            "dateApply" => "required",
+            "program" => "required",
+            "batch" => "required",
+            "status" => "required",
+            "title" => "required",
+            "eduIns" => "required",
+            "sponsorship" => "required",
+            "programFee" => "required",
+            "eduLevel" => "required",
+            "occupation" => "required",
+            "referral" => "required|string",
+            "referralName" => "required_if:referral,yes",
+            "referralBatch" => "required_if:referral,yes"
+        ]);
 
-    public function register(Request $request)
+        // Using DB transaction to ensure data consistency
+        DB::beginTransaction();
+
+        try {
+            // Create a new PlatinumEducation instance and populate it with data
+            $userEdu = new PlatinumEducation();
+            $userEdu->PE_EduInstitute = $validatedData['eduIns'];
+            $userEdu->PE_Sponsorship = $validatedData['sponsorship'];
+            $userEdu->PE_ProgramFee = $validatedData['programFee'];
+            $userEdu->PE_EduLevel = $validatedData['eduLevel'];
+            $userEdu->PE_Occupation = $validatedData['occupation'];
+            $userEdu->save();
+            
+            if ($request->referral === 'yes') {
+                $userRef = new PlatinumReferral();
+                $userRef->PR_Name = $validatedData['referralName'];
+                $userRef->PR_Name = $validatedData['referralBatch'];
+                $userRef->save();
+            }
+
+            // Create a new Platinum instance and populate it with data
+            $user = new Platinum();
+            $user->P_IC = $validatedData['ic'];
+            $user->P_Name = $validatedData['name'];
+            $user->P_Gender = $validatedData['gender'];
+            $user->P_Religion = $validatedData['religion'];
+            $user->P_Race = $validatedData['race'];
+            $user->P_Citizenship = $validatedData['citizenship'];
+            $user->P_Address = $validatedData['address'];
+            $user->P_City = $validatedData['city'];
+            $user->P_State = $validatedData['state'];
+            $user->P_Country = $validatedData['country'];
+            $user->P_Zip = $validatedData['zip'];
+            $user->P_PhoneNumber = $validatedData['phoneNum'];
+            $user->P_Email = $validatedData['email'];
+            $user->P_Facebook = $validatedData['facebook'];
+            $user->P_TshirtSize = $validatedData['tshirtSize'];
+            $user->P_DateApply = $validatedData['dateApply'];
+            $user->P_Program = $validatedData['program'];
+            $user->P_Batch = $validatedData['batch'];
+            $user->P_Status = $validatedData['status'];
+            $user->P_Title = $validatedData['title'];
+            $user->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect with success message
+            return redirect(route("register"))->with("success", "Success Registration!");
+        } catch (\Exception $e) {
+            // Rollback the transaction on failure
+            DB::rollBack();
+
+            // Log the error for debugging purposes
+            Log::error('Failed to register user: ' . $e->getMessage());
+
+            // Redirect with error message
+            return redirect(route("register"))->with("error", "Failed to register");
+        }
+    }
+
+
+    /*public function register(Request $request)
     {
         // Validate the registration form data
         $validatedData = $request->validate([
@@ -65,36 +165,7 @@ class UserController extends Controller
 
         // Redirect to verification page
         return redirect()->route('verify')->with('success', 'Please verify your email.');
-    }
-
-    public function insert(Request $request){
-        $platinum = new Platinum();
-        $platinum ->P_IC = input('ic');
-        $platinum ->P_Name = input('name');
-        $platinum ->P_Gender = input('gender');
-        $platinum ->P_Religion = input('religion');
-        $platinum ->P_Race = input('race');
-        $platinum ->P_Citizenship = input('citizenship');
-        $platinum ->P_Address = input('address');
-        $platinum ->P_City = input('city');
-        $platinum ->P_State = input('state');
-        $platinum ->P_Country = input('country');
-        $platinum ->P_Zip = input('zip');
-        $platinum ->P_PhoneNumber = input('phoneNum');
-        $platinum ->P_Email = input('email');
-        $platinum ->P_Facebook = input('facebook');
-        $platinum ->P_TshirtSize = input('tshirtSize');
-        $platinum ->P_DateApply = input('dateApply');
-        $platinum ->P_Program = input('program');
-        $platinum ->P_Batch = input('batch');
-        $platinum ->P_Status = input('status');
-        $platinum ->P_Title = input('title');
-        //$platinum ->PE_Id = input('ic');
-        //$platinum ->PR_Id = input('ic');
-        $platinum->save();
-
-        return redirect('/register')->with('status',"Success Registration!");
-    }
+    }*/
 
     //Verification
 
@@ -108,15 +179,20 @@ class UserController extends Controller
         return view('VerifyAccountView');
     }
 
-    public function verify(Request $request)
+    /*public function verify(Request $request)
     {
         // Verify user based on token or other verification method
         // Update user status to "verified"
         // Redirect user to login page with a success message
-    }
+    }*/
 
     public function platinumList(){
         return view('manageRegistration.platinumList');
+    }
+
+    //profile
+    public function ProfileView(){
+        return view('manageProfile.ProfileView');
     }
 
 }

@@ -8,8 +8,18 @@
   </head>
   <body class="bg-light">
     <main class="container">
+        @if(session()->has("success")) 
+        <div class="alert alert-success">
+            {{session()->get("success")}}
+        </div>
+        @endif
+        @if(session()->has("error")) 
+        <div class="alert alert-error">
+            {{session()->get("error")}}
+        </div>
+        @endif
        <!-- START FORM -->
-       <form action="{{ route('register') }}" method='post'>
+       <form action="{{ route('register.submit') }}" method='post'>
         @csrf  
         <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h1>Platinum Registration</h1>
@@ -17,7 +27,7 @@
             <div class="mb-3 row">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='name' id="name">
+                    <input type="text" class="form-control" name='name' id="name" autofocus>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -73,49 +83,49 @@
             <div class="mb-3 row">
                 <label for="address" class="col-sm-2 col-form-label">Address</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='address' id="address">
+                    <input type="text" class="form-control" name="address" id="address">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="city" class="col-sm-2 col-form-label">City</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='city' id="city">
+                    <input type="text" class="form-control" name="city" id="city">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="state" class="col-sm-2 col-form-label">State</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='state' id="state">
+                    <input type="text" class="form-control" name="state" id="state">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="country" class="col-sm-2 col-form-label">Country</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='country' id="country">
+                    <input type="text" class="form-control" name="country" id="country">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="zip" class="col-sm-2 col-form-label">Zip Code</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='zip' id="zip">
+                    <input type="text" class="form-control" name="zip" id="zip">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="phoneNum" class="col-sm-2 col-form-label">Phone Number</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='phoneNum' id="phoneNum">
+                    <input type="text" class="form-control" name="phoneNum" id="phoneNum">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name='email' id="email">
+                    <input type="email" class="form-control" name="email" id="email">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="facebook" class="col-sm-2 col-form-label">Facebook</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='facebook' id="facebook">
+                    <input type="text" class="form-control" name="facebook" id="facebook">
                 </div>
             </div>
             <div class="mb-3 row">
@@ -132,62 +142,109 @@
             <div class="mb-3 row">
                 <label for="dateApply" class="col-sm-2 col-form-label">Date Apply</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" name='dateApply' id="dateApply">
+                    <input type="date" class="form-control" name="dateApply" id="dateApply">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="program" class="col-sm-2 col-form-label">Program</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='program' id="program">
+                    <input type="text" class="form-control" name="program" id="program">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="batch" class="col-sm-2 col-form-label">Batch</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name='batch' id="batch">
+                    <input type="number" class="form-control" name="batch" id="batch">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="status" class="col-sm-2 col-form-label">Status</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='status' id="status">
+                    <input type="text" class="form-control" name="status" id="status">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="title" class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='title' id="title">
+                    <input type="text" class="form-control" name="title" id="title">
                 </div>
             </div>
+            <!-- Referral -->
+            <h2>Platinum Referrals:</h2>
+            <div class="mb-3 row">
+                <label for="referral" class="col-sm-2 col-form-label">Do you have referrals?</label>
+                <div class="col-sm-10">
+                    <input type="radio" name="referral" value="yes" id="referralYes"> Yes
+                    <input type="radio" name="referral" value="no" id="referralNo"> No
+                </div>
+            </div>
+            <div class="mb-3 row referral-info" id="referralInfoName" style="display:none;">
+                <label for="referralName" class="col-sm-2 col-form-label">Referral Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="referralName" name="referralName" value="{{ old('referralName') }}">
+                </div>
+            </div>
+            <div class="mb-3 row referral-info" id="referralInfoBatch" style="display:none;">
+                <label for="referralBatch" class="col-sm-2 col-form-label">Referral Batch</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="referralBatch" name="referralBatch" value="{{ old('referralBatch') }}">
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const referralYes = document.getElementById('referralYes');
+                    const referralNo = document.getElementById('referralNo');
+                    const referralInfo = document.querySelectorAll('.referral-info');
+
+                    referralYes.addEventListener('change', function () {
+                        if (this.checked) {
+                            referralInfo.forEach(element => element.style.display = 'flex');
+                        }
+                    });
+
+                    referralNo.addEventListener('change', function () {
+                        if (this.checked) {
+                            referralInfo.forEach(element => element.style.display = 'none');
+                        }
+                    });
+
+                    // Ensure the correct initial state based on the selected radio button
+                    if (referralYes.checked) {
+                        referralInfo.forEach(element => element.style.display = 'flex');
+                    }
+                });
+            </script>
+
             <h2>Education details: </h2>
             <div class="mb-3 row">
                 <label for="eduIns" class="col-sm-2 col-form-label">Education Institute</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='eduIns' id="eduIns">
+                    <input type="text" class="form-control" name="eduIns" id="eduIns">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="sponsorship" class="col-sm-2 col-form-label">Sponsorship</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='sponsorship' id="sponsorship">
+                    <input type="text" class="form-control" name="sponsorship" id="sponsorship">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="programFee" class="col-sm-2 col-form-label">Program Fee</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='programFee' id="programFee">
+                    <input type="text" class="form-control" name="programFee" id="programFee">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="eduLevel" class="col-sm-2 col-form-label">Education Level</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='eduLevel' id="eduLevel">
+                    <input type="text" class="form-control" name="eduLevel" id="eduLevel">
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="occupation" class="col-sm-2 col-form-label">Occupation</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='occupation' id="occupation">
+                    <input type="text" class="form-control" name="occupation" id="occupation">
                 </div>
             </div>
             <!--button-->
@@ -199,47 +256,6 @@
         </div>
         <!-- AKHIR FORM -->
         
-        <!-- START DATA -->
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-                <!-- FORM PENCARIAN -->
-                <div class="pb-3">
-                  <form class="d-flex" action="" method="get">
-                      <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                      <button class="btn btn-secondary" type="submit">Cari</button>
-                  </form>
-                </div>
-                
-                <!-- TOMBOL TAMBAH DATA -->
-                <div class="pb-3">
-                  <a href='' class="btn btn-primary">+ Tambah Data</a>
-                </div>
-          
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th class="col-md-1">No</th>
-                            <th class="col-md-3">NIM</th>
-                            <th class="col-md-4">Nama</th>
-                            <th class="col-md-2">Jurusan</th>
-                            <th class="col-md-2">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1001</td>
-                            <td>Ani</td>
-                            <td>Ilmu Komputer</td>
-                            <td>
-                                <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                <a href='' class="btn btn-danger btn-sm">Del</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-               
-          </div>
-          <!-- AKHIR DATA -->
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
   </body>
