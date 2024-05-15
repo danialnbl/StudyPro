@@ -194,5 +194,10 @@ class UserController extends Controller
     public function ProfileView(){
         return view('manageProfile.ProfileView');
     }
+    //homepage
+    public function staffmain()
+    {
+        return view('layouts.staffmain');
+    }
 
 }
