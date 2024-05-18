@@ -2,81 +2,81 @@
 
 @section('container')
     <section class="vh-100 gradient-custom">
-        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+        <div class="card " style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5"><b>Add New Expert</b></h3>
-                <div class="stepwizard col-md-offset-3 mb-4">
-                    <div class="stepwizard-row setup-panel">
-                        <div class="stepwizard-step">
-                            <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                            <p>Expert Details</p>
+                <h3 class=" pb-2 pb-md-0"><b>Add New Expert</b></h3>
+                <form action="/post" method="post" class="employee-form row">
+                    <div class="form-section">
+                        <div class="col-12">
+                            <label for="inputName5" class="form-label">Expert Name</label>
+                            <input type="text" class="form-control mb-3" name="name" required>
                         </div>
-                        <div class="stepwizard-step">
-                            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                            <p>Research Paper Details</p>
+                        <div class="col-12">
+                            <label for="inputEmail5" class="form-label">Expert University</label>
+                            <input type="text" class="form-control mb-3" name="last_name" required>
                         </div>
-                    </div>
-                </div>
-
-                <form role="form" action="" method="post">
-                    <div class="row setup-content" id="step-1">
-                        <div class="col-xs-6 col-md-offset-3">
-                            <div class="col-md-12">
-                                <h3>Expert Details</h3>
-                                <div class="form-group mb-3">
-                                    <label class="control-label">Real Name</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="Enter Expert Real Name">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="control-label">University Name</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="Enter Expert University Name">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="control-label">Email</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="Enter Expert Email">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="control-label">Phone Number</label>
-                                    <input maxlength="100" type="text" required="required" class="form-control"
-                                        placeholder="Enter Expert Phone Number">
-                                </div>
-                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                            </div>
+                        <div class="col-12">
+                            <label for="inputName5" class="form-label">Expert Email</label>
+                            <input type="email" class="form-control mb-3" name="email" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="inputEmail5" class="form-label">Expert Phone Number</label>
+                            <input type="text" class="form-control mb-3" name="phoneNum" required>
                         </div>
                     </div>
-                    <div class="row setup-content" id="step-2">
-                        <div class="col-xs-6 col-md-offset-3">
-                            <div class="col-md-12">
-                                <h3> Step 2</h3>
-                                <div class="form-group">
-                                    <label class="control-label">Company Name</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control"
-                                        placeholder="Enter Company Name">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Company Address</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control"
-                                        placeholder="Enter Company Address">
-                                </div>
-                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                            </div>
-                        </div>
+                    <div class="form-section">
+                        <label for="">E-mail:</label>
+                        <input type="email" class="form-control mb-3" name="email" required>
+                        <label for="">Phone:</label>
+                        <input type="tel" class="form-control mb-3" name="phone" required>
                     </div>
-                    <div class="row setup-content" id="step-3">
-                        <div class="col-xs-6 col-md-offset-3">
-                            <div class="col-md-12">
-                                <h3> Step 3</h3>
-                                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                                <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
-                            </div>
-                        </div>
+                    <div class="form-section">
+                        <label for="">Address:</label>
+                        <textarea name="address" class="form-control mb-3" cols="30" rows="5" required></textarea>
+                    </div>
+                    <div class="form-navigation mt-3">
+                        <button type="button" class="previous btn btn-primary float-left">Previous</button>
+                        <button type="button" class="next btn btn-primary float-right">Next </button>
+                        <button type="submit" class="btn btn-success float-right">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
+        {{-- <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Multi Columns Form</h5>
+                <form action="/post" method="post" class="employee-form row g-5">
+
+                    <div class="col-md-6">
+                        <label for="inputCity" class="form-label">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">State</label>
+                        <select id="inputState" class="form-select">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputZip" class="form-label">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Check me out
+                            </label>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form><!-- End Multi Columns Form -->
+
+            </div>
+        </div> --}}
     </section>
 @endsection
