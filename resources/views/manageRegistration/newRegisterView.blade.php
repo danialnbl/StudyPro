@@ -2,41 +2,42 @@
 
 @section('staff')
     <main class="container">
-        @if(session()->has("success")) 
-        <div class="alert alert-success">
-            {{session()->get("success")}}
-        </div>
+        @if(session()->has("success"))
+            <div class="alert alert-success">
+                {{ session()->get("success") }}
+            </div>
         @endif
-        @if(session()->has("error")) 
-        <div class="alert alert-error">
-            {{session()->get("error")}}
-        </div>
+        @if(session()->has("error"))
+            <div class="alert alert-danger">
+                {{ session()->get("error") }}
+            </div>
         @endif
        <!-- START FORM -->
        <form action="{{ route('register.submit') }}" method='post'>
-        @csrf  
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h1>Platinum Registration</h1>
-        <h2>Platinum details:</h2>
-            <div class="mb-3 row">
-                <label for="name" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='name' id="name" autofocus>
+            @csrf  
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+                <h1>Platinum Registration</h1>
+                <h2>Platinum details:</h2>
+                <!-- Form Fields Here -->
+                <div class="mb-3 row">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name='name' id="name" value="{{ old('name') }}" autofocus>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="ic" class="col-sm-2 col-form-label">NR IC</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='ic' id="ic">
+                <div class="mb-3 row">
+                    <label for="ic" class="col-sm-2 col-form-label">NR IC</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name='ic' id="ic" value="{{ old('ic') }}">
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3 row">
-                <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                <div class="col-sm-10">
-                <input type="radio" name="gender" value="male"> Male
-                <input type="radio" name="gender" value="female"> Female
+                <div class="mb-3 row">
+                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-sm-10">
+                        <input type="radio" name="gender" value="male" {{ old('gender') == 'male' ? 'checked' : '' }}> Male
+                        <input type="radio" name="gender" value="female" {{ old('gender') == 'female' ? 'checked' : '' }}> Female
+                    </div>
                 </div>
-            </div>
             <div class="mb-3 row">
                 <label for="religion" class="col-sm-2 col-form-label">Religion</label>
                 <div class="col-sm-10">
@@ -165,50 +166,47 @@
             </div>
             <!-- Referral -->
             <h2>Platinum Referrals:</h2>
-            <div class="mb-3 row">
-                <label for="referral" class="col-sm-2 col-form-label">Do you have referrals?</label>
-                <div class="col-sm-10">
-                    <input type="radio" name="referral" value="yes" id="referralYes"> Yes
-                    <input type="radio" name="referral" value="no" id="referralNo"> No
+                <div class="mb-3 row">
+                    <label for="referral" class="col-sm-2 col-form-label">Do you have referrals?</label>
+                    <div class="col-sm-10">
+                        <input type="radio" name="referral" value="yes" id="referralYes" {{ old('referral') == 'yes' ? 'checked' : '' }}> Yes
+                        <input type="radio" name="referral" value="no" id="referralNo" {{ old('referral') == 'no' ? 'checked' : '' }}> No
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3 row referral-info" id="referralInfoName" style="display:none;">
-                <label for="referralName" class="col-sm-2 col-form-label">Referral Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="referralName" name="referralName" value="{{ old('referralName') }}">
+                <div class="mb-3 row referral-info" id="referralInfoName" style="display:none;">
+                    <label for="referralName" class="col-sm-2 col-form-label">Referral Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="referralName" name="referralName" value="{{ old('referralName') }}">
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3 row referral-info" id="referralInfoBatch" style="display:none;">
-                <label for="referralBatch" class="col-sm-2 col-form-label">Referral Batch</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="referralBatch" name="referralBatch" value="{{ old('referralBatch') }}">
+                <div class="mb-3 row referral-info" id="referralInfoBatch" style="display:none;">
+                    <label for="referralBatch" class="col-sm-2 col-form-label">Referral Batch</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="referralBatch" name="referralBatch" value="{{ old('referralBatch') }}">
+                    </div>
                 </div>
-            </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const referralYes = document.getElementById('referralYes');
-                    const referralNo = document.getElementById('referralNo');
-                    const referralInfo = document.querySelectorAll('.referral-info');
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const referralYes = document.getElementById('referralYes');
+                        const referralNo = document.getElementById('referralNo');
+                        const referralInfo = document.querySelectorAll('.referral-info');
 
-                    referralYes.addEventListener('change', function () {
-                        if (this.checked) {
-                            referralInfo.forEach(element => element.style.display = 'flex');
+                        function toggleReferralFields() {
+                            if (referralYes.checked) {
+                                referralInfo.forEach(field => field.style.display = 'block');
+                            } else {
+                                referralInfo.forEach(field => field.style.display = 'none');
+                            }
                         }
-                    });
 
-                    referralNo.addEventListener('change', function () {
-                        if (this.checked) {
-                            referralInfo.forEach(element => element.style.display = 'none');
-                        }
-                    });
+                        referralYes.addEventListener('change', toggleReferralFields);
+                        referralNo.addEventListener('change', toggleReferralFields);
 
-                    // Ensure the correct initial state based on the selected radio button
-                    if (referralYes.checked) {
-                        referralInfo.forEach(element => element.style.display = 'flex');
-                    }
-                });
-            </script>
+                        // Initialize the state on load
+                        toggleReferralFields();
+                    });
+                </script>
 
             <h2>Education details: </h2>
             <div class="mb-3 row">
@@ -242,11 +240,11 @@
                 </div>
             </div>
             <!--button-->
-            <div class="mb-3 row">
-                <label for="submit" class="col-sm-2 col-form-label"></label>
-                <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="register">Register User</button></div>
+            <div class="row mb-3">
+                    <button type="submit" class="btn btn-primary col-sm-2">Register User</button>
+                </div>
             </div>
-          </form>
+        </form>
         </div>
         <!-- AKHIR FORM -->
         

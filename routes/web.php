@@ -38,6 +38,10 @@ Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
 Route::get('/profile',[UserController::class, 'ProfileView']);
 
+/*Auth::routes([
+    'verify'=>true
+]);*/
+
 
 
 

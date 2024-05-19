@@ -2,14 +2,27 @@
 
 namespace App\Models;
 
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Platinum extends Model
+class Platinum extends Model //implements MustVerifyEmail
 {
-    use HasFactory;
+    // Define the relationship with PlatinumEducation
+    public function education()
+    {
+        return $this->belongsTo(PlatinumEducation::class, 'PE_Id');
+    }
 
-    protected $table ='platinum';
+    // Define the relationship with PlatinumReferral
+    public function referral()
+    {
+        return $this->belongsTo(PlatinumReferral::class, 'PR_Id');
+    }
+
+    use HasFactory;
+    protected $table = 'Platinum';
+    public $timestamps = false;
     protected $fillable = [
         'P_IC',
         'P_Name',
@@ -30,8 +43,6 @@ class Platinum extends Model
         'P_Program',
         'P_Batch',
         'P_Status',
-        'P_Title',
-        'PE_Id',
-        'PR_Id'
+        'P_Title'
     ];
 }

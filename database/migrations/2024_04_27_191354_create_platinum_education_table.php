@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('PE_ProgramFee');
             $table->string('PE_EduLevel');
             $table->string('PE_Occupation');
+            $table->timestamps();
         });
     }
 
