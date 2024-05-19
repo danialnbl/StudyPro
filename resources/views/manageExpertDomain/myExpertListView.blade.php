@@ -12,7 +12,8 @@
                     <th scope="col">University</th>
                     <th scope="col">Email</th>
                     <th scope="col">PhoneNumber</th>
-                    <th class="text-center" scope="col">Actions</th>
+                    <th class="text-center" scope="col">Edit</th>
+                    <th class="text-center" scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,20 +25,15 @@
                         <td>{{ $expert->E_Email }}</td>
                         <td>{{ $expert->E_PhoneNumber }}</td>
                         <td class="text-center">
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0" data-bs-toggle="dropdown">
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item opn" data-bs-toggle="modal" data-bs-target="#edit-log"
-                                        href="javascript:void(0);">
-                                        <i class="bi bi-pencil-square"></i>
-                                        Edit
-                                    </a>
-                                    <a class="dropdown-item del" href="javascript:void(0);"><i class="bi bi-trash-fill"></i>
-                                        Delete</a>
-                                </div>
-                            </div>
+                            <button class="opn btn btn-success" data-bs-toggle="modal" data-bs-target="#edit-log"
+                                href="javascript:void(0);">
+                                <i class="bi bi-pencil-square"></i>
+                                Edit
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <a class="del btn btn-danger" href="javascript:void(0);"><i class="bi bi-trash-fill"></i>
+                                Delete</a>
                         </td>
                     </tr>
                 @endforeach

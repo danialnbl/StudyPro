@@ -64,6 +64,30 @@
             });
         });
 
+        //addMoreButn
+        var i = 0;
+        $('#addMore').click(function() {
+            ++i;
+            $('#addExpertTable').append(
+                `
+                <tr>
+                    <td>
+                        <input class="form-control" type="file" id="RP_File_[` + i + `]" name="RP_File_[` + i + `]" required>
+                    </td>
+                    <td>
+                        <button id="removeMore" name="removeMore" type="button" class=" btn btn-danger ml-5 remove-table-row">
+                            X
+                        </button>
+                    </td>
+                </tr>
+                `
+            )
+        })
+
+        $(document).on('click', '.remove-table-row', function() {
+            $(this).parents('tr').remove();
+        })
+
         $(function() {
             var $sections = $('.form-section');
 
@@ -75,11 +99,9 @@
                 var atTheEnd = index >= $sections.length - 1;
                 $('.form-navigation .next').toggle(!atTheEnd);
                 $('.form-navigation [Type=submit]').toggle(atTheEnd);
-
+                $('.form-navigation .addMore').toggle(index == 1);
 
                 const step = document.querySelector('.step' + index);
-                step.style.backgroundColor = "#17a2b8";
-                step.style.color = "white";
 
 
 
@@ -95,7 +117,7 @@
             });
 
             $('.form-navigation .next').click(function() {
-                $('.employee-form').parsley().whenValidate({
+                $('.expert-form').parsley().whenValidate({
                     group: 'block-' + curIndex()
                 }).done(function() {
                     navigateTo(curIndex() + 1);
