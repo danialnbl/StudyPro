@@ -11,6 +11,7 @@ use App\Models\Staff;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
 use App\Models\Mentor;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -23,6 +24,36 @@ class UserController extends Controller
     public function ResetPasswordView()
     {
         return view('Login.ResetPasswordView'); //
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'username'=> 'required',
+            'password'=> 'required'
+        ]);
+
+        if (Auth::attempt(['LA_Username' => $credentials['username'], 'LA_Password' => $credentials['password']])) {
+            $user = Auth::user();
+
+            switch ($user->role) {
+                case 'Platinum':
+                    return redirect()->route('dashboard.staffDashboard');
+                case 'Staff':
+                    return redirect()->route('dashboard.mentorDashboard');
+                case 'Mentor':
+                    return redirect()->route('dashboard.platinumDashboard');
+                default:
+                    Auth::logout();
+                    return redirect('/login')->withErrors('Unauthorized role');
+            }
+        } else {
+            return back()->withErrors([
+                'username' => 'The provided credentials do not match our records.',
+            ]);
+        }
+
+        dd('Successful Login!');
     }
 
     /*public function loginPost(Request $request)

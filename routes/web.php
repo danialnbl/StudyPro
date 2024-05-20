@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 Route::get('/login', [UserController::class, 'loginView'])->name('login');
 
-Route::post('/login', [UserController::class, 'loginPost'])->name('login.submit');
+Route::post('/login', [UserController::class, 'authenticate'])->name('login.submit');
 
 Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
 

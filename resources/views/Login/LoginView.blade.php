@@ -45,18 +45,23 @@ height: 100%;
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Username</label>
-            <input type="username" id="username" class="form-control form-control-lg" required/>
+            <input type="username" id="username" name="username" class="form-control form-control-lg @error('username') is-invalid @enderror" required autofocus value="{{old('userrname')}}"/>
+            @error('username')
+              <div class="invalid-feedback">
+                {{$message}}
+              </div>
+            @enderror
           </div>
 
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
           <label class="form-label" for="form3Example4">Password</label>
-            <input type="password" id="password" class="form-control form-control-lg" required/>
+            <input type="password" id="password" name="password" class="form-control form-control-lg" required autofocus/>
           </div>
           <!--Role-->
           <div data-mdb-input-init class="form-outline mb-3">
               <label class="form-label" for="form3Example4">Role</label>
-              <select id="role" class="form-select form-select-lg" required>
+              <select id="role" name="role" class="form-select form-select-lg" required>
                   <option value="">Select Role</option>
                   <option value="Staff">Staff</option>
                   <option value="Mentor">Mentor</option>
