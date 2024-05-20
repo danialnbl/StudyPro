@@ -128,12 +128,7 @@
             $sections.each(function(index, section) {
                 $(section).find(':input').attr('data-parsley-group', 'block-' + index);
             });
-
-
             navigateTo(0);
-
-
-
         });
     </script>
 
