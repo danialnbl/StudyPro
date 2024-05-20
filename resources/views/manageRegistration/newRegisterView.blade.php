@@ -15,7 +15,7 @@
        <!-- START FORM -->
        <form action="{{ route('register.submit') }}" method='post'>
             @csrf  
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <div class="my-3 p-5 bg-body rounded shadow-sm">
                 <h1>Platinum Registration</h1>
                 <h2>Platinum details:</h2>
                 <!-- Form Fields Here -->
