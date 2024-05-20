@@ -16,9 +16,19 @@ Route::post('/login', [UserController::class, 'loginPost'])->name('login.submit'
 
 Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
 
+//Register
+
 Route::get('/PlatRegister', [UserController::class, 'PlatinumRegistration'])->name('register');
 
-Route::post('/PlatRegister', [UserController::class, 'registerPost'])->name('register.submit');
+Route::post('/PlatRegister', [UserController::class, 'PlatinumRegisterPost'])->name('register.submit');
+
+Route::get('/StaffRegister', [UserController::class,'StaffRegistration'])->name('staffReg');
+
+Route::post('/StaffRegister', [UserController::class, 'StaffRegisterPost'])->name('staffReg.submit');
+
+Route::get('/MentorRegister', [UserController::class,'MentorRegistration'])->name('mentorReg');
+
+Route::post('/MentorRegister', [UserController::class,'MentorRegisterPost'])->name('mentorReg.submit');
 
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
@@ -38,7 +48,6 @@ Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
 Route::get('/profile',[UserController::class, 'ProfileView']);
 
-Route::get('/EditRegister',[UserController::class,'']);
 
 /*Auth::routes([
     'verify'=>true

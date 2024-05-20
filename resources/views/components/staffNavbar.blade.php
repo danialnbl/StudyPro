@@ -115,12 +115,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
-                        <i class="bi bi-circle"></i><span>Mentor reigistration</span>
+                    <a href="/MentorRegister">
+                        <i class="bi bi-circle"></i><span>Mentor registration</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="/StaffRegister">
                         <i class="bi bi-circle"></i><span>Staff registration</span>
                     </a>
                 </li>

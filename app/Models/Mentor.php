@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Mentor extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
+    protected $table = 'Mentor';
     protected $fillable =[
         'M_IC',
         'M_Name',

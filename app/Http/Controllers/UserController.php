@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Platinum;
+use App\Models\Staff;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
+use App\Models\Mentor;
 
 class UserController extends Controller
 {
@@ -23,10 +25,10 @@ class UserController extends Controller
         return view('Login.ResetPasswordView'); //
     }
 
-    public function loginPost(Request $request)
+    /*public function loginPost(Request $request)
     {
 
-    }
+    }*/
 
     /*public function login(Request $request) //ni nak masuk kan info dalam database
     {
@@ -58,8 +60,16 @@ class UserController extends Controller
     {
         return view('manageRegistration.PlatinumRegistration');
     }
+    public function StaffRegistration()
+    {
+        return view('manageRegistration.StaffRegistration');
+    }
+    public function MentorRegistration()
+    {
+        return view('manageRegistration.MentorRegistration');
+    }
 
-    public function registerPost(Request $request)
+    public function PlatinumRegisterPost(Request $request)
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
@@ -140,11 +150,6 @@ class UserController extends Controller
             $user->PE_Id = $userEdu->id;
             $user->save();
 
-            //login
-            $loginAcc = new LoginAccount();
-            $loginAcc->LA_Password = $validatedData['ic'];
-            $loginAcc->LA_Username = $validatedData['ic'];
-
             // Commit the transaction
             DB::commit();
 
@@ -162,25 +167,97 @@ class UserController extends Controller
         }
     }
 
-    /*public function register(Request $request)
+    public function StaffRegisterPost(Request $request)
     {
-        // Validate the registration form data
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            // Add validation rules for registration fields
+            "Sname" => "required",
+            "Sic" => "required",
+            "SphoneNum" => "required",
+            "Semail" => "required|email",
+            "staffID" => "required",
+            "role" => "required"
+            
         ]);
 
-        // Create a new user (unverified by default)
-        $user = User::create([
-            // Assign form fields to the User model attributes
+        // Using DB transaction to ensure data consistency
+        DB::beginTransaction();
+
+        try {
+
+            // Create a new Staff instance and populate it with data
+            $staff = new Staff();
+            $staff->S_IC = $validatedData['Sic'];
+            $staff->S_Name = $validatedData['Sname'];
+            $staff->S_PhoneNumber = $validatedData['SphoneNum'];
+            $staff->S_Email = $validatedData['Semail'];
+            $staff->S_StaffId = $validatedData['staffID'];
+
+            $staff->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect with success message
+            return redirect()->route("staffReg")->with("success", "Success Registration!");
+        } catch (\Exception $e) {
+            // Rollback the transaction on failure
+            DB::rollBack();
+
+            // Log the error for debugging purposes
+            Log::error('Failed to register user: ' . $e->getMessage());
+
+            // Redirect with error message
+            return redirect()->route("staffReg")->with("error", "Failed to register: " . $e->getMessage());
+        }
+    }
+
+    public function MentorRegisterPost(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "Mname" => "required",
+            "Mic" => "required",
+            "MphoneNum" => "required",
+            "Memail" => "required|email",
+            "mentorID" => "required",
+            "role" => "required"
+            
         ]);
 
-        // Send verification email
-        Mail::to($user->email)->send(new VerificationNotification($user));
+        // Using DB transaction to ensure data consistency
+        DB::beginTransaction();
 
-        // Redirect to verification page
-        return redirect()->route('verify')->with('success', 'Please verify your email.');
-    }*/
+        try {
 
+            // Create a new Staff instance and populate it with data
+            $mentor = new Mentor();
+            $mentor->M_IC = $validatedData['Mic'];
+            $mentor->M_Name = $validatedData['Mname'];
+            $mentor->M_PhoneNumber = $validatedData['MphoneNum'];
+            $mentor->M_Email = $validatedData['Memail'];
+            $mentor->M_MentorId = $validatedData['mentorID'];
+
+            $mentor->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect with success message
+            return redirect()->route("mentorReg")->with("success", "Success Registration!");
+        } catch (\Exception $e) {
+            // Rollback the transaction on failure
+            DB::rollBack();
+
+            // Log the error for debugging purposes
+            Log::error('Failed to register user: ' . $e->getMessage());
+
+            // Redirect with error message
+            return redirect()->route("mentorReg")->with("error", "Failed to register: " . $e->getMessage());
+        }
+    }
+
+    
     //Verification
 
     public function VerifyAccountView()

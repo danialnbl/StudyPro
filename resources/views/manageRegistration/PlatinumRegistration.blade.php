@@ -239,6 +239,15 @@
                     <input type="text" class="form-control" name="occupation" id="occupation">
                 </div>
             </div>
+            <!--this one tak perlu masuk database just as condition for login-->
+            <div class="mb-3 row">
+                <label for="role" class="col-sm-2 col-form-label">Role</label>
+                <div class="col-sm-10">
+                <input type="radio" name="role" value="Staff"> Staff
+                <input type="radio" name="role" value="Platinum"> Platinum
+                <input type="radio" name="role" value="Mentor"> Mentor
+                </div>
+            </div>
             <!--button-->
             <div class="row mb-3">
                     <button type="submit" class="btn btn-primary col-sm-2">Register User</button>
