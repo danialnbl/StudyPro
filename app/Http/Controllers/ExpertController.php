@@ -24,8 +24,12 @@ class ExpertController extends Controller
 
     public function myExpertView()
     {
+        $icTest = '020825010181';
+
+        $test = Expert::where('P_IC', $icTest)->get();
+
         return view('manageExpertDomain.myExpertListView', [
-            'expert' => Expert::all(),
+            'expert' => $test,
         ]);
     }
 }

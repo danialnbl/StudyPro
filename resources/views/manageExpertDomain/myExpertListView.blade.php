@@ -12,6 +12,7 @@
                     <th scope="col">University</th>
                     <th scope="col">Email</th>
                     <th scope="col">PhoneNumber</th>
+                    <th class="text-center" scope="col">Show</th>
                     <th class="text-center" scope="col">Edit</th>
                     <th class="text-center" scope="col">Delete</th>
                 </tr>
@@ -24,6 +25,13 @@
                         <td>{{ $expert->E_University }}</td>
                         <td>{{ $expert->E_Email }}</td>
                         <td>{{ $expert->E_PhoneNumber }}</td>
+                        <td class="text-center">
+                            <button class="opn btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-log"
+                                href="javascript:void(0);">
+                                <i class="bi bi-eye"></i>
+                                Show Detail
+                            </button>
+                        </td>
                         <td class="text-center">
                             <button class="opn btn btn-success" data-bs-toggle="modal" data-bs-target="#edit-log"
                                 href="javascript:void(0);">
