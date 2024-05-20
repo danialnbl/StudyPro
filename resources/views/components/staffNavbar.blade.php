@@ -1,5 +1,5 @@
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header style="background-color:aqua;" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/login" class="logo d-flex align-items-center">
@@ -9,7 +9,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <nav class="header-nav ms-auto">
+    <nav class="header-nav ms-auto ">
         <ul class="d-flex align-items-center">
 
             <li class="nav-item d-block d-lg-none">
@@ -105,7 +105,8 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-file-earmark-person"></i><span>Registration</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-file-earmark-person"></i><span>Registration</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
