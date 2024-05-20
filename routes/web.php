@@ -16,9 +16,9 @@ Route::post('/login', [UserController::class, 'loginPost'])->name('login.submit'
 
 Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
 
-Route::get('/register', [UserController::class, 'newRegisterView'])->name('register');
+Route::get('/PlatRegister', [UserController::class, 'PlatinumRegistration'])->name('register');
 
-Route::post('/register', [UserController::class, 'registerPost'])->name('register.submit');
+Route::post('/PlatRegister', [UserController::class, 'registerPost'])->name('register.submit');
 
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
@@ -37,6 +37,8 @@ Route::post('insert-RegData', [UserController::class]);//nak insert data dalam d
 Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
 Route::get('/profile',[UserController::class, 'ProfileView']);
+
+Route::get('/EditRegister',[UserController::class,'']);
 
 /*Auth::routes([
     'verify'=>true

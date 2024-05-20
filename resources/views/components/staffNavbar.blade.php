@@ -110,18 +110,23 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/register">
-                        <i class="bi bi-circle"></i><span>Add new registration</span>
+                    <a href="/PlatRegister">
+                        <i class="bi bi-circle"></i><span>Platinum registration</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/myexpert">
-                        <i class="bi bi-circle"></i><span>Edit reigistration</span>
+                    <a href="">
+                        <i class="bi bi-circle"></i><span>Mentor reigistration</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/expert">
-                        <i class="bi bi-circle"></i><span>Delete registration</span>
+                    <a href="">
+                        <i class="bi bi-circle"></i><span>Staff registration</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="bi bi-circle"></i><span>Registration List</span>
                     </a>
                 </li>
             </ul>

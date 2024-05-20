@@ -54,9 +54,9 @@ class UserController extends Controller
     }*/
 
     // Registration
-    public function newRegisterView()
+    public function PlatinumRegistration()
     {
-        return view('manageRegistration.newRegisterView');
+        return view('manageRegistration.PlatinumRegistration');
     }
 
     public function registerPost(Request $request)
@@ -140,9 +140,10 @@ class UserController extends Controller
             $user->PE_Id = $userEdu->id;
             $user->save();
 
-            //
+            //login
             $loginAcc = new LoginAccount();
             $loginAcc->LA_Password = $validatedData['ic'];
+            $loginAcc->LA_Username = $validatedData['ic'];
 
             // Commit the transaction
             DB::commit();

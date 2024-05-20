@@ -45,18 +45,18 @@ height: 100%;
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Username</label>
-            <input type="username" id="form3Example3" class="form-control form-control-lg" required/>
+            <input type="username" id="username" class="form-control form-control-lg" required/>
           </div>
 
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
           <label class="form-label" for="form3Example4">Password</label>
-            <input type="password" id="form3Example4" class="form-control form-control-lg" required/>
+            <input type="password" id="password" class="form-control form-control-lg" required/>
           </div>
           <!--Role-->
           <div data-mdb-input-init class="form-outline mb-3">
               <label class="form-label" for="form3Example4">Role</label>
-              <select id="form3Example4" class="form-select form-select-lg" required>
+              <select id="role" class="form-select form-select-lg" required>
                   <option value="">Select Role</option>
                   <option value="Staff">Staff</option>
                   <option value="Mentor">Mentor</option>
