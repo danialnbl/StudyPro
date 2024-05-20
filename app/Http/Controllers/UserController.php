@@ -2,27 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginAccount;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Platinum;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
+
 class UserController extends Controller
 {
     //Login
     public function loginView()
     {
-    return view('Login.LoginView'); // 
+        return view('Login.LoginView'); //
     }
 
     public function ResetPasswordView()
     {
-    return view('Login.ResetPasswordView'); // 
+        return view('Login.ResetPasswordView'); //
     }
 
-    public function loginPost(Request $request){
-        
+    public function loginPost(Request $request)
+    {
+
     }
 
     /*public function login(Request $request) //ni nak masuk kan info dalam database
@@ -89,10 +92,10 @@ class UserController extends Controller
             "referralName" => "required_if:referral,yes",
             "referralBatch" => "required_if:referral,yes"
         ]);
-    
+
         // Using DB transaction to ensure data consistency
         DB::beginTransaction();
-    
+
         try {
             // Create a new PlatinumEducation instance and populate it with data
             $userEdu = new PlatinumEducation();
@@ -102,14 +105,14 @@ class UserController extends Controller
             $userEdu->PE_EduLevel = $validatedData['eduLevel'];
             $userEdu->PE_Occupation = $validatedData['occupation'];
             $userEdu->save();
-    
+
             if ($request->referral === 'yes') {
                 $userRef = new PlatinumReferral();
                 $userRef->PR_Name = $validatedData['referralName'];
                 $userRef->PR_Batch = $validatedData['referralBatch'];
                 $userRef->save();
             }
-    
+
             // Create a new Platinum instance and populate it with data
             $user = new Platinum();
             $user->P_IC = $validatedData['ic'];
@@ -132,22 +135,27 @@ class UserController extends Controller
             $user->P_Batch = $validatedData['batch'];
             $user->P_Status = $validatedData['status'];
             $user->P_Title = $validatedData['title'];
+
             // Set the PE_Id field with the ID of the PlatinumEducation instance
             $user->PE_Id = $userEdu->id;
             $user->save();
-    
+
+            //
+            $loginAcc = new LoginAccount();
+            $loginAcc->LA_Password = $validatedData['ic'];
+
             // Commit the transaction
             DB::commit();
-    
+
             // Redirect with success message
             return redirect()->route("register")->with("success", "Success Registration!");
         } catch (\Exception $e) {
             // Rollback the transaction on failure
             DB::rollBack();
-    
+
             // Log the error for debugging purposes
             Log::error('Failed to register user: ' . $e->getMessage());
-    
+
             // Redirect with error message
             return redirect()->route("register")->with("error", "Failed to register: " . $e->getMessage());
         }
@@ -191,12 +199,14 @@ class UserController extends Controller
         // Redirect user to login page with a success message
     }*/
 
-    public function platinumList(){
+    public function platinumList()
+    {
         return view('manageRegistration.platinumList');
     }
 
     //profile
-    public function ProfileView(){
+    public function ProfileView()
+    {
         return view('manageProfile.ProfileView');
     }
     //homepage
