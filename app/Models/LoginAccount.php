@@ -10,6 +10,8 @@ class LoginAccount extends Model
     use HasFactory;
 
     protected $primaryKey = 'LA_ID'; // Assuming LA_ID is the primary key
+    protected $table = 'LoginAccount';
+    public $timestamps = false;
 
     // Define the fillable attributes
     protected $fillable = [

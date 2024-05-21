@@ -12,9 +12,18 @@ use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
+    //dashboard
+    public function PlatDashboard(){
+        return view('dashboard.platinumDashboard');
+    }
+    public function StaffDashboard(){
+        return "WELCOME STAFF";
+    }
     //Login
     public function loginView()
     {
@@ -28,32 +37,63 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->validate([
-            'username'=> 'required',
-            'password'=> 'required'
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'role' => 'required'
         ]);
 
-        if (Auth::attempt(['LA_Username' => $credentials['username'], 'LA_Password' => $credentials['password']])) {
-            $user = Auth::user();
+        // Assign 'role' as variable
+        $role = $request->role;
 
-            switch ($user->role) {
-                case 'Platinum':
-                    return redirect()->route('dashboard.staffDashboard');
-                case 'Staff':
-                    return redirect()->route('dashboard.mentorDashboard');
-                case 'Mentor':
-                    return redirect()->route('dashboard.platinumDashboard');
-                default:
-                    Auth::logout();
-                    return redirect('/login')->withErrors('Unauthorized role');
+        // Initialize user and loginAccount to null
+        $user = null;
+        $loginAccount = null;
+
+        if ($role === "Staff") {
+            // Find the staff by username
+            $user = Staff::where('S_IC', '=', $request->username)->first();
+            if ($user) {
+                // Find the login account associated with the staff
+                $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
+            }
+        } elseif ($role === "Mentor") {
+            // Find the mentor by username
+            $user = Mentor::where('M_IC', '=', $request->username)->first();
+            if ($user) {
+                // Find the login account associated with the mentor
+                $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
+            }
+        } elseif ($role === "Platinum") {
+            // Find the platinum by username
+            $user = Platinum::where('P_IC', '=', $request->username)->first();
+            if ($user) {
+                // Find the login account associated with the platinum
+                $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
             }
         } else {
-            return back()->withErrors([
-                'username' => 'The provided credentials do not match our records.',
-            ]);
+            return back()->with('fail', 'Invalid role specified');
         }
 
-        dd('Successful Login!');
+        // Check if user and loginAccount are found
+        if ($user && $loginAccount) {
+            // Check if the provided password matches the stored hashed password
+            if (Hash::check($request->password, $loginAccount->LA_Password)) {
+                $request->session()->put('loginId', $user->id);
+                // Redirect to appropriate dashboard
+                if ($role === "Staff") {
+                    return redirect('StaffDashboard');
+                } elseif ($role === "Mentor") {
+                    return redirect('MentorDashboard');
+                } else {
+                    return redirect('PlatDashboard');
+                }
+            } else {
+                return back()->with('fail', 'Password not match');
+            }
+        } else {
+            return back()->with('fail', 'This username is not registered');
+        }
     }
 
     /*public function loginPost(Request $request)
@@ -177,9 +217,19 @@ class UserController extends Controller
             $user->P_Status = $validatedData['status'];
             $user->P_Title = $validatedData['title'];
 
+
+
             // Set the PE_Id field with the ID of the PlatinumEducation instance
             $user->PE_Id = $userEdu->id;
             $user->save();
+
+            // Create a new LoginAccount instance and populate it with data
+            $loginAcc = new LoginAccount();
+            $loginAcc->LA_Username = $validatedData['ic'];
+            // Hash the password before storing it
+            $loginAcc->LA_Password = password_hash($validatedData['ic'], PASSWORD_BCRYPT);
+            $loginAcc->P_IC = $validatedData['ic'];
+            $loginAcc->save();
 
             // Commit the transaction
             DB::commit();
@@ -226,6 +276,14 @@ class UserController extends Controller
 
             $staff->save();
 
+            // Create a new LoginAccount instance and populate it with data
+            $loginAcc = new LoginAccount();
+            $loginAcc->LA_Username = $validatedData['Sic'];
+            // Hash the password before storing it
+            $loginAcc->LA_Password = password_hash($validatedData['Sic'], PASSWORD_BCRYPT);
+            $loginAcc->S_IC = $validatedData['Sic'];
+            $loginAcc->save();
+
             // Commit the transaction
             DB::commit();
 
@@ -270,6 +328,14 @@ class UserController extends Controller
             $mentor->M_MentorId = $validatedData['mentorID'];
 
             $mentor->save();
+
+            // Create a new LoginAccount instance and populate it with data
+            $loginAcc = new LoginAccount();
+            $loginAcc->LA_Username = $validatedData['Mic'];
+            // Hash the password before storing it
+            $loginAcc->LA_Password = password_hash($validatedData['Mic'], PASSWORD_BCRYPT);
+            $loginAcc->M_IC = $validatedData['Mic'];
+            $loginAcc->save();
 
             // Commit the transaction
             DB::commit();

@@ -48,6 +48,11 @@ Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
 Route::get('/profile',[UserController::class, 'ProfileView']);
 
+//dashboard-nnti kena tukr controller
+Route ::get('dashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard');
+
+Route ::get('dashboard',[UserController::class,'StaffDashboard'])->name('StaffDashboard');
+
 
 /*Auth::routes([
     'verify'=>true

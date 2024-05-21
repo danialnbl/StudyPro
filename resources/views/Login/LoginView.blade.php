@@ -30,6 +30,16 @@ height: 100%;
     </style>
 </head>
 <body>
+@if(session()->has("success"))
+            <div class="alert alert-success">
+                {{ session()->get("success") }}
+            </div>
+        @endif
+        @if(session()->has("fail"))
+            <div class="alert alert-danger">
+                {{ session()->get("fail") }}
+            </div>
+        @endif
     
 <section class="vh-100">
   <div class="container-fluid h-custom">
@@ -45,12 +55,7 @@ height: 100%;
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Username</label>
-            <input type="username" id="username" name="username" class="form-control form-control-lg @error('username') is-invalid @enderror" required autofocus value="{{old('userrname')}}"/>
-            @error('username')
-              <div class="invalid-feedback">
-                {{$message}}
-              </div>
-            @enderror
+            <input type="username" id="username" name="username" class="form-control form-control-lg" required autofocus value="{{old('userrname')}}"/>
           </div>
 
           <!-- Password input -->
