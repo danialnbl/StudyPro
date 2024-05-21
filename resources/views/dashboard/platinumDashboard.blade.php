@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('container')
-Test 3
+Welcome PLATINUM 
 @endsection

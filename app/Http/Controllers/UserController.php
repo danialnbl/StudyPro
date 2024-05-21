@@ -22,7 +22,10 @@ class UserController extends Controller
         return view('dashboard.platinumDashboard');
     }
     public function StaffDashboard(){
-        return "WELCOME STAFF";
+        return view('dashboard.staffDashboard');
+    }
+    public function MentorDashboard(){
+        return view('dashboard.mentorDashboard');
     }
     //Login
     public function loginView()
@@ -36,65 +39,57 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required',
-            'role' => 'required'
-        ]);
+{
+    $request->validate([
+        'username' => 'required',
+        'password' => 'required',
+        'role' => 'required'
+    ]);
 
-        // Assign 'role' as variable
-        $role = $request->role;
+    $role = $request->role;
+    $user = null;
+    $loginAccount = null;
 
-        // Initialize user and loginAccount to null
-        $user = null;
-        $loginAccount = null;
-
-        if ($role === "Staff") {
-            // Find the staff by username
-            $user = Staff::where('S_IC', '=', $request->username)->first();
-            if ($user) {
-                // Find the login account associated with the staff
-                $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
-            }
-        } elseif ($role === "Mentor") {
-            // Find the mentor by username
-            $user = Mentor::where('M_IC', '=', $request->username)->first();
-            if ($user) {
-                // Find the login account associated with the mentor
-                $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
-            }
-        } elseif ($role === "Platinum") {
-            // Find the platinum by username
-            $user = Platinum::where('P_IC', '=', $request->username)->first();
-            if ($user) {
-                // Find the login account associated with the platinum
-                $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
-            }
-        } else {
-            return back()->with('fail', 'Invalid role specified');
+    if ($role === "Staff") {
+        $user = Staff::where('S_IC', '=', $request->username)->first();
+        if ($user) {
+            $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
         }
-
-        // Check if user and loginAccount are found
-        if ($user && $loginAccount) {
-            // Check if the provided password matches the stored hashed password
-            if (Hash::check($request->password, $loginAccount->LA_Password)) {
-                $request->session()->put('loginId', $user->id);
-                // Redirect to appropriate dashboard
-                if ($role === "Staff") {
-                    return redirect('StaffDashboard');
-                } elseif ($role === "Mentor") {
-                    return redirect('MentorDashboard');
-                } else {
-                    return redirect('PlatDashboard');
-                }
-            } else {
-                return back()->with('fail', 'Password not match');
-            }
-        } else {
-            return back()->with('fail', 'This username is not registered');
+    } elseif ($role === "Mentor") {
+        $user = Mentor::where('M_IC', '=', $request->username)->first();
+        if ($user) {
+            $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
         }
+    } elseif ($role === "Platinum") {
+        $user = Platinum::where('P_IC', '=', $request->username)->first();
+        if ($user) {
+            $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
+        }
+    } else {
+        return back()->with('fail', 'Invalid role specified');
     }
+
+    if ($user && $loginAccount) {
+        if (Hash::check($request->password, $loginAccount->LA_Password)) {
+            $request->session()->put('loginId', $user->id);
+            if ($role === "Staff") {
+                Log::info('Redirecting to StaffDashboard');
+                return redirect()->route('StaffDashboard');
+            } elseif ($role === "Mentor") {
+                Log::info('Redirecting to MentorDashboard');
+                return redirect()->route('MentorDashboard');
+            } else {
+                Log::info('Redirecting to PlatDashboard');
+                return redirect()->route('PlatDashboard');
+            }
+        } else {
+            return back()->with('fail', 'Password not match');
+        }
+    } else {
+        return back()->with('fail', 'This username is not registered');
+    }
+}
+
 
     /*public function loginPost(Request $request)
     {
