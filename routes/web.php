@@ -10,11 +10,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//login
+
 Route::get('/login', [UserController::class, 'loginView'])->name('login');
 
 Route::post('/login', [UserController::class, 'authenticate'])->name('login.submit');
 
 Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
+
+Route::get('/logout',[UserController::class,'logout']);
 
 //Register
 

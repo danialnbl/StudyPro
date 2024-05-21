@@ -13,6 +13,7 @@ use App\Models\PlatinumReferral;
 use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 
 class UserController extends Controller
@@ -39,89 +40,64 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request)
-{
-    $request->validate([
-        'username' => 'required',
-        'password' => 'required',
-        'role' => 'required'
-    ]);
-
-    $role = $request->role;
-    $user = null;
-    $loginAccount = null;
-
-    if ($role === "Staff") {
-        $user = Staff::where('S_IC', '=', $request->username)->first();
-        if ($user) {
-            $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
-        }
-    } elseif ($role === "Mentor") {
-        $user = Mentor::where('M_IC', '=', $request->username)->first();
-        if ($user) {
-            $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
-        }
-    } elseif ($role === "Platinum") {
-        $user = Platinum::where('P_IC', '=', $request->username)->first();
-        if ($user) {
-            $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
-        }
-    } else {
-        return back()->with('fail', 'Invalid role specified');
-    }
-
-    if ($user && $loginAccount) {
-        if (Hash::check($request->password, $loginAccount->LA_Password)) {
-            $request->session()->put('loginId', $user->id);
-            if ($role === "Staff") {
-                Log::info('Redirecting to StaffDashboard');
-                return redirect()->route('StaffDashboard');
-            } elseif ($role === "Mentor") {
-                Log::info('Redirecting to MentorDashboard');
-                return redirect()->route('MentorDashboard');
-            } else {
-                Log::info('Redirecting to PlatDashboard');
-                return redirect()->route('PlatDashboard');
-            }
-        } else {
-            return back()->with('fail', 'Password not match');
-        }
-    } else {
-        return back()->with('fail', 'This username is not registered');
-    }
-}
-
-
-    /*public function loginPost(Request $request)
     {
-
-    }*/
-
-    /*public function login(Request $request) //ni nak masuk kan info dalam database
-    {
-        // Validate form data
-        $validatedData = $request->validate([
+        $request->validate([
             'username' => 'required',
             'password' => 'required',
-            'role' => 'required',
+            'role' => 'required'
         ]);
 
-        // Attempt to authenticate user
-        $user = LoginAccount::where('LA_Username', $validatedData['username'])
-                            ->where('LA_Password', $validatedData['password'])
-                            ->where('role', $validatedData['role'])
-                            ->first();
+        $role = $request->role;
+        $user = null;
+        $loginAccount = null;
 
-        if ($user) {
-            // User authenticated successfully
-            // You can add your authentication logic here, such as setting session variables
-            return redirect()->route('dashboard'); // Redirect to dashboard or any other route
+        if ($role === "Staff") {
+            $user = Staff::where('S_IC', '=', $request->username)->first();
+            if ($user) {
+                $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
+            }
+        } elseif ($role === "Mentor") {
+            $user = Mentor::where('M_IC', '=', $request->username)->first();
+            if ($user) {
+                $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
+            }
+        } elseif ($role === "Platinum") {
+            $user = Platinum::where('P_IC', '=', $request->username)->first();
+            if ($user) {
+                $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
+            }
         } else {
-            // Authentication failed
-            return back()->with('error', 'Invalid credentials'); // Redirect back with error message
+            return back()->with('fail', 'Invalid role specified');
         }
-    }*/
 
-    // Registration
+        if ($user && $loginAccount) {
+            if (Hash::check($request->password, $loginAccount->LA_Password)) {
+                $request->session()->put('loginId', $user->id);
+                if ($role === "Staff") {
+                    Log::info('Redirecting to StaffDashboard');
+                    return redirect()->route('StaffDashboard');
+                } elseif ($role === "Mentor") {
+                    Log::info('Redirecting to MentorDashboard');
+                    return redirect()->route('MentorDashboard');
+                } else {
+                    Log::info('Redirecting to PlatDashboard');
+                    return redirect()->route('PlatDashboard');
+                }
+            } else {
+                return back()->with('fail', 'Password not match');
+            }
+        } else {
+            return back()->with('fail', 'This username is not registered');
+        }
+    }
+    public function logout(){
+        if(Session::has('loginId')){
+            Session::pull('loginId');
+            return redirect('login');
+        }
+    }
+
+ // Registration
     public function PlatinumRegistration()
     {
         return view('manageRegistration.PlatinumRegistration');
