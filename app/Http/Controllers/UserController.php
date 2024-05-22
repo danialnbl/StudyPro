@@ -90,12 +90,19 @@ class UserController extends Controller
             return back()->with('fail', 'This username is not registered');
         }
     }
-    public function logout(){
-        if(Session::has('loginId')){
+    public function logout() {
+        Log::info('Logout function called');
+        if(Session::has('loginId')) {
+            Log::info('User logging out with session ID: ' . Session::get('loginId'));
             Session::pull('loginId');
+            Log::info('Session cleared, redirecting to login');
+            return redirect('login');
+        } else {
+            Log::info('No session found, redirecting to login');
             return redirect('login');
         }
     }
+    
 
  // Registration
     public function PlatinumRegistration()
