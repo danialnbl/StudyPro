@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthCheck
+class MentorCheck
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure  $next
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -22,7 +21,7 @@ class AuthCheck
             $user = Auth::user();
 
             // Check the user's role (assuming 'LA_Role' is a valid attribute)
-            if ($user->LA_Role == 0) {
+            if ($user->LA_Role == 2) {
                 return $next($request); // Allow the request to proceed
             }
         }

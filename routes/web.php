@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\PublicationDataController;
-use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
@@ -54,11 +53,11 @@ Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 Route::get('/profile',[UserController::class, 'ProfileView']);
 
 //dashboard-nnti kena tukr controller
-Route ::get('/platinumdashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard');
+Route ::get('/platinumdashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard')->middleware('platinum');
 
-Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('StaffDashboard');
+Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('StaffDashboard')->middleware('staff');
 
-Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard');
+Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard')->middleware('mentor');
 
 
 /*Auth::routes([

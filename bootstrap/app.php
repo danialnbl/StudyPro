@@ -12,6 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+
+        $middleware->alias([
+            'platinum' => \App\Http\Middleware\AuthCheck::class,
+            'staff' => \App\Http\Middleware\StaffCheck::class,
+            'mentor' => \App\Http\Middleware\MentorCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
