@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('M_IC')->nullable(true);
             $table->string('P_IC')->nullable(true);
             $table->string('S_IC')->nullable(true);
-            $table->string('LA_Role')->nullable(true);
+            $table->integer('LA_Role')->nullable(true);
             $table->foreign('M_IC')->references('M_IC')->on('Mentor')->onDelete('cascade');
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
             $table->foreign('S_IC')->references('S_IC')->on('Staff')->onDelete('cascade');

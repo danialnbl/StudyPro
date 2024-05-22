@@ -18,7 +18,7 @@ Route::post('/login', [UserController::class, 'authenticate'])->name('login.subm
 
 Route::get('/verify', [UserController::class, 'verificationView'])->name('verify');
 
-Route::get('logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 //Register
 

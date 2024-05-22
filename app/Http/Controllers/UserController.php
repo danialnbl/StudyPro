@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoginAccount;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -41,68 +42,22 @@ class UserController extends Controller
 
     public function authenticate(Request $request)
     {
-        $request->validate([
-            'username' => 'required',
+        $credentials = request()->validate([
+            'email' => 'required|email',
             'password' => 'required',
-            'role' => 'required'
         ]);
 
-        $role = $request->role;
-        $user = null;
-        $loginAccount = null;
-
-        if ($role === "Staff") {
-            $user = Staff::where('S_IC', '=', $request->username)->first();
-            if ($user) {
-                $loginAccount = LoginAccount::where('S_IC', '=', $user->S_IC)->first();
+        $loginResult = Auth::attempt($credentials);
+        if ($loginResult) {
+            if (Auth::user()->LA_Role == 0){
+                return to_route('PlatDashboard');
+            }elseif (Auth::user()->LA_Role == 1){
+                return to_route('StaffDashboard');
             }
-        } elseif ($role === "Mentor") {
-            $user = Mentor::where('M_IC', '=', $request->username)->first();
-            if ($user) {
-                $loginAccount = LoginAccount::where('M_IC', '=', $user->M_IC)->first();
-            }
-        } elseif ($role === "Platinum") {
-            $user = Platinum::where('P_IC', '=', $request->username)->first();
-            if ($user) {
-                $loginAccount = LoginAccount::where('P_IC', '=', $user->P_IC)->first();
-            }
-        } else {
-            return back()->with('fail', 'Invalid role specified');
         }
 
-        if ($user && $loginAccount) {
-            if (Hash::check($request->password, $loginAccount->LA_Password)) {
-                $request->session()->put('loginId', $user->id);
-                if ($role === "Staff") {
-                    Log::info('Redirecting to StaffDashboard');
-                    return redirect()->route('StaffDashboard');
-                } elseif ($role === "Mentor") {
-                    Log::info('Redirecting to MentorDashboard');
-                    return redirect()->route('MentorDashboard');
-                } else {
-                    Log::info('Redirecting to PlatDashboard');
-                    return redirect()->route('PlatDashboard');
-                }
-            } else {
-                return back()->with('fail', 'Password not match');
-            }
-        } else {
-            return back()->with('fail', 'This username is not registered');
-        }
+        return to_route('login', ['message' => 'Wrong email or password']);
     }
-    public function logout() {
-        Log::info('Logout function called');
-        if(Session::has('loginId')) {
-            Log::info('User logging out with session ID: ' . Session::get('loginId'));
-            Session::pull('loginId');
-            Log::info('Session cleared, redirecting to login');
-            return redirect('login');
-        } else {
-            Log::info('No session found, redirecting to login');
-            return redirect('login');
-        }
-    }
-    
 
  // Registration
     public function PlatinumRegistration()
@@ -236,49 +191,20 @@ class UserController extends Controller
             "Semail" => "required|email",
             "staffID" => "required",
             "role" => "required"
-            
         ]);
 
-        // Using DB transaction to ensure data consistency
-        DB::beginTransaction();
+        $newUser = new User;
+        $newUser->name = $validatedData['Sic'];
+        $newUser->LA_Username = $validatedData['Sname'];
+        $newUser->email = $validatedData['Semail'];
+        $newUser->password = Hash::make($validatedData['Sic']);
+        $newUser->LA_Role = $validatedData['role'];
 
-        try {
-
-            // Create a new Staff instance and populate it with data
-            $staff = new Staff();
-            $staff->S_IC = $validatedData['Sic'];
-            $staff->S_Name = $validatedData['Sname'];
-            $staff->S_PhoneNumber = $validatedData['SphoneNum'];
-            $staff->S_Email = $validatedData['Semail'];
-            $staff->S_StaffId = $validatedData['staffID'];
-
-            $staff->save();
-
-            // Create a new LoginAccount instance and populate it with data
-            $loginAcc = new LoginAccount();
-            $loginAcc->LA_Username = $validatedData['Sic'];
-            // Hash the password before storing it
-            $loginAcc->LA_Password = password_hash($validatedData['Sic'], PASSWORD_BCRYPT);
-            $loginAcc->S_IC = $validatedData['Sic'];
-            $loginAcc->save();
-
-            // Commit the transaction
-            DB::commit();
-
-            // Redirect with success message
-            return redirect()->route("staffReg")->with("success", "Success Registration!");
-        } catch (\Exception $e) {
-            // Rollback the transaction on failure
-            DB::rollBack();
-
-            // Log the error for debugging purposes
-            Log::error('Failed to register user: ' . $e->getMessage());
-
-            // Redirect with error message
-            return redirect()->route("staffReg")->with("error", "Failed to register: " . $e->getMessage());
+            if ($newUser->save()) {
+                return to_route('login', ['message' => 'ya did it']);
+            }
+            return to_route('StaffRegister', ['message' => 'saving to db failed, RARE ENDING']);
         }
-    }
-
     public function MentorRegisterPost(Request $request)
     {
         // Validate the incoming request data
@@ -289,7 +215,7 @@ class UserController extends Controller
             "Memail" => "required|email",
             "mentorID" => "required",
             "role" => "required"
-            
+
         ]);
 
         // Using DB transaction to ensure data consistency
@@ -332,7 +258,7 @@ class UserController extends Controller
         }
     }
 
-    
+
     //Verification
 
     public function VerifyAccountView()
@@ -366,6 +292,15 @@ class UserController extends Controller
     public function staffmain()
     {
         return view('layouts.staffmain');
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+        return to_route('login', ['message' => 'You are logged out']);
     }
 
 }

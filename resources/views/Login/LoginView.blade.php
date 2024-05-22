@@ -40,7 +40,7 @@ height: 100%;
                 {{ session()->get("fail") }}
             </div>
         @endif
-    
+
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -55,7 +55,7 @@ height: 100%;
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Username</label>
-            <input type="username" id="username" name="username" class="form-control form-control-lg" required autofocus value="{{old('userrname')}}"/>
+            <input type="text" id="email" name="email" class="form-control form-control-lg" required autofocus value="{{old('userrname')}}"/>
           </div>
 
           <!-- Password input -->
@@ -63,17 +63,6 @@ height: 100%;
           <label class="form-label" for="form3Example4">Password</label>
             <input type="password" id="password" name="password" class="form-control form-control-lg" required autofocus/>
           </div>
-          <!--Role-->
-          <div data-mdb-input-init class="form-outline mb-3">
-              <label class="form-label" for="form3Example4">Role</label>
-              <select id="role" name="role" class="form-select form-select-lg" required>
-                  <option value="">Select Role</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Mentor">Mentor</option>
-                  <option value="Platinum">Platinum</option>
-              </select>
-          </div>
-
 
           <div class="d-flex justify-content-between align-items-center">
             <a href="/loginReset" class="text-body">Forgot password?</a>
@@ -98,7 +87,7 @@ height: 100%;
     </div>
     <!-- Copyright -->
 
-    
+
   </div>
 </section>
 
