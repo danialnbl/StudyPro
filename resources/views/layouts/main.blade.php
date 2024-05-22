@@ -88,6 +88,8 @@
             $(this).parents('tr').remove();
         })
 
+
+        //Form Section function
         $(function() {
             var $sections = $('.form-section');
 

@@ -25,22 +25,40 @@
                             <label for="expertNo" class="form-label">Expert Phone Number</label>
                             <input type="text" class="form-control mb-3" id="expertNo" name="expertNo" required>
                         </div>
+                        <div class="col-12">
+                            <label for="R_Title">Research Domain:</label>
+                            <select class="form-select" aria-label="Default select example" id="R_Title" name="R_Title"
+                                required>
+                                <option selected>Open this select menu</option>
+                                <option value="1">Computer System Research Group</option>
+                                <option value="2">Virtual Simulation & Computing
+                                </option>
+                                <option value="3">Machine Intelligence Research Group</option>
+                                <option value="4">Cyber Security Interest Group
+                                </option>
+                                <option value="5">Software Engineering
+                                </option>
+                                <option value="6">Knowledge Engineering & Computational Linguistic</option>
+                                <option value="7">Data Science & Simulation Modeling
+                                </option>
+                                <option value="8">Database Technology & Information System
+                                </option>
+                                <option value="9">Educational Technology (EduTech)
+                                </option>
+                                <option value="10">Image Signal Processing
+                                </option>
+                                <option value="11">Computer Network & Research Group
+                                </option>
+                                <option value="12">Soft Computing & Optimization
+                                </option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-section">
-                        <table id="addExpertTable">
+                        <table>
                             <tr>
                                 <td>
                                     <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label for="R_Title">Research Title:</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control mb-3" id="R_Title" name="R_Title" required>
                                 </td>
                             </tr>
                             <tr>
@@ -55,7 +73,7 @@
                             </tr>
 
                         </table>
-                        <table class="mt-2">
+                        <table id="addExpertTable" class="mt-2">
                             <tr>
                                 <td>
                                     <label for="RP_File">Upload Research Paper:</label>
