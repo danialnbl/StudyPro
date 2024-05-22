@@ -53,9 +53,12 @@ class UserController extends Controller
                 return to_route('PlatDashboard');
             }elseif (Auth::user()->LA_Role == 1){
                 return to_route('StaffDashboard');
+            }elseif (Auth::user()->LA_Role == 2){
+                return to_route('MentorDashboard');
+            }else{
+                return to_route('login', ['message' => 'Something wrong with role!']);
             }
         }
-
         return to_route('login', ['message' => 'Wrong email or password']);
     }
 

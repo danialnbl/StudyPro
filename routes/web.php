@@ -4,11 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\PublicationDataController;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return "Well hello there o/. so...";
+})->middleware('auth');
 
 //login
 
