@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ExpertPaper extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'EP_Paper',
+        'EP_Year',
+        'E_ID',
+        'ER_ID',
+    ];
+
+    public $timestamps = false;
+    protected $table = 'ExpertPapers';
 }

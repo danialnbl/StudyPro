@@ -34,12 +34,6 @@ Route::get('/MentorRegister', [UserController::class,'MentorRegistration'])->nam
 
 Route::post('/MentorRegister', [UserController::class,'MentorRegisterPost'])->name('mentorReg.submit');
 
-Route::get('/expert', [ExpertController::class, 'expertListView']);
-
-Route::get('/myexpert', [ExpertController::class, 'myExpertView']);
-
-Route::get('/expertAdd', [ExpertController::class, 'addExpertView']);
-
 Route::get('/loginReset', [UserController::class, 'ResetPasswordView']);
 
 Route::get('/publication', [PublicationDataController::class, 'addPublicationDataView']);
@@ -59,6 +53,16 @@ Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('S
 
 Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard')->middleware('mentor');
 
+
+//Expert
+Route::get('/expert', [ExpertController::class, 'expertListView']);
+
+Route::get('/myexpert', [ExpertController::class, 'myExpertView']);
+
+Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
+
+//Expert Post
+Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
 
 /*Auth::routes([
     'verify'=>true

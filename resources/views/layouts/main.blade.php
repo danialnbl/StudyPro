@@ -68,24 +68,24 @@
         var i = 0;
         $('#addMore').click(function() {
             ++i;
-            $('#addExpertTable').append(
+            $('.add-more').append(
                 `
-                <tr>
-                    <td>
+                <div class="row col-12 mb-2">
+                    <div class="col-11">
                         <input class="form-control" type="file" id="RP_File_[` + i + `]" name="RP_File_[` + i + `]" required>
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col-1">
                         <button id="removeMore" name="removeMore" type="button" class=" btn btn-danger ml-5 remove-table-row">
                             X
                         </button>
-                    </td>
-                </tr>
+                    </div>
+                </div>
                 `
             )
         })
 
         $(document).on('click', '.remove-table-row', function() {
-            $(this).parents('tr').remove();
+            $(this).closest('.col-12').remove();
         })
 
 

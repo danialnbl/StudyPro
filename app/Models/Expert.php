@@ -16,4 +16,7 @@ class Expert extends Model
         'E_PhoneNumber',
         'P_IC',
     ];
+
+    public $timestamps = false;
+    protected $table = 'Experts';
 }
