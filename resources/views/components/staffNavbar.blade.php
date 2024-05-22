@@ -2,7 +2,7 @@
 <header style="background-color:aqua;" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="/login" class="logo d-flex align-items-center">
+        <a href="/staffdashboard" class="logo d-flex align-items-center">
             <img src="{{ url('assets/StudyProDark.png') }}" alt="">
             <span class="d-none d-lg-block">StudyPro</span>
         </a>
@@ -27,7 +27,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>Kevin Anderson</h6>
-                        <span>Platinum</span>
+                        <span>Staff</span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -74,7 +74,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="/login">
+            <a class="nav-link " href="/staffdashboard">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>

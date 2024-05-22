@@ -2,7 +2,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="/login" class="logo d-flex align-items-center">
+        <a href="/platinumdashboard" class="logo d-flex align-items-center">
             <img src="{{ url('assets/StudyProDark.png') }}" alt="">
             <span class="d-none d-lg-block">StudyPro</span>
         </a>
@@ -74,7 +74,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="/login">
+            <a class="nav-link " href="/platinumdashboard">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>

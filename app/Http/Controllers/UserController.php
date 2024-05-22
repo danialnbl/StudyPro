@@ -56,10 +56,11 @@ class UserController extends Controller
             }elseif (Auth::user()->LA_Role == 2){
                 return to_route('MentorDashboard');
             }else{
-                return to_route('login', ['message' => 'Something wrong with role!']);
+                return redirect()->route("login")->with("error", "Something wrong with role!");
             }
+        }else{
+            return redirect()->route("login")->with("error", "Wrong email or password!");
         }
-        return to_route('login', ['message' => 'Wrong email or password']);
     }
 
  // Registration
@@ -284,7 +285,7 @@ class UserController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        return to_route('login', ['message' => 'You are logged out']);
+        return redirect()->route("login")->with("success", "Successfully Logout!");
     }
 
 }
