@@ -20,44 +20,35 @@
                 <h2>Staff details:</h2>
                 <!-- Form Fields Here -->
                 <div class="mb-3 row">
-                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <label for="S_Name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name='Sname' id="Sname" value="{{ old('name') }}" autofocus>
+                        <input type="text" class="form-control" name='S_Name' id="S_Name" value="{{ old('name') }}" autofocus>
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="ic" class="col-sm-2 col-form-label">NR IC</label>
+                    <label for="S_IC" class="col-sm-2 col-form-label">NR IC</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name='Sic' id="Sic" value="{{ old('ic') }}">
+                        <input type="text" class="form-control" name='S_IC' id="S_IC" value="{{ old('ic') }}">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="SphoneNum" class="col-sm-2 col-form-label">Phone Number</label>
+                    <label for="S_PhoneNumber" class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="SphoneNum" id="SphoneNum">
+                        <input type="text" class="form-control" name="S_PhoneNumber" id="S_PhoneNumber">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <label for="S_Email" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" name="Semail" id="Semail">
+                        <input type="email" class="form-control" name="S_Email" id="S_Email">
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="staffID" class="col-sm-2 col-form-label">Staff ID</label>
+                    <label for="S_StaffID" class="col-sm-2 col-form-label">Staff ID</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="staffID" id="staffID">
+                        <input type="text" class="form-control" name="S_StaffID" id="S_StaffID">
                     </div>
                 </div>
-            <!--this one tak perlu masuk database just as condition for login-->
-            <div class="mb-3 row">
-                <label for="role" class="col-sm-2 col-form-label">Role</label>
-                <div class="col-sm-10">
-                <input type="radio" name="role" value="0"> Staff
-                <input type="radio" name="role" value="1"> Platinum
-                <input type="radio" name="role" value="2"> Mentor
-                </div>
-            </div>
             <!--button-->
             <div class="row mb-3">
                     <button type="submit" class="btn btn-primary col-sm-2">Register User</button>

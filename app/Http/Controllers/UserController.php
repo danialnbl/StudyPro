@@ -188,77 +188,70 @@ class UserController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            "Sname" => "required",
-            "Sic" => "required",
-            "SphoneNum" => "required",
-            "Semail" => "required|email",
-            "staffID" => "required",
-            "role" => "required"
+            "S_Name" => "required",
+            "S_IC" => "required",
+            "S_PhoneNumber" => "required",
+            "S_Email" => "required|email",
+            "S_StaffID" => "required",
         ]);
 
+        $newStaff = new Staff;
+        $newStaff->S_IC = $validatedData['S_IC'];
+        $newStaff->S_Name = $validatedData['S_Name'];
+        $newStaff->S_Email = $validatedData['S_Email'];
+        $newStaff->S_PhoneNumber = $validatedData['S_PhoneNumber'];
+        $newStaff->S_StaffID = $validatedData['S_StaffID'];
+        $newStaff->save();
+
         $newUser = new User;
-        $newUser->name = $validatedData['Sic'];
-        $newUser->LA_Username = $validatedData['Sname'];
-        $newUser->email = $validatedData['Semail'];
-        $newUser->password = Hash::make($validatedData['Sic']);
-        $newUser->LA_Role = $validatedData['role'];
+        $newUser->name = $validatedData['S_Name'];
+        $newUser->LA_Username = $validatedData['S_Email'];
+        $newUser->email = $validatedData['S_Email'];
+        $newUser->password = Hash::make($validatedData['S_IC']);
+        $newUser->S_IC = $validatedData['S_IC'];
+        $newUser->LA_Role = 1;
 
             if ($newUser->save()) {
-                return to_route('login', ['message' => 'ya did it']);
+                return redirect()->route("staffReg")->with("success", "Success Registration!");
             }
-            return to_route('StaffRegister', ['message' => 'saving to db failed, RARE ENDING']);
+            return to_route('staffReg', ['message' => 'saving to db failed, RARE ENDING']);
         }
     public function MentorRegisterPost(Request $request)
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            "Mname" => "required",
-            "Mic" => "required",
-            "MphoneNum" => "required",
-            "Memail" => "required|email",
-            "mentorID" => "required",
-            "role" => "required"
-
+            "M_Name" => "required",
+            "M_IC" => "required",
+            "M_PhoneNumber" => "required",
+            "M_Email" => "required|email",
+            "M_MentorID" => "required",
         ]);
-
-        // Using DB transaction to ensure data consistency
-        DB::beginTransaction();
-
-        try {
 
             // Create a new Staff instance and populate it with data
             $mentor = new Mentor();
-            $mentor->M_IC = $validatedData['Mic'];
-            $mentor->M_Name = $validatedData['Mname'];
-            $mentor->M_PhoneNumber = $validatedData['MphoneNum'];
-            $mentor->M_Email = $validatedData['Memail'];
-            $mentor->M_MentorId = $validatedData['mentorID'];
+            $mentor->M_IC = $validatedData['M_IC'];
+            $mentor->M_Name = $validatedData['M_Name'];
+            $mentor->M_PhoneNumber = $validatedData['M_PhoneNumber'];
+            $mentor->M_Email = $validatedData['M_Email'];
+            $mentor->M_MentorID = $validatedData['M_MentorID'];
 
             $mentor->save();
 
             // Create a new LoginAccount instance and populate it with data
-            $loginAcc = new LoginAccount();
-            $loginAcc->LA_Username = $validatedData['Mic'];
-            // Hash the password before storing it
-            $loginAcc->LA_Password = password_hash($validatedData['Mic'], PASSWORD_BCRYPT);
-            $loginAcc->M_IC = $validatedData['Mic'];
-            $loginAcc->save();
+            $newUser = new User;
+            $newUser->name = $validatedData['M_Name'];
+            $newUser->LA_Username = $validatedData['M_Email'];
+            $newUser->email = $validatedData['M_Email'];
+            $newUser->password = Hash::make($validatedData['M_IC']);
+            $newUser->M_IC = $validatedData['M_IC'];
+            $newUser->LA_Role = 2;
 
-            // Commit the transaction
-            DB::commit();
-
-            // Redirect with success message
-            return redirect()->route("mentorReg")->with("success", "Success Registration!");
-        } catch (\Exception $e) {
-            // Rollback the transaction on failure
-            DB::rollBack();
-
-            // Log the error for debugging purposes
-            Log::error('Failed to register user: ' . $e->getMessage());
-
+            if ($newUser->save()) {
+                // Redirect with success message
+                return redirect()->route("mentorReg")->with("success", "Success Registration!");
+            }
             // Redirect with error message
-            return redirect()->route("mentorReg")->with("error", "Failed to register: " . $e->getMessage());
-        }
+            return redirect()->route("mentorReg")->with("error", "Failed to register!");
     }
 
 
