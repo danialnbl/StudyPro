@@ -120,8 +120,8 @@ class UserController extends Controller
             $userEdu->PE_Occupation = $validatedData['PE_Occupation'];
             $userEdu->save();
 
+            $userRef = new PlatinumReferral();
             if ($request->referral === 'yes') {
-                $userRef = new PlatinumReferral();
                 $userRef->PR_Name = $validatedData['PR_Name'];
                 $userRef->PR_Batch = $validatedData['PR_Batch'];
                 $userRef->save();
