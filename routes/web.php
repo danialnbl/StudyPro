@@ -44,7 +44,6 @@ Route::post('insert-RegData', [UserController::class]);//nak insert data dalam d
 
 Route::get('/PlatinumList',[UserController::class, 'platinumList']);
 
-Route::get('/profile',[UserController::class, 'ProfileView']);
 
 //dashboard-nnti kena tukr controller
 Route ::get('/platinumdashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard')->middleware('platinum');
@@ -64,6 +63,12 @@ Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addE
 //Expert Post
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
 
+//Profile
+Route::get('/platProfile',[UserController::class, 'ProfileView']);
+
+Route::get('/staffProfile',[UserController::class, 'staffProfile']);
+
+Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 /*Auth::routes([
     'verify'=>true
 ]);*/

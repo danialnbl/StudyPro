@@ -273,6 +273,14 @@ class UserController extends Controller
     {
         return view('manageProfile.ProfileView');
     }
+    public function staffProfile()
+    {
+        return view('manageProfile.staffProfile');
+    }
+    public function mentorProfile()
+    {
+        return view('manageProfile.mentorProfile');
+    }
     //homepage
     public function staffmain()
     {

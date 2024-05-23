@@ -1,5 +1,5 @@
-@extends('layouts.main')
-@section('container')
+@extends ('layouts.mentormain')
+@section('mentor')
 <section style="background-color: #eee;">
     <div class="row">
       <div class="col-lg-4">

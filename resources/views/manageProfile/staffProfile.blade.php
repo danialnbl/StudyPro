@@ -1,5 +1,6 @@
-@extends('layouts.main')
-@section('container')
+@extends('layouts.staffmain')
+
+@section('staff')
 <section style="background-color: #eee;">
     <div class="row">
       <div class="col-lg-4">
