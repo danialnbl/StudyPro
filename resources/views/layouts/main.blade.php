@@ -75,6 +75,20 @@
         .profile-card .social-links a:hover {
             color: #012970;
         }
+
+        .profile-overview .row {
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .profile-overview .card-title {
+            color: #012970;
+        }
+
+        .profile-overview .label {
+            font-weight: 600;
+            color: rgba(1, 41, 112, 0.6);
+        }
     </style>
 
 </head>
