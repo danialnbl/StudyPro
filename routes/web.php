@@ -56,6 +56,8 @@ Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name(
 //Expert
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
+Route::get('/expertDetail', [ExpertController::class, 'detailExpertView']);
+
 Route::get('/myexpert', [ExpertController::class, 'myExpertView']);
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');

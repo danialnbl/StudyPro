@@ -15,7 +15,7 @@
         <div class="card " style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
 
-                <form action="{{ route('expertAdd.submit') }}" method="post" class="expert-form row">
+                <form  id="upload" action="{{ route('expertAdd.submit') }}" method="post" enctype="multipart/form-data" class="expert-form row">
                     @csrf
                     <div class="form-section">
                         <h3 class=" pb-2 pb-md-0"><b>Add New Expert</b></h3>
@@ -78,6 +78,9 @@
                         <div class="col-12">
                             <label for="RP_File">Upload Research Paper:</label>
                             <input class="form-control mb-2" type="file" id="RP_File" name="RP_File" required>
+                            @error('file')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 {{--                    <div class="form-section">--}}

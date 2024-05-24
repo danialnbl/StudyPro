@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedInteger('E_ID');
             $table->unsignedInteger('ER_ID');
             $table->string('EP_Paper');
+            $table->string('EP_FileName');
+            $table->string('EP_FilePath');
             $table->date('EP_Year');
             $table->foreign('E_ID')->references('E_ID')->on('Experts')->onDelete('cascade');
             $table->foreign('ER_ID')->references('ER_ID')->on('ExpertResearch')->onDelete('cascade');

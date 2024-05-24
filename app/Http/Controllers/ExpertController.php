@@ -28,6 +28,13 @@ class ExpertController extends Controller
         ]);
     }
 
+    public function detailExpertView()
+    {
+        return view('manageExpertDomain.detailExpertView', [
+            'expert' => Expert::all(),
+        ]);
+    }
+
     public function myExpertView()
     {
         $userID = Auth::user()->P_IC;
@@ -51,6 +58,7 @@ class ExpertController extends Controller
             "ER_Title" => "required",
             "EP_Paper" => "required",
             "EP_Year" => "required",
+            'RP_File' => 'required|mimes:pdf|max:2048',
         ]);
 
         $userID = Auth::user()->P_IC;
@@ -73,6 +81,11 @@ class ExpertController extends Controller
         $expertPaper->EP_Year = $validatedData['EP_Year'];
         $expertPaper->ER_ID = $expertResearch->id;
         $expertPaper->E_ID = $expert->id;
+        $file = $request->file('RP_File');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs('uploads', $fileName);
+        $expertPaper->EP_FileName = $fileName;
+        $expertPaper->EP_FilePath = $filePath;
 
         if ($expertPaper->save()) {
             // Redirect with success message
