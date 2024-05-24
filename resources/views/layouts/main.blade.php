@@ -44,6 +44,37 @@
         .parsley-errors-list {
             color: red;
         }
+
+        /*--------------------------------------------------------------
+# Profie Page
+--------------------------------------------------------------*/
+        .profile-card img {
+            max-width: 120px;
+        }
+
+        .profile-card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c384e;
+            margin: 10px 0 0 0;
+        }
+
+        .profile-card h3 {
+            font-size: 18px;
+        }
+
+        .profile-card .social-links a {
+            font-size: 20px;
+            display: inline-block;
+            color: rgba(1, 41, 112, 0.5);
+            line-height: 0;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+
+        .profile-card .social-links a:hover {
+            color: #012970;
+        }
     </style>
 
 </head>

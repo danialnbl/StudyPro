@@ -56,14 +56,17 @@ Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name(
 //Expert
 Route::get('/expert', [ExpertController::class, 'expertListView']);
 
-Route::get('/expertDetail', [ExpertController::class, 'detailExpertView']);
+Route::get('/expertDetail/{E_ID}', [ExpertController::class, 'detailExpertView'])->name('detailExpertView');
 
-Route::get('/myexpert', [ExpertController::class, 'myExpertView']);
+Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpertView');
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
 
 //Expert Post
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
+
+//Expert delete, edit, update
+Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);

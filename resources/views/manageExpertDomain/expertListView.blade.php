@@ -13,8 +13,6 @@
                     <th scope="col">Email</th>
                     <th scope="col">PhoneNumber</th>
                     <th class="text-center" scope="col">Show</th>
-                    <th class="text-center" scope="col">Edit</th>
-                    <th class="text-center" scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,22 +24,10 @@
                         <td>{{ $expert->E_Email }}</td>
                         <td>{{ $expert->E_PhoneNumber }}</td>
                         <td class="text-center">
-                            <button class="opn btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-log"
-                                href="javascript:void(0);">
+                            <button class="opn btn btn-primary" href="">
                                 <i class="bi bi-eye"></i>
                                 Show Detail
                             </button>
-                        </td>
-                        <td class="text-center">
-                            <button class="opn btn btn-success" data-bs-toggle="modal" data-bs-target="#edit-log"
-                                href="javascript:void(0);">
-                                <i class="bi bi-pencil-square"></i>
-                                Edit
-                            </button>
-                        </td>
-                        <td class="text-center">
-                            <a class="del btn btn-danger" href="javascript:void(0);"><i class="bi bi-trash-fill"></i>
-                                Delete</a>
                         </td>
                     </tr>
                 @endforeach

@@ -28,11 +28,10 @@ class ExpertController extends Controller
         ]);
     }
 
-    public function detailExpertView()
+    public function detailExpertView($E_ID)
     {
-        return view('manageExpertDomain.detailExpertView', [
-            'expert' => Expert::all(),
-        ]);
+        $Experts = Expert::where('E_ID', $E_ID)->get();
+        return view('manageExpertDomain.detailExpertView',compact('Experts'));
     }
 
     public function myExpertView()
@@ -93,5 +92,15 @@ class ExpertController extends Controller
         }
         // Redirect with error message
         return redirect()->route("addExpert")->with("error", "Failed to add expert!");
+    }
+
+    public function deleteExpert($E_ID){
+        try {
+            Expert::where('E_ID', $E_ID)->delete();
+            // Redirect with success message
+            return redirect()->route("myExpertView")->with("success", "Success to delete expert!");
+        } catch (\Exception $e){
+            return redirect()->route("myExpertView")->with("fail", "Failed to delete expert!");
+        }
     }
 }

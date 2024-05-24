@@ -11,17 +11,16 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
+        @foreach($Experts as $Expert)
             <div class="row">
                 <div class="col-xl-4">
-
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                            <h2>Kevin Anderson</h2>
-                            <h3>Web Designer</h3>
+                            <img src="{{ url('assets/testPic.jpg') }}" alt="Profile" class="rounded-circle">
+                            <h2>{{$Expert->E_Name}}</h2>
+                            <h3>{{$Expert->E_University}}</h3>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="col-xl-8">
@@ -277,4 +276,5 @@
 
                 </div>
             </div>
+        @endforeach
 @endsection
