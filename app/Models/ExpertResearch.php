@@ -16,4 +16,5 @@ class ExpertResearch extends Model
 
     public $timestamps = false;
     protected $table = 'ExpertResearch';
+    protected $primaryKey = 'ER_ID';
 }

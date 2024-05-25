@@ -19,4 +19,5 @@ class Expert extends Model
 
     public $timestamps = false;
     protected $table = 'Experts';
+    protected $primaryKey = 'E_ID';
 }

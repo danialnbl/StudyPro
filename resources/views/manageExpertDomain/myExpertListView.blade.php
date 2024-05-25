@@ -42,11 +42,11 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <button class="opn btn btn-success" data-bs-toggle="modal" data-bs-target="#edit-log"
-                                href="">
+                            <a class="opn btn btn-success"
+                                href="/expertEdit/{{$expert->E_ID}}">
                                 <i class="bi bi-pencil-square"></i>
                                 Edit
-                            </button>
+                            </a>
                         </td>
                         <td class="text-center">
                             <a class="del btn btn-danger" href="/expertDelete/{{$expert->E_ID}}"><i class="bi bi-trash-fill"></i>

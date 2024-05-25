@@ -61,12 +61,15 @@ Route::get('/expertDetail/{E_ID}', [ExpertController::class, 'detailExpertView']
 Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpertView');
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
+Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert');
 
 //Expert Post
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
+Route::put('/expertEdit/{E_ID}', [ExpertController::class, 'ExpertEditPost'])->name('expertEdit.update');
 
 //Expert delete, edit, update
 Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
+//Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpert']);
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);

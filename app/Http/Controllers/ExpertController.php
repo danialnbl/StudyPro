@@ -28,6 +28,43 @@ class ExpertController extends Controller
         ]);
     }
 
+    public function editExpertView($E_ID)
+    {
+        $Experts = Expert::where('E_ID', $E_ID)->get();
+
+        return view('manageExpertDomain.editExpertView',
+            compact('Experts'));
+    }
+
+    public function ExpertEditPost(Request $request, $E_ID)
+    {
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "E_Name" => "required",
+            "E_University" => "required",
+            "E_Email" => "required|email",
+            "E_PhoneNumber" => "required",
+            "ER_Title" => "required",
+        ]);
+
+//        $Experts = Expert::where('E_ID', $E_ID)->get();
+        $Experts = Expert::findOrFail($E_ID);
+        $ExpertResearchs = ExpertResearch::where('E_ID',$E_ID)->first();
+        $ExpertResearchs->update([
+            "ER_Title" => $validatedData['ER_Title'],
+        ]);
+
+        $Experts->update([
+            "E_Name" => $validatedData['E_Name'],
+            "E_University" => $validatedData['E_University'],
+            "E_Email" => $validatedData['E_Email'],
+            "E_PhoneNumber" => $validatedData['E_PhoneNumber'],
+        ]);
+
+        return redirect('/expertEdit/' . $E_ID)->with('success', 'Expert updated successfully');
+    }
+
     public function detailExpertView($E_ID)
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
@@ -97,6 +134,7 @@ class ExpertController extends Controller
         // Redirect with error message
         return redirect()->route("addExpert")->with("error", "Failed to add expert!");
     }
+
 
     public function deleteExpert($E_ID){
         try {
