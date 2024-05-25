@@ -86,7 +86,7 @@ class ExpertController extends Controller
         $expertPaper->E_ID = $expert->id;
         $file = $request->file('RP_File');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        $filePath = $file->storeAs('uploads', $fileName);
+        $filePath = $file->storeAs('uploads', $fileName, 'public');
         $expertPaper->EP_FileName = $fileName;
         $expertPaper->EP_FilePath = $filePath;
 
