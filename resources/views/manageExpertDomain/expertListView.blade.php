@@ -1,6 +1,16 @@
 @extends('layouts.main')
 
 @section('container')
+    @if(session()->has("success"))
+        <div class="alert alert-success">
+            {{ session()->get("success") }}
+        </div>
+    @endif
+    @if(session()->has("fail"))
+        <div class="alert alert-danger">
+            {{ session()->get("fail") }}
+        </div>
+    @endif
     <h1>All Experts List</h1>
 
     <div class="card p-4 mt-4">
@@ -24,10 +34,10 @@
                         <td>{{ $expert->E_Email }}</td>
                         <td>{{ $expert->E_PhoneNumber }}</td>
                         <td class="text-center">
-                            <button class="opn btn btn-primary" href="">
+                            <a class="opn btn btn-primary" href="/expertDetail/{{$expert->E_ID}}">
                                 <i class="bi bi-eye"></i>
                                 Show Detail
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

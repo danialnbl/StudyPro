@@ -31,7 +31,11 @@ class ExpertController extends Controller
     public function detailExpertView($E_ID)
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
-        return view('manageExpertDomain.detailExpertView',compact('Experts'));
+        $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
+        $fetchResearches = ExpertResearch::where('E_ID', $E_ID)->get();
+
+        return view('manageExpertDomain.detailExpertView',
+            compact('Experts','fetchPapers','fetchResearches'));
     }
 
     public function myExpertView()
