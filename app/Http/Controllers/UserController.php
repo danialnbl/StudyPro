@@ -243,6 +243,64 @@ class UserController extends Controller
             return redirect()->route("mentorReg")->with("error", "Failed to register!");
     }
 
+        //platinum list
+        public function showPlatList(){
+            $platinum = Platinum ::all();
+            return view('manageRegistration.platinumList', compact('platinum'));
+        }
+        
+        public function editPlat($P_IC)
+        {
+            $Platinums = Platinum::where('P_IC', $P_IC)->get();
+            $PlatEdu = PlatinumEducation::where('P_IC',$P_IC)->first();
+
+            return view('manageRegistration.editPlatinum',
+                compact('Platinums','PlatEdu'));
+        }
+
+        public function PlatinumEditPost(Request $request, $P_IC)
+        {
+
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "P_PhoneNumber" => "required",
+                "P_Facebook" => "required",
+                "P_TshirtSize" => "required",
+                "P_Program" => "required",
+                "P_Batch" => "required|integer",
+                "P_Status" => "required",
+                "P_Title" => "required",
+                "PE_EduInstitute" => "required",
+                "PE_Sponsorship" => "required",
+                "PE_ProgramFee" => "required|numeric",
+                "PE_EduLevel" => "required",
+                "PE_Occupation" => "required",
+            ]);
+
+   
+            $Platinums = Platinum::findOrFail($P_IC);
+            $PlatEdu = PlatinumEducation::where('P_IC',$P_IC)->first();
+            $PlatEdu->update([
+                "PE_EduInstitute" => $validatedData['PE_EduInstitute'],
+                "PE_Sponsorship" => $validatedData['PE_Sponsorship'],
+                "PE_ProgramFee" => $validatedData['PE_ProgramFee'],
+                "PE_EduLevel" => $validatedData['PE_EduLevel'],
+                "PE_Occupation" => $validatedData['PE_Occupation'],
+            ]);
+
+            $Platinums->update([
+                "P_PhoneNumber" => $validatedData['P_PhoneNumber'],
+                "P_Facebook" => $validatedData['P_Facebook'],
+                "P_TshirtSize" => $validatedData['P_TshirtSize'],
+                "P_Program" => $validatedData['P_Program'],
+                "P_Batch" => $validatedData['P_Batch'],
+                "P_Status" => $validatedData['P_Status'],
+                "P_Title" => $validatedData['P_Title'],
+            ]);
+
+            return redirect('/platEdit/' . $P_IC)->with('success', 'Platinum updated successfully');
+        }
+
 
     //Verification
 
@@ -256,12 +314,6 @@ class UserController extends Controller
         return view('VerifyAccountView');
     }
 
-    /*public function verify(Request $request)
-    {
-        // Verify user based on token or other verification method
-        // Update user status to "verified"
-        // Redirect user to login page with a success message
-    }*/
 
     public function platinumList()
     {
@@ -280,6 +332,12 @@ class UserController extends Controller
     public function mentorProfile()
     {
         return view('manageProfile.mentorProfile');
+    }
+    //display info on profile
+    public function showPlatinum()
+    {
+        $user = Auth::user();
+        return view('manageProfile.ProfileView', compact('user'));
     }
     //homepage
     public function staffmain()

@@ -155,9 +155,14 @@
             <div class="mb-3 row">
                 <label for="P_Status" class="col-sm-2 col-form-label">Status</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="P_Status" id="P_Status">
+                    <select class="form-select" name="P_Status" id="P_Status">
+                    <option value="" selected disabled>Select Status</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="CRMP">CRMP</option>
+                    </select>
                 </div>
             </div>
+
             <div class="mb-3 row">
                 <label for="P_Title" class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">

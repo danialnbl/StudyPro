@@ -15,33 +15,30 @@
                       <button class="btn btn-secondary" type="submit">Search</button>
                   </form>
                 </div>
-                
-                <!-- TOMBOL TAMBAH DATA -->
-                <div class="pb-3">
-                  <a href='' class="btn btn-primary">+ Tambah Data</a>
-                </div>
           
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="col-md-1">No</th>
-                            <th class="col-md-3">NIM</th>
-                            <th class="col-md-4">Nama</th>
-                            <th class="col-md-2">Jurusan</th>
-                            <th class="col-md-2">Aksi</th>
+                            <th class="col-md-1">NR IC</th>
+                            <th class="col-md-3">PROGRAM</th>
+                            <th class="col-md-4">NAME</th>
+                            <th class="col-md-2">STATUS</th>
+                            <th class="col-md-2">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($platinum as $platinum)
                         <tr>
-                            <td>1</td>
-                            <td>1001</td>
-                            <td>Ani</td>
-                            <td>Ilmu Komputer</td>
+                            <td>{{$platinum->P_IC}}</td>
+                            <td>{{$platinum->P_Program}}</td>
+                            <td>{{$platinum->P_Name}}</td>
+                            <td>{{$platinum->P_Status}}</td>
                             <td>
-                                <a href='' class="btn btn-warning btn-sm">Edit</a>
-                                <a href='' class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ route('editPlatinum', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
                
