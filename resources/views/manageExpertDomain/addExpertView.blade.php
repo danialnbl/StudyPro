@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-12">
                             <label for="ER_Title">Research Domain:</label>
-                            <select class="form-select" aria-label="Default select example" id="ER_Title" name="ER_Title"
+                            <select class="form-select mb-3" aria-label="Default select example" id="ER_Title" name="ER_Title"
                                 required>
                                 <option selected>Open this select menu</option>
                                 <option value="Computer System Research Group">Computer System Research Group</option>
@@ -64,6 +64,16 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="col-12">
+                            <label for="PI_File">Upload Expert Image:</label>
+                            <input class="form-control mb-3" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg" required>
+                            @error('file')
+                            <div class="alert alert-danger mt-1 mb-3">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                                <img id="imagePreview" src="#" alt="Image" width="200" height="200"/>
+                        </div>
                     </div>
                     <div class="form-section add-more" id="add-more">
                         <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
@@ -77,7 +87,7 @@
                         </div>
                         <div class="col-12">
                             <label for="RP_File">Upload Research Paper:</label>
-                            <input class="form-control mb-2" type="file" id="RP_File" name="RP_File" required>
+                            <input class="form-control mb-2" type="file" id="RP_File" name="RP_File" accept="application/pdf" required>
                             @error('file')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror

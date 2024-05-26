@@ -6,6 +6,7 @@ use App\Models\Expert;
 use App\Models\ExpertPaper;
 use App\Models\ExpertResearch;
 use App\Models\Mentor;
+use App\Models\Picture;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,9 +72,10 @@ class ExpertController extends Controller
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
         $fetchResearches = ExpertResearch::where('E_ID', $E_ID)->get();
+        $fetchPic = Picture::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.detailExpertView',
-            compact('Experts','fetchPapers','fetchResearches'));
+            compact('Experts','fetchPapers','fetchResearches','fetchPic'));
     }
 
     public function myExpertView()
@@ -99,6 +101,7 @@ class ExpertController extends Controller
             "ER_Title" => "required",
             "EP_Paper" => "required",
             "EP_Year" => "required",
+            "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
             'RP_File' => 'required|mimes:pdf|max:2048',
         ]);
 
@@ -114,14 +117,26 @@ class ExpertController extends Controller
 
         $expertResearch = new ExpertResearch();
         $expertResearch->ER_Title = $validatedData['ER_Title'];
-        $expertResearch->E_ID = $expert->id;
+        $expertResearch->E_ID = $expert->E_ID;
         $expertResearch->save();
+
+        if ($request->hasFile('PI_File')) {
+            $picture = new Picture();
+            $file = $request->file('PI_File');
+            $fileNamePic = time() . '_' . $file->getClientOriginalName();
+            $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+            $picture->PI_File = $fileNamePic;
+            $picture->PI_FilePath = $filePathPic;
+            $picture->PI_Type = "Expert";
+            $picture->E_ID = $expert->E_ID;;
+            $picture->save();
+        }
 
         $expertPaper = new ExpertPaper();
         $expertPaper->EP_Paper = $validatedData['EP_Paper'];
         $expertPaper->EP_Year = $validatedData['EP_Year'];
-        $expertPaper->ER_ID = $expertResearch->id;
-        $expertPaper->E_ID = $expert->id;
+        $expertPaper->ER_ID = $expertResearch->ER_ID;
+        $expertPaper->E_ID = $expert->E_ID;
         $file = $request->file('RP_File');
         $fileName = time() . '_' . $file->getClientOriginalName();
         $filePath = $file->storeAs('uploads', $fileName, 'public');

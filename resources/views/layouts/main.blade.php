@@ -107,6 +107,24 @@
             $('#myTable').dataTable({
                 responsive: true
             });
+
+            $("#imagePreview").hide();
+            $("#PI_File").on("change",function(e){
+                var arrTemp = this.value.split('\\');
+                document.getElementById("imagePreview").value = arrTemp[arrTemp.length - 1];
+                let idImgShow = 'imagePreview';
+                if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                $('#' + idImgShow + '').attr('src', e.target.result);
+                $('#' + idImgShow + '').show();
+            }
+
+                reader.readAsDataURL(this.files[0]);
+                $("#imagePreview").show();
+            }
+            })
+
         });
 
         //addMoreButn
