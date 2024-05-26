@@ -31,9 +31,10 @@ class ExpertController extends Controller
     public function editExpertView($E_ID)
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
+        $ExpertResearchs = ExpertResearch::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.editExpertView',
-            compact('Experts'));
+            compact('Experts','ExpertResearchs'));
     }
 
     public function ExpertEditPost(Request $request, $E_ID)
