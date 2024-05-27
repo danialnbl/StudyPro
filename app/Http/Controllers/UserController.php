@@ -279,7 +279,8 @@ class UserController extends Controller
             ]);
 
             // Retrieve the Platinum instance by P_IC
-            $Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+            $Platinum = Platinum::findOrFail($P_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
 
             // Update related PlatinumEducation instance
             $Platinum->education()->update([
