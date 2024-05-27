@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 class PublicationDataController extends Controller
 {
-        public function addPublicationDataView()
+        public function addPublicationData()
         {
-            return view('managePublicationData.addPublicationDataView',[
+            return view('managePublicationData.addPublicationDataView',
 
-            ]);
+            );
         } 
+
 }

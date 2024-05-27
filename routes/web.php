@@ -36,7 +36,7 @@ Route::post('/MentorRegister', [UserController::class,'MentorRegisterPost'])->na
 
 Route::get('/loginReset', [UserController::class, 'ResetPasswordView']);
 
-Route::get('/publication', [PublicationDataController::class, 'addPublicationDataView']);
+Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
 
 Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
 
