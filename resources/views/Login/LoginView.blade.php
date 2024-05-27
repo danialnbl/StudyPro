@@ -54,7 +54,7 @@ height: 100%;
           <h1>StudyPro</h1>
           <h2>Login</h2>
           <div data-mdb-input-init class="form-outline mb-4">
-          <label class="form-label" for="form3Example3">Username</label>
+          <label class="form-label" for="form3Example3">Email</label>
             <input type="text" id="email" name="email" class="form-control form-control-lg" required autofocus value="{{old('userrname')}}"/>
           </div>
 
