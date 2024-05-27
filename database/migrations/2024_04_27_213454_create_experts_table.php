@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('E_University');
             $table->string('E_Email');
             $table->string('E_PhoneNumber');
+            $table->string('E_Domain');
             $table->string('P_IC');
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
         });

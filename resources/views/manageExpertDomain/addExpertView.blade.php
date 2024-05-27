@@ -37,8 +37,8 @@
                             <input type="text" class="form-control mb-3" id="E_PhoneNumber" name="E_PhoneNumber" required>
                         </div>
                         <div class="col-12">
-                            <label for="ER_Title">Research Domain:</label>
-                            <select class="form-select mb-3" aria-label="Default select example" id="ER_Title" name="ER_Title"
+                            <label for="E_Domain">Research Domain:</label>
+                            <select class="form-select mb-3" aria-label="Default select example" id="E_Domain" name="E_Domain"
                                 required>
                                 <option selected>Open this select menu</option>
                                 <option value="Computer System Research Group">Computer System Research Group</option>
@@ -78,16 +78,28 @@
                     <div class="form-section add-more" id="add-more">
                         <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
                         <div class="col-12">
-                            <label for="EP_Paper">Research Paper Title:</label>
-                            <input type="text" class="form-control mb-3" id="EP_Paper" name="EP_Paper" required>
+                            <label for="PD_Title">Publication Title:</label>
+                            <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
                         </div>
                         <div class="col-12">
-                            <label for="EP_Year" class="col-sm-2 col-form-label">Date Apply</label>
-                            <input type="date" class="form-control mb-3" name="EP_Year" id="EP_Year">
+                            <label for="PD_Date" class="col-sm-2 col-form-label">Publication Date</label>
+                            <input type="date" class="form-control mb-3" name="PD_Date" id="PD_Date">
                         </div>
                         <div class="col-12">
-                            <label for="RP_File">Upload Research Paper:</label>
-                            <input class="form-control mb-2" type="file" id="RP_File" name="RP_File" accept="application/pdf" required>
+                            <label for="PD_Type">Publication Type:</label>
+                            <select class="form-select mb-3" aria-label="Default select example" id="PD_Type" name="PD_Type"
+                                    required>
+                                <option selected>Open this select menu</option>
+                                <option value="Journal">Journal</option>
+                                <option value="Article">Article
+                                </option>
+                                <option value="Book">Book</option>
+                                <option value="Conference Paper">Conference Paper</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="PD_File">Upload Publication:</label>
+                            <input class="form-control mb-2" type="file" id="PD_File" name="PD_File" accept="application/pdf" required>
                             @error('file')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror

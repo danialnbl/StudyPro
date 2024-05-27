@@ -17,10 +17,13 @@ return new class extends Migration
             $table->string('PD_University');
             $table->string('PD_Type');
             $table->string('PD_Author');
-            $table->string('PD_File');
+            $table->string('PD_FileName');
+            $table->string('PD_FilePath');
             $table->date('PD_Date');
-            $table->unsignedInteger('EP_ID');
-            $table->foreign('EP_ID')->references('EP_ID')->on('ExpertPapers')->onDelete('cascade');
+            $table->unsignedInteger('E_ID')->nullable(true);
+            $table->string('P_IC')->nullable(true);
+            $table->foreign('E_ID')->references('E_ID')->on('Experts')->onDelete('cascade');
+            $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
         });
     }
 
