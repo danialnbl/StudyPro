@@ -49,6 +49,8 @@ Route::get('/PlatinumList',[UserController::class, 'showPlatList']);
 
 Route::get('/platEdit/{P_IC}', [UserController::class, 'editPlat'])->name('editPlatinum');
 
+Route::put('/platEdit/{P_IC}', [UserController::class, 'PlatinumEditPost'])->name('platEdit.update');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 

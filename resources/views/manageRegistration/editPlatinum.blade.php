@@ -13,7 +13,7 @@
                     {{ session('success') }}
                 </div>
             @endif
-            @foreach($Platinums as $platinum)
+            @foreach($Platinum as $platinum)
             <form action="{{ url('/platEdit/' . $platinum->P_IC) }}" method="POST">
               @csrf
               @method('PUT')
