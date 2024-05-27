@@ -150,7 +150,7 @@ class UserController extends Controller
             $user->P_Status = $validatedData['P_Status'];
             $user->P_Title = $validatedData['P_Title'];
             // Set the PE_Id field with the ID of the PlatinumEducation instance
-            $user->PE_Id = $userEdu->id;
+            $user->PE_Id = $userEdu->PE_Id;
             // Set the PR_Id field with the ID of the PlatinumReferal instance
             $user->PR_Id = $userRef->id;
 
