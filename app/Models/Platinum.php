@@ -21,6 +21,7 @@ class Platinum extends Model //implements MustVerifyEmail
     }
 
     use HasFactory;
+    protected $primaryKey = 'P_IC';
     protected $table = 'Platinum';
     public $timestamps = false;
     protected $fillable = [
@@ -46,3 +47,5 @@ class Platinum extends Model //implements MustVerifyEmail
         'P_Title'
     ];
 }
+
+

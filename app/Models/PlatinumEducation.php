@@ -9,6 +9,7 @@ class PlatinumEducation extends Model
 {
     use HasFactory;
     
+    protected $primaryKey = 'PE_Id';
     protected $table = 'PlatinumEducation';
     public $timestamps = false;
     protected $fillable = [

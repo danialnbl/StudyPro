@@ -251,16 +251,17 @@ class UserController extends Controller
         
         public function editPlat($P_IC)
         {
-            $Platinums = Platinum::where('P_IC', $P_IC)->get();
-            $PlatEdu = PlatinumEducation::where('P_IC',$P_IC)->first();
+            $Platinum = Platinum::findOrFail($P_IC);
+           // $Platinum = Platinum::where('P_IC', $P_IC)->get();
+            $data = $Platinum->PE_Id;
+            $PlatEdu = PlatinumEducation::where('PE_Id',$data)->first();
 
             return view('manageRegistration.editPlatinum',
-                compact('Platinums','PlatEdu'));
-        }
+                compact('Platinum','PlatEdu'));
+        }        
 
         public function PlatinumEditPost(Request $request, $P_IC)
         {
-
             // Validate the incoming request data
             $validatedData = $request->validate([
                 "P_PhoneNumber" => "required",
@@ -277,10 +278,11 @@ class UserController extends Controller
                 "PE_Occupation" => "required",
             ]);
 
-   
-            $Platinums = Platinum::findOrFail($P_IC);
-            $PlatEdu = PlatinumEducation::where('P_IC',$P_IC)->first();
-            $PlatEdu->update([
+            // Retrieve the Platinum instance by P_IC
+            $Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update related PlatinumEducation instance
+            $Platinum->education()->update([
                 "PE_EduInstitute" => $validatedData['PE_EduInstitute'],
                 "PE_Sponsorship" => $validatedData['PE_Sponsorship'],
                 "PE_ProgramFee" => $validatedData['PE_ProgramFee'],
@@ -288,7 +290,8 @@ class UserController extends Controller
                 "PE_Occupation" => $validatedData['PE_Occupation'],
             ]);
 
-            $Platinums->update([
+            // Update Platinum instance
+            $Platinum->update([
                 "P_PhoneNumber" => $validatedData['P_PhoneNumber'],
                 "P_Facebook" => $validatedData['P_Facebook'],
                 "P_TshirtSize" => $validatedData['P_TshirtSize'],
@@ -300,6 +303,7 @@ class UserController extends Controller
 
             return redirect('/platEdit/' . $P_IC)->with('success', 'Platinum updated successfully');
         }
+
 
 
     //Verification
