@@ -9,6 +9,7 @@ use App\Models\Mentor;
 use App\Models\Picture;
 use App\Models\PublicationData;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,13 @@ class ExpertController extends Controller
         ]);
     }
 
+    public function reportExpertView()
+    {
+        $data = ['experts'=>Expert::all()];
+        $pdf = Pdf::LoadView('manageExpertDomain.reportExpertView', $data);
+        return $pdf->download('expertList.pdf');
+    }
+
     public function addExpertView()
     {
         return view('manageExpertDomain.addExpertView', [
@@ -33,10 +41,11 @@ class ExpertController extends Controller
     public function editExpertView($E_ID)
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
+        $ExpertPic = Picture::where('E_ID', $E_ID)->get()->first();
         $ExpertResearchs = ExpertResearch::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.editExpertView',
-            compact('Experts','ExpertResearchs'));
+            compact('Experts','ExpertResearchs','ExpertPic'));
     }
 
     public function ExpertEditPost(Request $request, $E_ID)
@@ -48,15 +57,25 @@ class ExpertController extends Controller
             "E_University" => "required",
             "E_Email" => "required|email",
             "E_PhoneNumber" => "required",
-            "ER_Title" => "required",
+            "E_Domain" => "required",
+            "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
         ]);
 
 //        $Experts = Expert::where('E_ID', $E_ID)->get();
         $Experts = Expert::findOrFail($E_ID);
-        $ExpertResearchs = ExpertResearch::where('E_ID',$E_ID)->first();
-        $ExpertResearchs->update([
-            "ER_Title" => $validatedData['ER_Title'],
-        ]);
+        $ExpertPic = Picture::where('E_ID', $E_ID)->get()->first();
+
+        if ($request->hasFile('PI_File')) {
+            $file = $request->file('PI_File');
+            $fileNamePic = time() . '_' . $file->getClientOriginalName();
+            $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+
+            $ExpertPic->update([
+                "PI_File" => $fileNamePic,
+                "PI_FilePath" => $filePathPic,
+                "PI_Type" => "Expert",
+            ]);
+        }
 
         $Experts->update([
             "E_Name" => $validatedData['E_Name'],
@@ -104,7 +123,7 @@ class ExpertController extends Controller
             "PD_Date" => "required",
             "PD_Type" => "required",
             "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
-            'PD_File' => 'required|mimes:pdf|max:2048',
+            'PD_File' => 'required|mimes:pdf|max:10048',
         ]);
 
         $userID = Auth::user()->P_IC;
@@ -162,7 +181,7 @@ class ExpertController extends Controller
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
-            'PD_File' => 'required|mimes:pdf|max:2048',
+            'PD_File' => 'required|mimes:pdf|max:10048',
         ]);
 
         $userID = Auth::user()->P_IC;
