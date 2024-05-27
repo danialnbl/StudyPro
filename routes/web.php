@@ -50,6 +50,10 @@ Route::get('/platEdit/{P_IC}', [UserController::class, 'editPlat'])->name('editP
 
 Route::put('/platEdit/{P_IC}', [UserController::class, 'PlatinumEditPost'])->name('platEdit.update');
 
+Route::get('/deleteEdit/{P_IC}', [UserController::class, 'deletePlat'])->name('deletePlatinum');
+
+Route::get('/view/{P_IC}', [UserController::class, 'viewPlat'])->name('viewPlatinum');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 
