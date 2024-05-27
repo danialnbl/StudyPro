@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\PublicationDataController;
-
+use App\Http\Controllers\DraftThesisController;
+use App\Http\Controllers\WeeklyFocusController;
 
 Route::get('/', function () {
     return "Well hello there o/. so...";
@@ -92,6 +93,13 @@ Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 /*Auth::routes([
     'verify'=>true
 ]);*/
+
+//draftthesis
+Route::get('/draftthesis',[DraftThesisController::class, 'AddDraftThesisView']);
+
+//weeklyfocus
+Route::get('/weeklyfocus',[WeeklyFocusController::class, 'AddWeeklyFocusView']);
+
 
 
 
