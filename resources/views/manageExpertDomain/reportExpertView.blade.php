@@ -19,16 +19,17 @@
             <th>Expert Phone Number</th>
             <th>Expert Domain</th>
         </tr>
+
+        @foreach($experts as $expert)
         <tr class="items">
-            @foreach($experts as $expert)
                 <td>{{$loop->index+1}}</td>
                 <td>{{$expert->E_Name}}</td>
                 <td>{{$expert->E_University}}</td>
                 <td>{{$expert->E_Email}}</td>
                 <td>{{$expert->E_PhoneNumber}}</td>
                 <td>{{$expert->E_Domain}}</td>
-            @endforeach
         </tr>
+        @endforeach
     </table>
 </body>
 </html>
