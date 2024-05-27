@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<section style="background-color: ;">
+<section style="">
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-8 mx-auto">
@@ -13,38 +13,38 @@
                     {{ session('success') }}
                 </div>
             @endif
-            @foreach($Platinum as $platinum)
-            <form action="{{ url('/platEdit/' . $platinum->P_IC) }}" method="POST">
+
+            <form action="/platEdit/ {{$Platinum->P_IC}}" method="POST">
               @csrf
               @method('PUT')
               <div class="mb-3 row">
                 <label for="P_PhoneNumber" class="col-sm-3 col-form-label">Phone Number</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="P_PhoneNumber" id="P_PhoneNumber" value="{{ $platinum->P_PhoneNumber }}" required>
+                  <input type="text" class="form-control" name="P_PhoneNumber" id="P_PhoneNumber" value="{{ $Platinum->P_PhoneNumber }}" required>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="P_Facebook" class="col-sm-3 col-form-label">Facebook</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="P_Facebook" id="P_Facebook" value="{{ $platinum->P_Facebook }}" required>
+                  <input type="text" class="form-control" name="P_Facebook" id="P_Facebook" value="{{ $Platinum->P_Facebook }}" required>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="P_TshirtSize" class="col-sm-3 col-form-label">T-shirt Size</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="P_TshirtSize" id="P_TshirtSize" value="{{ $platinum->P_TshirtSize }}" required>
+                  <input type="text" class="form-control" name="P_TshirtSize" id="P_TshirtSize" value="{{ $Platinum->P_TshirtSize }}" required>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="P_Program" class="col-sm-3 col-form-label">Program</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="P_Program" id="P_Program" value="{{ $platinum->P_Program }}" required>
+                  <input type="text" class="form-control" name="P_Program" id="P_Program" value="{{ $Platinum->P_Program }}" required>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="P_Batch" class="col-sm-3 col-form-label">Batch</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control" name="P_Batch" id="P_Batch" value="{{ $platinum->P_Batch }}" required>
+                  <input type="number" class="form-control" name="P_Batch" id="P_Batch" value="{{ $Platinum->P_Batch }}" required>
                 </div>
               </div>
               <div class="mb-3 row">
@@ -52,18 +52,17 @@
                 <div class="col-sm-9">
                   <select class="form-select" name="P_Status" id="P_Status" required>
                     <option value="" disabled>Select Status</option>
-                    <option value="Platinum" {{ $platinum->P_Status == 'Platinum' ? 'selected' : '' }}>Platinum</option>
-                    <option value="CRMP" {{ $platinum->P_Status == 'CRMP' ? 'selected' : '' }}>CRMPe</option>
+                    <option value="Platinum" {{ $Platinum->P_Status == 'Platinum' ? 'selected' : '' }}>Platinum</option>
+                    <option value="CRMP" {{ $Platinum->P_Status == 'CRMP' ? 'selected' : '' }}>CRMPe</option>
                   </select>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="P_Title" class="col-sm-3 col-form-label">Title</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="P_Title" id="P_Title" value="{{ $platinum->P_Title }}" required>
+                  <input type="text" class="form-control" name="P_Title" id="P_Title" value="{{ $Platinum->P_Title }}" required>
                 </div>
               </div>
-              @endforeach
 
               @if($PlatEdu)
               <div class="mb-3 row">

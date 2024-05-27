@@ -18,4 +18,5 @@ class ExpertPaper extends Model
 
     public $timestamps = false;
     protected $table = 'ExpertPapers';
+    protected $primaryKey = 'EP_ID';
 }

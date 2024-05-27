@@ -71,11 +71,12 @@ class ExpertController extends Controller
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
+        $fetchAPaper = ExpertPaper::find($E_ID);
         $fetchResearches = ExpertResearch::where('E_ID', $E_ID)->get();
         $fetchPic = Picture::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.detailExpertView',
-            compact('Experts','fetchPapers','fetchResearches','fetchPic'));
+            compact('Experts','fetchPapers','fetchResearches','fetchPic','fetchAPaper'));
     }
 
     public function myExpertView()
@@ -151,6 +152,38 @@ class ExpertController extends Controller
         return redirect()->route("addExpert")->with("error", "Failed to add expert!");
     }
 
+    public function PaperAddPost(Request $request, $E_ID)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "EP_Paper" => "required",
+            "EP_Year" => "required",
+            'RP_File' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        $userID = Auth::user()->P_IC;
+        $Experts = Expert::where('P_IC', $userID)->get();
+
+        if($Experts!= null){
+            $expertPaper = new ExpertPaper();
+            $expertPaper->EP_Paper = $validatedData['EP_Paper'];
+            $expertPaper->EP_Year = $validatedData['EP_Year'];
+//            $expertPaper->ER_ID = $E_ID;
+            $expertPaper->E_ID = $E_ID;
+            $file = $request->file('RP_File');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('uploads', $fileName, 'public');
+            $expertPaper->EP_FileName = $fileName;
+            $expertPaper->EP_FilePath = $filePath;
+            if ($expertPaper->save()) {
+                // Redirect with success message
+                return redirect()->route("detailExpertView", $E_ID)->with("success", "Success to add expert!");
+            }
+        }
+        // Redirect with error message
+        return redirect()->route("detailExpertView", $E_ID)->with("error", "Failed to add expert!");
+    }
+
 
     public function deleteExpert($E_ID){
         try {
@@ -159,6 +192,17 @@ class ExpertController extends Controller
             return redirect()->route("myExpertView")->with("success", "Success to delete expert!");
         } catch (\Exception $e){
             return redirect()->route("myExpertView")->with("fail", "Failed to delete expert!");
+        }
+    }
+
+    public function deletePaper($EP_ID){
+        $Expert = ExpertPaper::findOrFail($EP_ID)->E_ID;
+        try {
+            ExpertPaper::where('EP_ID', $EP_ID)->delete();
+            // Redirect with success message
+            return redirect()->route("detailExpertView", $Expert)->with("success", "Success to delete expert!");
+        } catch (\Exception $e){
+            return redirect()->route("detailExpertView", $Expert)->with("fail", "Failed to delete expert!");
         }
     }
 }

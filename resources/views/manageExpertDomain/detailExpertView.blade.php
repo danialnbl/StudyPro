@@ -71,13 +71,61 @@
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                     <!-- Profile Edit Form -->
                                         <div class="row mb-3">
-                                            <table id="" class="table">
+                                            @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                <div class="d-flex flex-row-reverse mb-3">
+                                                    <button type="button" class="btn btn-primary align-items-end" data-bs-toggle="modal" data-bs-target="#addPaperModal">
+                                                        Add new paper
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal -->
+                                            <form id="upload" action="/paperAdd/{{$Expert->E_ID}}" method="post" enctype="multipart/form-data" class="row">
+                                                @csrf
+                                                <div id="addPaperModal" class="modal " tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Add new paper</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                                                                <div class="col-12">
+                                                                    <label for="EP_Paper">Research Paper Title:</label>
+                                                                    <input type="text" class="form-control mb-2" id="EP_Paper" name="EP_Paper" required>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="EP_Year" class="col-sm-2 col-form-label">Date Apply</label>
+                                                                    <input type="date" class="form-control mb-3" name="EP_Year" id="EP_Year">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="RP_File">Upload Research Paper:</label>
+                                                                    <input class="form-control mb-2" type="file" id="RP_File" name="RP_File" accept="application/pdf" required>
+                                                                    @error('file')
+                                                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            @endif
+                                            <table class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Title</th>
                                                     <th scope="col">Year</th>
                                                     <th scope="col">Paper</th>
+                                                    @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                    <th class="text-center" scope="col">Edit</th>
+                                                    <th class="text-center" scope="col">Delete</th>
+                                                    @endif
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -91,6 +139,19 @@
                                                             <td>
                                                                 <a href="{{ url('storage/'.$paper->EP_FilePath)  }}">{{ $paper -> EP_Paper }}</a>
                                                             </td>
+                                                            @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                            <td class="text-center">
+                                                                <a class="opn btn btn-success"
+                                                                   href="">
+                                                                    <i class="bi bi-pencil-square"></i>
+                                                                    Edit
+                                                                </a>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a class="del btn btn-danger" href="/paperDelete/{{$paper->EP_ID}}"><i class="bi bi-trash-fill"></i>
+                                                                    Delete</a>
+                                                            </td>
+                                                            @endif
                                                         </tr>
                                                         @endforeach
                                                     @endforeach
@@ -110,5 +171,7 @@
 
                 </div>
             </div>
+
+
         @endforeach
 @endsection
