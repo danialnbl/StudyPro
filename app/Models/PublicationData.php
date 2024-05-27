@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PublicationData extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $table = 'PublicationData';
+    protected $primaryKey = 'PD_ID';
 }

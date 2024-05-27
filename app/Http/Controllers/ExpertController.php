@@ -7,6 +7,7 @@ use App\Models\ExpertPaper;
 use App\Models\ExpertResearch;
 use App\Models\Mentor;
 use App\Models\Picture;
+use App\Models\PublicationData;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,12 +72,11 @@ class ExpertController extends Controller
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
-        $fetchAPaper = ExpertPaper::find($E_ID);
-        $fetchResearches = ExpertResearch::where('E_ID', $E_ID)->get();
+        $fetchPublication = PublicationData::where('E_ID', $E_ID)->get();
         $fetchPic = Picture::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.detailExpertView',
-            compact('Experts','fetchPapers','fetchResearches','fetchPic','fetchAPaper'));
+            compact('Experts','fetchPapers','fetchPic','fetchPublication'));
     }
 
     public function myExpertView()
@@ -99,11 +99,12 @@ class ExpertController extends Controller
             "E_University" => "required",
             "E_Email" => "required|email",
             "E_PhoneNumber" => "required",
-            "ER_Title" => "required",
-            "EP_Paper" => "required",
-            "EP_Year" => "required",
+            "E_Domain" => "required",
+            "PD_Title" => "required",
+            "PD_Date" => "required",
+            "PD_Type" => "required",
             "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
-            'RP_File' => 'required|mimes:pdf|max:2048',
+            'PD_File' => 'required|mimes:pdf|max:2048',
         ]);
 
         $userID = Auth::user()->P_IC;
@@ -113,13 +114,9 @@ class ExpertController extends Controller
         $expert->E_University = $validatedData['E_University'];
         $expert->E_Email = $validatedData['E_Email'];
         $expert->E_PhoneNumber = $validatedData['E_PhoneNumber'];
+        $expert->E_Domain = $validatedData['E_Domain'];
         $expert->P_IC = $userID;
         $expert->save();
-
-        $expertResearch = new ExpertResearch();
-        $expertResearch->ER_Title = $validatedData['ER_Title'];
-        $expertResearch->E_ID = $expert->E_ID;
-        $expertResearch->save();
 
         if ($request->hasFile('PI_File')) {
             $picture = new Picture();
@@ -133,18 +130,24 @@ class ExpertController extends Controller
             $picture->save();
         }
 
-        $expertPaper = new ExpertPaper();
-        $expertPaper->EP_Paper = $validatedData['EP_Paper'];
-        $expertPaper->EP_Year = $validatedData['EP_Year'];
-        $expertPaper->ER_ID = $expertResearch->ER_ID;
-        $expertPaper->E_ID = $expert->E_ID;
-        $file = $request->file('RP_File');
+        $publicationData = new PublicationData();
+        $publicationData->PD_Title = $validatedData['PD_Title'];
+        $publicationData->PD_University = $validatedData['E_University'];
+        $publicationData->PD_Type = $validatedData['PD_Type'];
+        $publicationData->PD_Author = $validatedData['E_Name'];
+
+        //PDF File
+        $file = $request->file('PD_File');
         $fileName = time() . '_' . $file->getClientOriginalName();
         $filePath = $file->storeAs('uploads', $fileName, 'public');
-        $expertPaper->EP_FileName = $fileName;
-        $expertPaper->EP_FilePath = $filePath;
+        $publicationData->PD_FileName = $fileName;
+        $publicationData->PD_FilePath = $filePath;
 
-        if ($expertPaper->save()) {
+        $publicationData->PD_Date = $validatedData['PD_Date'];
+        $publicationData->E_ID = $expert->E_ID;
+//        $publicationData->save();
+
+        if ($publicationData->save()) {
             // Redirect with success message
             return redirect()->route("addExpert")->with("success", "Success to add expert!");
         }
@@ -156,26 +159,33 @@ class ExpertController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
-            "EP_Paper" => "required",
-            "EP_Year" => "required",
-            'RP_File' => 'required|mimes:pdf|max:2048',
+            "PD_Title" => "required",
+            "PD_Date" => "required",
+            "PD_Type" => "required",
+            'PD_File' => 'required|mimes:pdf|max:2048',
         ]);
 
         $userID = Auth::user()->P_IC;
-        $Experts = Expert::where('P_IC', $userID)->get();
+        $Experts = Expert::where('P_IC', $userID)->get()->first();
 
         if($Experts!= null){
-            $expertPaper = new ExpertPaper();
-            $expertPaper->EP_Paper = $validatedData['EP_Paper'];
-            $expertPaper->EP_Year = $validatedData['EP_Year'];
-//            $expertPaper->ER_ID = $E_ID;
-            $expertPaper->E_ID = $E_ID;
-            $file = $request->file('RP_File');
+            $publicationData = new PublicationData();
+            $publicationData->PD_Title = $validatedData['PD_Title'];
+            $publicationData->PD_University = $Experts->E_University;
+            $publicationData->PD_Type = $validatedData['PD_Type'];
+            $publicationData->PD_Author = $Experts->E_Name;
+
+            //PDF File
+            $file = $request->file('PD_File');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('uploads', $fileName, 'public');
-            $expertPaper->EP_FileName = $fileName;
-            $expertPaper->EP_FilePath = $filePath;
-            if ($expertPaper->save()) {
+            $publicationData->PD_FileName = $fileName;
+            $publicationData->PD_FilePath = $filePath;
+
+            $publicationData->PD_Date = $validatedData['PD_Date'];
+            $publicationData->E_ID = $Experts->E_ID;
+
+            if ($publicationData->save()) {
                 // Redirect with success message
                 return redirect()->route("detailExpertView", $E_ID)->with("success", "Success to add expert!");
             }
@@ -195,10 +205,13 @@ class ExpertController extends Controller
         }
     }
 
-    public function deletePaper($EP_ID){
-        $Expert = ExpertPaper::findOrFail($EP_ID)->E_ID;
+    public function deletePaper($PD_ID){
+
+        $EID = PublicationData::find($PD_ID)->E_ID;
+
+        $Expert = Expert::where('E_ID', $EID)->get()->first();
         try {
-            ExpertPaper::where('EP_ID', $EP_ID)->delete();
+            PublicationData::where('PD_ID', $PD_ID)->delete();
             // Redirect with success message
             return redirect()->route("detailExpertView", $Expert)->with("success", "Success to delete expert!");
         } catch (\Exception $e){
