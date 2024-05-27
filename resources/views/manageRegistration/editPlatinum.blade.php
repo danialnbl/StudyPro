@@ -1,6 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.staffmain')
 
-@section('container')
+@section('staff')
 <section style="">
   <div class="container py-5">
     <div class="row">
@@ -53,7 +53,7 @@
                   <select class="form-select" name="P_Status" id="P_Status" required>
                     <option value="" disabled>Select Status</option>
                     <option value="Platinum" {{ $Platinum->P_Status == 'Platinum' ? 'selected' : '' }}>Platinum</option>
-                    <option value="CRMP" {{ $Platinum->P_Status == 'CRMP' ? 'selected' : '' }}>CRMPe</option>
+                    <option value="CRMP" {{ $Platinum->P_Status == 'CRMP' ? 'selected' : '' }}>CRMP</option>
                   </select>
                 </div>
               </div>
