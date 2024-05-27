@@ -205,10 +205,13 @@ class ExpertController extends Controller
         }
     }
 
-    public function deletePaper($EP_ID){
-        $Expert = ExpertPaper::findOrFail($EP_ID)->E_ID;
+    public function deletePaper($PD_ID){
+
+        $EID = PublicationData::find($PD_ID)->E_ID;
+
+        $Expert = Expert::where('E_ID', $EID)->get()->first();
         try {
-            ExpertPaper::where('EP_ID', $EP_ID)->delete();
+            PublicationData::where('PD_ID', $PD_ID)->delete();
             // Redirect with success message
             return redirect()->route("detailExpertView", $Expert)->with("success", "Success to delete expert!");
         } catch (\Exception $e){
