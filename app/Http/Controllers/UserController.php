@@ -324,6 +324,18 @@ class UserController extends Controller
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->delete();
         return redirect('/PlatinumList')->with('status',"Data Deleted Successfully !");
     }
+// search in list
+    public function search(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+
+    return view('manageRegistration.platinumList', compact('platinum'));
+    }
 
 
     //Verification
@@ -358,10 +370,81 @@ class UserController extends Controller
         return view('manageProfile.mentorProfile');
     }
     //display info on profile
+    
     public function showPlatinum()
     {
+        //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
         $user = Auth::user();
-        return view('manageProfile.ProfileView', compact('user'));
+        $platinum = Platinum::where('P_IC', $user->P_IC)->firstOrFail();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->PR_Id;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+
+        return view('manageProfile.ProfileView', compact('platinum', 'PlatEdu', 'PlatRef'));
+    }
+    public function updatePlatinum()
+    {
+        //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+        $user = Auth::user();
+        $platinum = Platinum::where('P_IC', $user->P_IC)->firstOrFail();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->PR_Id;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+
+        return view('manageProfile.editProfileView', compact('platinum', 'PlatEdu', 'PlatRef'));
+    }
+    public function PlatinumProfilePost(Request $request,)
+    {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
+                "P_Name" => "required",
+                "P_PhoneNumber" => "required",
+                "P_Facebook" => "required",
+                "P_Address" => "required",
+                "P_Title" => "required",
+                "PE_EduInstitute" => "required",
+                "PE_Sponsorship" => "required",
+                "PE_EduLevel" => "required",
+                "PE_Occupation" => "required",
+            ]);
+
+            $P_IC = Auth::user()->P_IC;
+            // Retrieve the Platinum instance by P_IC
+            $platinum = Platinum::findOrFail($P_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update related PlatinumEducation instance
+            $platinum->education()->update([
+                "PE_EduInstitute" => $validatedData['PE_EduInstitute'],
+                "PE_Sponsorship" => $validatedData['PE_Sponsorship'],
+                "PE_EduLevel" => $validatedData['PE_EduLevel'],
+                "PE_Occupation" => $validatedData['PE_Occupation'],
+            ]);
+
+            // Update Platinum instance
+            $platinum->update([
+                "P_Name" => $validatedData['P_Name'],
+                "P_PhoneNumber" => $validatedData['P_PhoneNumber'],
+                "P_Facebook" => $validatedData['P_Facebook'],
+                "P_Address" => $validatedData['P_Address'],
+                "P_Title" => $validatedData['P_Title'],
+            ]);
+            if ($request->hasFile('PI_File')) {
+                $picture = new Picture();
+                $file = $request->file('PI_File');
+                $fileNamePic = time() . '_' . $file->getClientOriginalName();
+                $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+                $picture->PI_File = $fileNamePic;
+                $picture->PI_FilePath = $filePathPic;
+                $picture->PI_Type = "Platinum";
+                $picture->E_ID = $platinum->P_IC;;
+                $picture->save();
+            }
+
+            return redirect('/platProfile')->with('success', 'Platinum profile updated successfully');
     }
     //homepage
     public function staffmain()
