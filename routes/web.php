@@ -36,8 +36,6 @@ Route::post('/MentorRegister', [UserController::class,'MentorRegisterPost'])->na
 
 Route::get('/loginReset', [UserController::class, 'ResetPasswordView']);
 
-Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
-
 Route::get('/loginVerify', [UserController::class, 'VerifyAccountView']);
 
 Route::post('insert-RegData', [UserController::class]);//nak insert data dalam database
@@ -86,6 +84,9 @@ Route::put('/expertEdit/{E_ID}', [ExpertController::class, 'ExpertEditPost'])->n
 Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
 Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'deletePaper']);
+
+//publication
+Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
