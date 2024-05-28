@@ -248,6 +248,16 @@ class UserController extends Controller
             $platinum = Platinum ::all();
             return view('manageRegistration.platinumList', compact('platinum'));
         }
+
+        public function viewPlat($P_IC){
+            $platinum = Platinum::findOrFail($P_IC);
+            //$platinum = Platinum ::all();
+            $data1 = $platinum->PE_Id;
+            $data2 = $platinum->PR_Id;
+            $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+            $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+            return view('manageRegistration.viewDetail', compact('platinum','PlatEdu','PlatRef'));
+        }
         
         public function editPlat($P_IC)
         {
@@ -279,7 +289,8 @@ class UserController extends Controller
             ]);
 
             // Retrieve the Platinum instance by P_IC
-            $Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+            $Platinum = Platinum::findOrFail($P_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
 
             // Update related PlatinumEducation instance
             $Platinum->education()->update([
@@ -303,7 +314,16 @@ class UserController extends Controller
 
             return redirect('/platEdit/' . $P_IC)->with('success', 'Platinum updated successfully');
         }
-
+//      delete
+    public function deletePlat($P_IC){
+        $platinum = Platinum::find($P_IC);
+        $platinum -> delete();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->PR_Id;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->delete();
+        $PlatRef = PlatinumReferral::where('PR_Id',$data2)->delete();
+        return redirect('/PlatinumList')->with('status',"Data Deleted Successfully !");
+    }
 
 
     //Verification

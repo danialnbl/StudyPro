@@ -38,32 +38,42 @@
                             <input type="text" class="form-control mb-3" id="E_PhoneNumber" name="E_PhoneNumber" value="{{$expert->E_PhoneNumber}}" required>
                         </div>
                         <div class="col-12">
-                            <label for="ER_Title">Research Domain:</label>
-                            <select class="form-select" aria-label="Default select example" id="ER_Title" name="ER_Title"
+                            <label for="E_Domain">Research Domain:</label>
+                            <select class="form-select mb-3" aria-label="Default select example" id="E_Domain" name="E_Domain"
                                     required>
                                 <option>Open this select menu</option>
-                                <option value="Computer System Research Group" {{ $ExpertResearchs->ER_Title == "Computer System Research Group" ? 'selected' : '' }}>Computer System Research Group</option>
-                                <option value="Virtual Simulation & Computing" {{ $ExpertResearchs->ER_Title == "Virtual Simulation & Computing" ? 'selected' : '' }}>Virtual Simulation & Computing
+                                <option value="Computer System Research Group" {{ $expert->E_Domain == "Computer System Research Group" ? 'selected' : '' }}>Computer System Research Group</option>
+                                <option value="Virtual Simulation & Computing" {{ $expert->E_Domain == "Virtual Simulation & Computing" ? 'selected' : '' }}>Virtual Simulation & Computing
                                 </option>
-                                <option value="Machine Intelligence Research Group" {{ $ExpertResearchs->ER_Title == "Machine Intelligence Research Group" ? 'selected' : '' }}>Machine Intelligence Research Group</option>
-                                <option value="Cyber Security Interest Group" {{ $ExpertResearchs->ER_Title == "Cyber Security Interest Group" ? 'selected' : '' }}>Cyber Security Interest Group
+                                <option value="Machine Intelligence Research Group" {{ $expert->E_Domain == "Machine Intelligence Research Group" ? 'selected' : '' }}>Machine Intelligence Research Group</option>
+                                <option value="Cyber Security Interest Group" {{ $expert->E_Domain == "Cyber Security Interest Group" ? 'selected' : '' }}>Cyber Security Interest Group
                                 </option>
-                                <option value="Software Engineering" {{ $ExpertResearchs->ER_Title == "Software Engineering" ? 'selected' : '' }}>Software Engineering
+                                <option value="Software Engineering" {{ $expert->E_Domain == "Software Engineering" ? 'selected' : '' }}>Software Engineering
                                 </option>
-                                <option value="Knowledge Engineering & Computational Linguistic" {{ $ExpertResearchs->ER_Title == "Knowledge Engineering & Computational Linguistic" ? 'selected' : '' }}>Knowledge Engineering & Computational Linguistic</option>
-                                <option value="Data Science & Simulation Modeling" {{ $ExpertResearchs->ER_Title == "Data Science & Simulation Modeling" ? 'selected' : '' }}>Data Science & Simulation Modeling
+                                <option value="Knowledge Engineering & Computational Linguistic" {{ $expert->E_Domain == "Knowledge Engineering & Computational Linguistic" ? 'selected' : '' }}>Knowledge Engineering & Computational Linguistic</option>
+                                <option value="Data Science & Simulation Modeling" {{ $expert->E_Domain == "Data Science & Simulation Modeling" ? 'selected' : '' }}>Data Science & Simulation Modeling
                                 </option>
-                                <option value="Database Technology & Information System" {{ $ExpertResearchs->ER_Title == "Database Technology & Information System" ? 'selected' : '' }}>Database Technology & Information System
+                                <option value="Database Technology & Information System" {{ $expert->E_Domain == "Database Technology & Information System" ? 'selected' : '' }}>Database Technology & Information System
                                 </option>
-                                <option value="Educational Technology (EduTech)" {{ $ExpertResearchs->ER_Title == "Educational Technology (EduTech)" ? 'selected' : '' }}>Educational Technology (EduTech)
+                                <option value="Educational Technology (EduTech)" {{ $expert->E_Domain == "Educational Technology (EduTech)" ? 'selected' : '' }}>Educational Technology (EduTech)
                                 </option>
-                                <option value="Image Signal Processing" {{ $ExpertResearchs->ER_Title == "Image Signal Processing" ? 'selected' : '' }}>Image Signal Processing
+                                <option value="Image Signal Processing" {{ $expert->E_Domain == "Image Signal Processing" ? 'selected' : '' }}>Image Signal Processing
                                 </option>
-                                <option value="Computer Network & Research Group" {{ $ExpertResearchs->ER_Title == "Computer Network & Research Group" ? 'selected' : '' }}>Computer Network & Research Group
+                                <option value="Computer Network & Research Group" {{ $expert->E_Domain == "Computer Network & Research Group" ? 'selected' : '' }}>Computer Network & Research Group
                                 </option>
-                                <option value="Soft Computing & Optimization" {{ $ExpertResearchs->ER_Title == "Soft Computing & Optimization" ? 'selected' : '' }}>Soft Computing & Optimization
+                                <option value="Soft Computing & Optimization" {{ $expert->E_Domain == "Soft Computing & Optimization" ? 'selected' : '' }}>Soft Computing & Optimization
                                 </option>
                             </select>
+                        </div>
+                        <div class="col-12">
+                            <label for="PI_File">Upload Expert Image:</label>
+                            <input class="form-control mb-3" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg">
+                            @error('file')
+                            <div class="alert alert-danger mt-1 mb-3">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <img id="imagePreview" src="{{ url('storage/'.$ExpertPic->PI_FilePath)  }}" alt="Image" width="200" height="200"/>
                         </div>
                     </div>
                     <div class="form-navigation mt-3">

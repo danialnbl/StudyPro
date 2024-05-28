@@ -50,6 +50,10 @@ Route::get('/platEdit/{P_IC}', [UserController::class, 'editPlat'])->name('editP
 
 Route::put('/platEdit/{P_IC}', [UserController::class, 'PlatinumEditPost'])->name('platEdit.update');
 
+Route::get('/deleteEdit/{P_IC}', [UserController::class, 'deletePlat'])->name('deletePlatinum');
+
+Route::get('/view/{P_IC}', [UserController::class, 'viewPlat'])->name('viewPlatinum');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 
@@ -70,6 +74,8 @@ Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpe
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
 Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert');
+
+Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name('reportExpert');
 
 //Expert Post
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
