@@ -20,52 +20,37 @@
                     <div class="form-section">
                         <h3 class=" pb-2 pb-md-0"><b>Add New Publication</b></h3>
                         <div class="col-12">
-                            <label for="E_Name" class="form-label">Expert Name</label>
+                            <label for="E_Name" class="form-label">University Name</label>
                             <input type="text" class="form-control mb-3" id="E_Name" name="E_Name" required>
                         </div>
                         <div class="col-12">
-                            <label for="E_University" class="form-label">Expert University</label>
+                            <label for="E_University" class="form-label">Publication Title</label>
                             <input type="text" class="form-control mb-3" id="E_University" name="E_University"
                                 required>
                         </div>
                         <div class="col-12">
-                            <label for="E_Email" class="form-label">Expert Email</label>
+                            <label for="E_Email" class="form-label">Author Name</label>
                             <input type="email" class="form-control mb-3" id="E_Email" name="E_Email" required>
                         </div>
                         <div class="col-12">
-                            <label for="E_PhoneNumber" class="form-label">Expert Phone Number</label>
+                            <label for="E_PhoneNumber" class="form-label">DOI: </label>
                             <input type="text" class="form-control mb-3" id="E_PhoneNumber" name="E_PhoneNumber" required>
                         </div>
                         <div class="col-12">
-                            <label for="ER_Title">Research Domain:</label>
+                            <label for="ER_Title">Publication Type:</label>
                             <select class="form-select mb-3" aria-label="Default select example" id="ER_Title" name="ER_Title"
                                 required>
-                                <option selected>Open this select menu</option>
-                                <option value="Computer System Research Group">Computer System Research Group</option>
-                                <option value="Virtual Simulation & Computing">Virtual Simulation & Computing
-                                </option>
-                                <option value="Machine Intelligence Research Group">Machine Intelligence Research Group</option>
-                                <option value="Cyber Security Interest Group">Cyber Security Interest Group
-                                </option>
-                                <option value="Software Engineering">Software Engineering
-                                </option>
-                                <option value="Knowledge Engineering & Computational Linguistic">Knowledge Engineering & Computational Linguistic</option>
-                                <option value="Data Science & Simulation Modeling">Data Science & Simulation Modeling
-                                </option>
-                                <option value="Database Technology & Information System">Database Technology & Information System
-                                </option>
-                                <option value="Educational Technology (EduTech)">Educational Technology (EduTech)
-                                </option>
-                                <option value="Image Signal Processing">Image Signal Processing
-                                </option>
-                                <option value="Computer Network & Research Group">Computer Network & Research Group
-                                </option>
-                                <option value="Soft Computing & Optimization">Soft Computing & Optimization
-                                </option>
+                                <option selected>Select Publication Type</option>
+                                <option value="Journal">Journal</option>
+                                <option value="Article">Article</option>
+                                <option value="Conference Paper">Conference Paper</option>
+                                <option value="Book">Book</option>
+                                <option value="Presentation">Presentation</option>
+                                <option value="Chapter">Chapter</option>
                             </select>
                         </div>
                         <div class="col-12">
-                            <label for="PI_File">Upload Expert Image:</label>
+                            <label for="PI_File">Upload Your File</label>
                             <input class="form-control mb-3" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg" required>
                             @error('file')
                             <div class="alert alert-danger mt-1 mb-3">{{ $message }}</div>
