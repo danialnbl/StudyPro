@@ -52,6 +52,8 @@ Route::get('/deleteEdit/{P_IC}', [UserController::class, 'deletePlat'])->name('d
 
 Route::get('/view/{P_IC}', [UserController::class, 'viewPlat'])->name('viewPlatinum');
 
+Route::get('/search', [UserController::class, 'search'])->name('searchPlatinum');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 
@@ -91,7 +93,11 @@ Route::get('/publication', [PublicationDataController::class, 'addPublicationDat
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
 
-//Route::get('/platProfile',[UserController::class, 'showPlatinum']);
+Route::get('/platProfile', [UserController::class, 'showPlatinum'])->name('showPP');
+
+Route::get('/editPlatProfile',[UserController::class, 'updatePlatinum'])->name('editPP');
+
+Route::put('/editPlatEdit', [UserController::class, 'PlatinumProfilePost'])->name('platProfile.update');
 
 Route::get('/staffProfile',[UserController::class, 'staffProfile']);
 
