@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('DT_DraftNumber');
             $table->date('DT_StartDate');
             $table->date('DT_EndDate');
+            $table->string('DT_draftFile');
             $table->integer('DT_PagesNumber');
             $table->string('DT_Feedback');
             $table->integer('DT_DDC');
