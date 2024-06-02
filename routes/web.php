@@ -75,6 +75,7 @@ Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpe
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
 Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert');
+//Route::get('/expertPublicationEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editPublicationExpert');
 
 Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name('reportExpert');
 
@@ -82,6 +83,9 @@ Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
 Route::post('/paperAdd/{EP_ID}', [ExpertController::class, 'PaperAddPost'])->name('papertAdd.submit');
 Route::put('/expertEdit/{E_ID}', [ExpertController::class, 'ExpertEditPost'])->name('expertEdit.update');
+Route::put('/publicationEdit/{PD_ID}', [ExpertController::class, 'PublicationEditPost'])->name('publicationEdit.update');
+
+
 
 //Expert delete, edit, update
 Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
