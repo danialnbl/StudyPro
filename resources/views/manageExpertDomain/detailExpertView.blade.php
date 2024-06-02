@@ -6,7 +6,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/platinumdashboard">Home</a></li>
-                    <li class="breadcrumb-item">Experts</li>
+                    <li class="breadcrumb-item"><a href="/expert">Experts</a></li>
                     <li class="breadcrumb-item active">Profile</li>
                 </ol>
             </nav>
@@ -39,7 +39,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Expert Research</button>
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Expert Publications</button>
                                 </li>
 
                             </ul>
@@ -66,37 +66,163 @@
                                         <div class="col-lg-3 col-md-4 label">Phone</div>
                                         <div class="col-lg-9 col-md-8">{{$Expert->E_PhoneNumber}}</div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Expert Domain</div>
+                                        <div class="col-lg-9 col-md-8">{{ $Expert->E_Domain }}</div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                     <!-- Profile Edit Form -->
                                         <div class="row mb-3">
-                                            <table id="" class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Title</th>
-                                                    <th scope="col">Year</th>
-                                                    <th scope="col">Paper</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach ($Experts as $expert)
-                                                    @foreach($fetchResearches as $research)
-                                                        @foreach($fetchPapers as $paper)
-                                                        <tr>
-                                                            <th scope="row">{{ $loop->index + 1 }}</th>
-                                                            <td>{{ $research->ER_Title }}</td>
-                                                            <td>{{ date('d-m-Y',strtotime($paper->EP_Year))  }}</td>
-                                                            <td>
-                                                                <a href="{{ url('storage/'.$paper->EP_FilePath)  }}">{{ $paper -> EP_Paper }}</a>
-                                                            </td>
-                                                        </tr>
+                                            @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                <div class="d-flex flex-row-reverse mb-3">
+                                                    <button type="button" class="btn btn-primary align-items-end" data-bs-toggle="modal" data-bs-target="#addPaperModal">
+                                                        Add new paper
+                                                    </button>
+                                                </div>
+                                                <!-- Modal Add New Paper -->
+                                            <form id="upload" action="/paperAdd/{{$Expert->E_ID}}" method="post" enctype="multipart/form-data" class="row">
+                                                @csrf
+                                                <div id="addPaperModal" class="modal " tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Add new paper</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                                                                <div class="col-12">
+                                                                    <label for="PD_Title">Publication Title:</label>
+                                                                    <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="PD_Date" class=" col-form-label">Publication Date</label>
+                                                                    <input type="date" class="form-control mb-3" name="PD_Date" id="PD_Date">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="PD_Type">Publication Type:</label>
+                                                                    <select class="form-select mb-3" aria-label="Default select example" id="PD_Type" name="PD_Type"
+                                                                            required>
+                                                                        <option selected>Open this select menu</option>
+                                                                        <option value="Journal">Journal</option>
+                                                                        <option value="Article">Article
+                                                                        </option>
+                                                                        <option value="Book">Book</option>
+                                                                        <option value="Conference Paper">Conference Paper</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="PD_File">Upload Publication:</label>
+                                                                    <input class="form-control mb-2" type="file" id="PD_File" name="PD_File" accept="application/pdf" required>
+                                                                    @error('file')
+                                                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                                <!-- Modal Edit Paper -->
+                                                <form id="upload" action="/paperAdd/{{$Expert->E_ID}}" method="post" enctype="multipart/form-data" class="row">
+                                                    @csrf
+                                                    <div id="editPaperModal" class="modal " tabindex="-1">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit paper</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_Title">Publication Title:</label>
+                                                                        <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_Date" class=" col-form-label">Publication Date</label>
+                                                                        <input type="date" class="form-control mb-3" name="PD_Date" id="PD_Date">
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_Type">Publication Type:</label>
+                                                                        <select class="form-select mb-3" aria-label="Default select example" id="PD_Type" name="PD_Type"
+                                                                                required>
+                                                                            <option selected>Open this select menu</option>
+                                                                            <option value="Journal">Journal</option>
+                                                                            <option value="Article">Article
+                                                                            </option>
+                                                                            <option value="Book">Book</option>
+                                                                            <option value="Conference Paper">Conference Paper</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_File">Upload Publication:</label>
+                                                                        <input class="form-control mb-2" type="file" id="PD_File" name="PD_File" accept="application/pdf" required>
+                                                                        @error('file')
+                                                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            @endif
+
+                                                <table  class="table table-bordered table-striped table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Year</th>
+                                                        <th scope="col">Publications Title</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Author</th>
+                                                        @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                            <th class="text-center" scope="col">Edit</th>
+                                                            <th class="text-center" scope="col">Delete</th>
+                                                        @endif
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach ($Experts as $expert)
+                                                        @foreach($fetchPublication as $publication)
+                                                            <tr>
+                                                                <th scope="row">{{ $loop->index + 1 }}</th>
+                                                                <td>{{ date('Y',strtotime($publication->PD_Date))  }}</td>
+                                                                <td>
+                                                                    <a href="{{ url('storage/'.$publication->PD_FilePath)  }}">{{ $publication -> PD_Title }}</a>
+                                                                </td>
+                                                                <td>{{$publication->PD_Type}}</td>
+                                                                <td>{{$publication->PD_Author}}</td>
+                                                                @if($Expert -> P_IC == Auth::user()->P_IC)
+                                                                    <td class="text-center">
+                                                                        <a class="opn btn btn-success"
+                                                                           href="" data-bs-toggle="modal" data-bs-target="#editPaperModal">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                            Edit
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <a class="del btn btn-danger" href="/paperDelete/{{$publication->PD_ID}}"><i class="bi bi-trash-fill"></i>
+                                                                            Delete</a>
+                                                                    </td>
+                                                                @endif
+                                                            </tr>
                                                         @endforeach
                                                     @endforeach
-                                                @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>
                                         </div>
 
                                 </div>
@@ -110,5 +236,7 @@
 
                 </div>
             </div>
+
+
         @endforeach
 @endsection

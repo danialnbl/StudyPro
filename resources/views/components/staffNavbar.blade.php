@@ -125,7 +125,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="//PlatinumList">
+                    <a href="/PlatinumList">
                         <i class="bi bi-circle"></i><span>Registration List</span>
                     </a>
                 </li>
