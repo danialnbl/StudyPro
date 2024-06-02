@@ -96,12 +96,19 @@ Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
     'verify'=>true
 ]);*/
 
+//testing
+Route::get('/testdraftthesis',[WeeklyFocusController::class, 'testing']);
+Route::get('/addtestdraftthesis',[WeeklyFocusController::class, 'testingadd']);
+
 //draftthesis
 Route::get('/draftthesis',[DraftThesisController::class, 'AddDraftThesisView']);
+//Route::get('/draftthesis',[DraftThesisController::class, 'AddDraftThesisView']);
 
 //weeklyfocus
 Route::get('/weeklyfocus',[WeeklyFocusController::class, 'AddWeeklyFocusView']);
-
+Route::get('/weeklyfocuslist',[WeeklyFocusController::class, 'ListWeeklyFocusView']);
+Route::get('/weeklyfocusfb',[WeeklyFocusController::class, 'FeedbackWFView']);
+Route::get('/weeklyfocusedit',[WeeklyFocusController::class, 'EditWeeklyFocusView']);
 
 
 

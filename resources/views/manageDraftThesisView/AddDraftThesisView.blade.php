@@ -1,3 +1,5 @@
+<!-- @extends('layouts.main') -->
+<!-- @section('container') -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,44 +14,53 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </head>
+
 <body>
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Title</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter title or email">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" placeholder="Enter title of draft">
     </div>
     <div class="mb-3">
         <label for="draftno" class="form-label">Draft Number</label>
         <input type="number" class="form-control" id="draftno" placeholder="01">
     </div>
-    <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your description"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="formFileSm" class="form-label">Draft Thesis</label>
-        <input class="form-control form-control-sm" id="formFileSm" type="file">
-    </div>
-    <form>
-        <div class="row form-group">
-            <label for="date" class="col-sm-1 col-form-label">Date</label>
-            <div class="col-sm-4">
-                <div class="input-group date" id="datepicker">
-                    <input type="text" class="form-control">
-                    <span class="input-group-append">
-                        <span class="input-group-text bg-white d-block">
-                            <i class="fa fa-calendar"></i>
-                        </span>
+    <div class="row form-group">
+        <label for="startdate" class="col-sm-1 col-form-label">Draft Start Date</label>
+        <div class="col-sm-4">
+            <div class="input-group date" id="datepicker">
+                <input type="text" class="form-control">
+                <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
                     </span>
-                </div>
+                </span>
             </div>
         </div>
-    </form>
+    </div>
+    <div class="row form-group">
+        <label for="completedate" class="col-sm-1 col-form-label">Draft Complete Date</label>
+        <div class="col-sm-4">
+            <div class="input-group date" id="datepicker">
+                <input type="text" class="form-control">
+                <span class="input-group-append">
+                    <span class="input-group-text bg-white d-block">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="ddc" class="form-label">Draft Declaration Cycle</label>
+        <input type="number" class="form-control" id="draftno" placeholder="01">
+    </div>
+
     <script type="text/javascript">
         $(function() {
             $('#datepicker').datepicker();
         });
     </script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+<!-- @endsection -->
