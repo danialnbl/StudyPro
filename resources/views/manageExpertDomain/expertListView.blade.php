@@ -12,7 +12,6 @@
         </div>
     @endif
     <h1>All Experts List</h1>
-
     <div class="card p-4 mt-4">
         <table id="myTable" class="table">
             <thead>
@@ -43,5 +42,8 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="/expertReport" class="btn btn-primary align-items-end">
+            Download All Experts
+        </a>
     </div>
 @endsection

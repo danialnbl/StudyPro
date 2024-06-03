@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\PublicationDataController;
+use App\Http\Controllers\DraftThesisController;
+use App\Http\Controllers\WeeklyFocusController;
 
-
-Route::get('/', function () {
-    return "Well hello there o/. so...";
-})->middleware('auth');
+Route::get('/', [UserController::class, 'logout']);
 
 //login
 
@@ -74,6 +73,7 @@ Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpe
 
 Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
 Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert');
+//Route::get('/expertPublicationEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editPublicationExpert');
 
 Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name('reportExpert');
 
@@ -81,6 +81,9 @@ Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
 Route::post('/paperAdd/{EP_ID}', [ExpertController::class, 'PaperAddPost'])->name('papertAdd.submit');
 Route::put('/expertEdit/{E_ID}', [ExpertController::class, 'ExpertEditPost'])->name('expertEdit.update');
+Route::put('/publicationEdit/{PD_ID}', [ExpertController::class, 'PublicationEditPost'])->name('publicationEdit.update');
+
+
 
 //Expert delete, edit, update
 Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
@@ -128,7 +131,17 @@ Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 ]);*/
 
 
+//weeklyfocus controller
+Route::get('/weeklyfocus', [WeeklyFocusController::class, 'index']);
+Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView']);
+Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView']);
+Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('submitWeeklyFocus');;
 
+//draftthesis controller
+Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerformanceView']);
+Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDraftThesisView']);
+Route::post('/draftthesis/submit', [DraftThesisController::class, 'submitDraftThesis']);
+Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDraftThesis']);
 
 
 

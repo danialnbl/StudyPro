@@ -87,6 +87,28 @@ class ExpertController extends Controller
         return redirect('/expertEdit/' . $E_ID)->with('success', 'Expert updated successfully');
     }
 
+    public function PublicationEditPost(Request $request, $PD_ID)
+    {
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "PD_Title" => "required",
+            "PD_Date" => "required",
+            "PD_Type" => "required",
+        ]);
+
+//        $Experts = Expert::where('E_ID', $E_ID)->get();
+        $PublicationData = PublicationData::findOrFail($PD_ID);
+
+        $PublicationData->update([
+                "PD_Title" => $validatedData['PD_Title'],
+                "PD_Date" => $validatedData['PD_Date'],
+                "PD_Type" => $validatedData['PD_Type'],
+        ]);
+
+        return redirect('/myexpert')->with('success', 'Expert publication updated successfully');
+    }
+
     public function detailExpertView($E_ID)
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
