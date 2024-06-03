@@ -92,7 +92,7 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                    <img class="img-account-profile rounded-circle mb-2" src="" alt="Profile Photo">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{ Auth::user()->name }}</div>
                     <!-- Profile picture upload button-->

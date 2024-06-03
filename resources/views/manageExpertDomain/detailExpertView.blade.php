@@ -131,9 +131,11 @@
                                             </form>
 
                                                 <!-- Modal Edit Paper -->
-                                                <form id="upload" action="/paperAdd/{{$Expert->E_ID}}" method="post" enctype="multipart/form-data" class="row">
+                                                @foreach($fetchPublication as $publication)
+                                                <form id="uploadEdit" action="/publicationEdit/{{ $publication->PD_ID }}" method="post" enctype="multipart/form-data" class="row">
                                                     @csrf
-                                                    <div id="editPaperModal" class="modal " tabindex="-1">
+                                                    @method('PUT')
+                                                    <div id="editModal{{$publication->PD_ID}}" class="modal " tabindex="-1">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -144,30 +146,23 @@
                                                                     <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
                                                                     <div class="col-12">
                                                                         <label for="PD_Title">Publication Title:</label>
-                                                                        <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                                                                        <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" value="{{$publication->PD_Title}}" required>
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label for="PD_Date" class=" col-form-label">Publication Date</label>
-                                                                        <input type="date" class="form-control mb-3" name="PD_Date" id="PD_Date">
+                                                                        <input type="date" class="form-control mb-3" name="PD_Date" value="{{$publication->PD_Date}}" id="PD_Date">
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label for="PD_Type">Publication Type:</label>
                                                                         <select class="form-select mb-3" aria-label="Default select example" id="PD_Type" name="PD_Type"
                                                                                 required>
-                                                                            <option selected>Open this select menu</option>
-                                                                            <option value="Journal">Journal</option>
-                                                                            <option value="Article">Article
+                                                                            <option >Open this select menu</option>
+                                                                            <option {{ $publication->PD_Type == "Journal" ? 'selected' : '' }} value="Journal">Journal</option>
+                                                                            <option {{ $publication->PD_Type == "Article" ? 'selected' : '' }} value="Article">Article
                                                                             </option>
-                                                                            <option value="Book">Book</option>
-                                                                            <option value="Conference Paper">Conference Paper</option>
+                                                                            <option {{ $publication->PD_Type == "Book" ? 'selected' : '' }} value="Book">Book</option>
+                                                                            <option {{ $publication->PD_Type == "Conference Paper" ? 'selected' : '' }} value="Conference Paper">Conference Paper</option>
                                                                         </select>
-                                                                    </div>
-                                                                    <div class="col-12">
-                                                                        <label for="PD_File">Upload Publication:</label>
-                                                                        <input class="form-control mb-2" type="file" id="PD_File" name="PD_File" accept="application/pdf" required>
-                                                                        @error('file')
-                                                                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                                                        @enderror
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -178,6 +173,7 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                                @endforeach
                                             @endif
 
                                                 <table  class="table table-bordered table-striped table-hover">
@@ -208,7 +204,7 @@
                                                                 @if($Expert -> P_IC == Auth::user()->P_IC)
                                                                     <td class="text-center">
                                                                         <a class="opn btn btn-success"
-                                                                           href="" data-bs-toggle="modal" data-bs-target="#editPaperModal">
+                                                                           href="#editModal{{$publication->PD_ID}}" data-bs-toggle="modal" >
                                                                             <i class="bi bi-pencil-square"></i>
                                                                             Edit
                                                                         </a>
