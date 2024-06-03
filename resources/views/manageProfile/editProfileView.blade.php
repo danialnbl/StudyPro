@@ -37,16 +37,9 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2 profile-photo" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Profile Photo">
+                    <img class="img-account-profile rounded-circle mb-2 profile-photo" src="" alt="Profile Photo">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{ Auth::user()->name }}</div>
-                    <!-- Profile picture upload button-->
-                    <form method="POST" action="{{ route('platProfile.update') }}" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <label for="PI_File">Upload Profile:</label>
-                            <input class="form-control mb-3" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg" required>
-                    </form>
                 </div>
             </div>
         </div>
@@ -55,9 +48,15 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('platProfile.update') }}">
+                    <form method="POST" action="{{ route('platProfile.update') }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <div class="form-group mb-3">
+                            <label for="PI_File">Upload Profile:</label>
+                            <input class="form-control" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg">
+                        </div>
+
                         <table class="table">
                             <tr>
                                 <th>Name</th>

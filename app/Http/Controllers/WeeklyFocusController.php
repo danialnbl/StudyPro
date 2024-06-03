@@ -58,3 +58,4 @@ class WeeklyFocusController extends Controller
     }
 
 }
+
