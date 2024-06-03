@@ -111,19 +111,18 @@ Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
     'verify'=>true
 ]);*/
 
-//testing
-Route::get('/testdraftthesis',[WeeklyFocusController::class, 'testing']);
-Route::get('/addtestdraftthesis',[WeeklyFocusController::class, 'testingadd']);
 
-//draftthesis
-Route::get('/draftthesis',[DraftThesisController::class, 'AddDraftThesisView']);
-//Route::get('/draftthesis',[DraftThesisController::class, 'AddDraftThesisView']);
+//weeklyfocus controller
+Route::get('/weeklyfocus', [WeeklyFocusController::class, 'index']);
+Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView']);
+Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView']);
+Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('submitWeeklyFocus');;
 
-//weeklyfocus
-Route::get('/weeklyfocus',[WeeklyFocusController::class, 'AddWeeklyFocusView']);
-Route::get('/weeklyfocuslist',[WeeklyFocusController::class, 'ListWeeklyFocusView']);
-Route::get('/weeklyfocusfb',[WeeklyFocusController::class, 'FeedbackWFView']);
-Route::get('/weeklyfocusedit',[WeeklyFocusController::class, 'EditWeeklyFocusView']);
+//draftthesis controller
+Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerformanceView']);
+Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDraftThesisView']);
+Route::post('/draftthesis/submit', [DraftThesisController::class, 'submitDraftThesis']);
+Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDraftThesis']);
 
 
 

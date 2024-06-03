@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('WeeklyFocus', function (Blueprint $table) {
             $table->increments('WF_ID');
-            $table->date('WF_StartDate');
-            $table->date('WF_EndDate');
+            $table->date('WF_Date');
+            $table->string('WF_FocusBlock');
             $table->string('WF_FocusInfo');
             $table->string('WF_AdminInfo');
             $table->string('WF_SocialInfo');
-            $table->string('WF_RecoverInfo');
+            $table->string('WF_RecoveryInfo');
             $table->string('WF_Feedback');
             $table->string('M_IC');
             $table->string('P_IC');
