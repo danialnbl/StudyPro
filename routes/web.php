@@ -99,14 +99,14 @@ Route::get('/publication', [PublicationDataController::class, 'addPublicationDat
 Route::post('/publicationAdd', [PublicationDataController::class, 'store'])->name('publicationAdd.store');
 
 // View own publications
-Route::get('/my-publications', [PublicationDataController::class, 'viewOwnPublicationData'])->name('publications.my');
+Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicationData'])->name('Mypublication.view');
 
 // Edit and update publication
-Route::get('/publications/{id}/edit', [PublicationDataController::class, 'editPublicationDataView'])->name('publications.edit');
-Route::put('/publications/{id}', [PublicationDataController::class, 'update'])->name('publications.update');
+Route::get('/Editpublication', [PublicationDataController::class, 'editPublicationData'])->name('Editpublications.edit');
+Route::put('/Updatepublication', [PublicationDataController::class, 'update'])->name('Updatepublication.update');
 
 // Delete publication
-Route::delete('/publications/{id}', [PublicationDataController::class, 'destroy'])->name('publications.destroy');
+Route::delete('/Delpublication', [PublicationDataController::class, 'destroy'])->name('Delpublication.destroy');
 
 
 

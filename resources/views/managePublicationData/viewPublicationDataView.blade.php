@@ -14,7 +14,7 @@
         @endif
         <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <h3 class="pb-2 pb-md-0"><b>All Publications</b></h3>
+                <h3 class="pb-2 pb-md-0"><b>List of Publications</b></h3>
                 @if($publications->isEmpty())
                     <p>No publications found.</p>
                 @else
