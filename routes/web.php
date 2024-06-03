@@ -88,7 +88,24 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'deletePaper']);
 
 //publication
+// View all publications
+Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
+
+// Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
+Route::post('/publicationAdd', [PublicationDataController::class, 'store'])->name('publicationAdd.store');
+
+// View own publications
+Route::get('/my-publications', [PublicationDataController::class, 'viewOwnPublicationData'])->name('publications.my');
+
+// Edit and update publication
+Route::get('/publications/{id}/edit', [PublicationDataController::class, 'editPublicationDataView'])->name('publications.edit');
+Route::put('/publications/{id}', [PublicationDataController::class, 'update'])->name('publications.update');
+
+// Delete publication
+Route::delete('/publications/{id}', [PublicationDataController::class, 'destroy'])->name('publications.destroy');
+
+
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);

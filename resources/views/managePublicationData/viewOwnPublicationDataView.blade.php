@@ -14,7 +14,7 @@
         @endif
         <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
-                <h3 class="pb-2 pb-md-0"><b>All Publications</b></h3>
+                <h3 class="pb-2 pb-md-0"><b>My Publications</b></h3>
                 @if($publications->isEmpty())
                     <p>No publications found.</p>
                 @else
@@ -29,6 +29,7 @@
                                     <th>Type</th>
                                     <th>Date</th>
                                     <th>File</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,6 +42,14 @@
                                         <td>{{ $publication->PD_Type }}</td>
                                         <td>{{ $publication->PD_Date->format('Y-m-d') }}</td>
                                         <td><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></td>
+                                        <td>
+                                            <a href="{{ route('publications.edit', $publication->id) }}" class="btn btn-primary">Edit</a>
+                                            <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this publication?');">Delete</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

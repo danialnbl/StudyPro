@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('PD_University');
             $table->string('PD_Type');
             $table->string('PD_Author');
+            $table->string('PD_DOI');
             $table->string('PD_FileName');
             $table->string('PD_FilePath');
             $table->date('PD_Date');
