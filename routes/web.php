@@ -7,9 +7,7 @@ use App\Http\Controllers\PublicationDataController;
 use App\Http\Controllers\DraftThesisController;
 use App\Http\Controllers\WeeklyFocusController;
 
-Route::get('/', function () {
-    return "Well hello there o/. so...";
-})->middleware('auth');
+Route::get('/', [UserController::class, 'logout']);
 
 //login
 

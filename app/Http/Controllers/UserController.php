@@ -259,7 +259,7 @@ class UserController extends Controller
             $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
             return view('manageRegistration.viewDetail', compact('platinum','PlatEdu','PlatRef'));
         }
-        
+
         public function editPlat($P_IC)
         {
             $Platinum = Platinum::findOrFail($P_IC);
@@ -269,7 +269,7 @@ class UserController extends Controller
 
             return view('manageRegistration.editPlatinum',
                 compact('Platinum','PlatEdu'));
-        }        
+        }
 
         public function PlatinumEditPost(Request $request, $P_IC)
         {
@@ -371,7 +371,7 @@ class UserController extends Controller
         return view('manageProfile.mentorProfile');
     }
     //display info on profile
-    
+
     public function showPlatinum()
     {
         //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
@@ -455,13 +455,20 @@ class UserController extends Controller
     }
 
     public function logout(Request $request) {
-        Auth::logout();
 
-        $request->session()->invalidate();
+        if (Auth::check()) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route("login")->with("success", "Successfully Logout!");
+        }else{
+            return redirect()->route("login");
+        }
 
-        $request->session()->regenerateToken();
-        return redirect()->route("login")->with("success", "Successfully Logout!");
+
+
+
     }
-    
+
 
 }
