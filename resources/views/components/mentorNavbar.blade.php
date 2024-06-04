@@ -104,7 +104,7 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/register">
+                    <a href="/RegList">
                         <i class="bi bi-circle"></i><span>List registration</span>
                     </a>
                 </li>

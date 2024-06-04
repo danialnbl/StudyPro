@@ -53,6 +53,14 @@ Route::get('/view/{P_IC}', [UserController::class, 'viewPlat'])->name('viewPlati
 
 Route::get('/search', [UserController::class, 'search'])->name('searchPlatinum');
 
+Route::get('/RegList',[UserController::class, 'regList']);
+
+Route::get('/RegList',[UserController::class, 'showRegList']);
+
+Route::get('/viewReg/{P_IC}', [UserController::class, 'viewReg'])->name('viewReg');
+
+Route::get('/searchReg', [UserController::class, 'searchReg'])->name('searchReg');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 

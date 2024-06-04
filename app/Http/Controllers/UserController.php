@@ -77,6 +77,35 @@ class UserController extends Controller
     {
         return view('manageRegistration.MentorRegistration');
     }
+    //reg list - mentor 
+    public function regList(){
+        return view('manageRegistration.regList');
+    }
+    public function showRegList(){
+        $platinum = Platinum ::all();
+        return view('manageRegistration.regList', compact('platinum'));
+    }
+    public function viewReg($P_IC){
+        $platinum = Platinum::findOrFail($P_IC);
+        //$platinum = Platinum ::all();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->PR_Id;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+        return view('manageRegistration.regDetail', compact('platinum','PlatEdu','PlatRef'));
+    }
+    public function searchReg(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+
+    return view('manageRegistration.regList', compact('platinum'));
+    }
+    
 
     public function PlatinumRegisterPost(Request $request)
     {
