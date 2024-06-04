@@ -34,7 +34,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="/mentorProfile">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -86,18 +86,13 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/searchPlatMT">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/profile">
+                    <a href="/mentorProfile">
                         <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>
                 </li>
             </ul>
@@ -110,10 +105,10 @@
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/register">
-                        <i class="bi bi-circle"></i><span>Add new registration</span>
+                        <i class="bi bi-circle"></i><span>List registration</span>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="/myexpert">
                         <i class="bi bi-circle"></i><span>Edit reigistration</span>
                     </a>
@@ -122,7 +117,7 @@
                     <a href="/expert">
                         <i class="bi bi-circle"></i><span>Delete registration</span>
                     </a>
-                </li>
+                </li>-->
             </ul>
         </li><!-- End Forms Nav -->
 

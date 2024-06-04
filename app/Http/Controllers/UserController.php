@@ -325,7 +325,7 @@ class UserController extends Controller
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->delete();
         return redirect('/PlatinumList')->with('status',"Data Deleted Successfully !");
     }
-// search in list
+// search in list - registration
     public function search(Request $request){
         $search = $request->input('search');
         $platinum = Platinum::query()
@@ -370,8 +370,7 @@ class UserController extends Controller
     {
         return view('manageProfile.mentorProfile');
     }
-    //display info on profile
-
+//  PLATINUM PROFILE 
     public function showPlatinum()
     {
         //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
@@ -393,7 +392,7 @@ class UserController extends Controller
         $data2 = $platinum->PR_Id;
         $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
-       // $fetchPic = Picture::where('P_IC',$P_IC)->first();
+        //$fetchPic = Picture::where('P_IC',$P_IC)->first();
 
         return view('manageProfile.editProfileView', compact('platinum', 'PlatEdu', 'PlatRef'));
     }
@@ -447,6 +446,134 @@ class UserController extends Controller
             }
 
             return redirect('/platProfile')->with('success', 'Platinum profile updated successfully');
+    }
+        //search profiles -platinum
+    public function searchPlat(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProfiles', compact('platinum'));
+    }
+
+// STAFF PROFILE
+    public function showStaff()
+    {
+        
+        $user = Auth::user();
+        $staff = Staff::where('S_IC', $user->S_IC)->firstOrFail();
+
+        return view('manageProfile.staffProfile', compact('staff'));
+    }
+    public function updateStaff()
+    {
+        $user = Auth::user();
+        $staff = Staff::where('S_IC', $user->S_IC)->firstOrFail();
+    // $fetchPic = Picture::where('P_IC',$P_IC)->first();
+
+        return view('manageProfile.editStaffProfile', compact('staff'));
+    }
+    public function StaffProfilePost(Request $request,)
+    {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
+                "S_PhoneNumber" => "required",
+            ]);
+
+            $S_IC = Auth::user()->S_IC;
+            // Retrieve the Platinum instance by P_IC
+            $staff = Staff::findOrFail($S_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update staff instance
+            $staff->update([
+                "S_PhoneNumber" => $validatedData['S_PhoneNumber'],
+            ]);
+            if ($request->hasFile('PI_File')) {
+                $picture = new Picture();
+                $file = $request->file('PI_File');
+                $fileNamePic = time() . '_' . $file->getClientOriginalName();
+                $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+                $picture->PI_File = $fileNamePic;
+                $picture->PI_FilePath = $filePathPic;
+                $picture->PI_Type = "Staff";
+                $picture->S_IC = $staff->S_IC;;
+                $picture->save();
+            }
+
+            return redirect('/staffProfile')->with('success', 'Staff profile updated successfully');
+    }
+    public function searchPlatST(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProST', compact('platinum'));
+    }
+// MENTOR PROFILE
+    public function showMentor()
+    {
+        
+        $user = Auth::user();
+        $mentor = Mentor::where('M_IC', $user->M_IC)->firstOrFail();
+
+        return view('manageProfile.mentorProfile', compact('mentor'));
+    }
+    public function updateMentor()
+    {
+        $user = Auth::user();
+        $mentor = Mentor::where('M_IC', $user->M_IC)->firstOrFail();
+    // $fetchPic = Picture::where('P_IC',$P_IC)->first();
+
+        return view('manageProfile.editMentorProfile', compact('mentor'));
+    }
+    public function MentorProfilePost(Request $request,)
+    {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
+                "M_PhoneNumber" => "required",
+            ]);
+
+            $M_IC = Auth::user()->M_IC;
+            // Retrieve the Platinum instance by P_IC
+            $mentor = Mentor::findOrFail($M_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update staff instance
+            $mentor->update([
+                "M_PhoneNumber" => $validatedData['M_PhoneNumber'],
+            ]);
+            if ($request->hasFile('PI_File')) {
+                $picture = new Picture();
+                $file = $request->file('PI_File');
+                $fileNamePic = time() . '_' . $file->getClientOriginalName();
+                $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+                $picture->PI_File = $fileNamePic;
+                $picture->PI_FilePath = $filePathPic;
+                $picture->PI_Type = "Mentor";
+                $picture->M_IC = $staff->M_IC;;
+                $picture->save();
+            }
+
+            return redirect('/mentorProfile')->with('success', 'Mentor profile updated successfully');
+    }
+    public function searchPlatMT(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProMT', compact('platinum'));
     }
     //homepage
     public function staffmain()

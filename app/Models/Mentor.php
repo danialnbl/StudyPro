@@ -9,6 +9,7 @@ class Mentor extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $primaryKey = 'M_IC';
     protected $table = 'Mentor';
     protected $fillable =[
         'M_IC',

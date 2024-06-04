@@ -1,8 +1,8 @@
-@extends('layouts.main')
-@section('container')
+@extends('layouts.staffmain')
+@section('staff')
 <!--search-->
 <div class="pb-3">
-        <form class="d-flex" action="{{ route('searchProfile') }}" method="get">
+        <form class="d-flex" action="{{ route('searchProST') }}" method="get">
             <input class="form-control me-1" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
             <button class="btn btn-secondary" type="submit">Search</button>
         </form>
