@@ -1,6 +1,13 @@
 @extends('layouts.main')
 @section('container')
 
+<head>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- jQuery UI CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+</head>
+
 <!-- Title -->
 <div class="mb-3">
     <label for="title" class="form-label">Draft Thesis Title</label>
@@ -38,7 +45,7 @@
             <td>
           <a href=" " class="btn btn-warning btn-sm">Edit</a> 
           <!-- link ke edit karang -->
-          <form onsubmit="return confirm('sure to delete?')" class="d-inline" action="{{ url('draftthesis/'.$item->DT_DraftNumber) }}" method="POST">
+          <form onsubmit="return confirm('sure to delete?')" class="d-inline" action="{{ url('draftthesis/'.$item->DT_ID) }}" method="POST">
             @csrf
             @method('DELETE')
           <button type="submit" name="submit" class="btn btn-danger btn-sm" >Del</button></form>

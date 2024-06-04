@@ -15,23 +15,27 @@ class DraftThesisController extends Controller
     public function submitDraftThesis(Request $request)
     {
         $validatedData = $request->validate([
-            'draftno' => 'required|numeric|unique:DraftThesis,DT_DraftNumber',
+            'draftid' => 'required|numeric|unique:DraftThesis,DT_ID',
+            'draftno' => 'required|numeric',
             'title' => 'required|string|max:255',
             'startdate' => 'required|date',
             'enddate' => 'required|date|after_or_equal:startdate',
             'pageno' => 'required|numeric',
             'ddc' => 'required|numeric',
+            'comment' => 'required|string|max:255',
 
             // add : comment, totalpageno, prepdays
         ]);
         
         $draftThesis = [
+            'DT_ID' => $validatedData['draftid'],
             'DT_DraftNumber' => $validatedData['draftno'],
             'DT_Title' => $validatedData['title'],
             'DT_StartDate' => $validatedData['startdate'],
             'DT_EndDate' => $validatedData['enddate'],
             'DT_PagesNumber' => $validatedData['pageno'],
             'DT_DDC' => $validatedData['ddc'],
+            'DT_Feedback' => $validatedData['comment'],
         ];
         DraftThesis::create($draftThesis);
         return redirect('manageDraftThesisView.DraftThesisPerformanceView')->with('success', 'Draft Thesis added successfully.');
