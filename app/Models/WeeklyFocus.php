@@ -21,7 +21,7 @@ class WeeklyFocus extends Model
         'WF_Date',
     ];
 
-    protected $table = 'DraftThesis';
+    protected $table = 'WeeklyFocus';
 
     public $timestamps = false; // If you don't have created_at and updated_at columns
 }

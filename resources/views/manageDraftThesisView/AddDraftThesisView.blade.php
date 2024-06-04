@@ -8,56 +8,60 @@
 </head>
 
 <body>
-<form action="{{ url('draftthesis/submit') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url('/draftthesis/submit') }}" method="POST">
 @csrf
 <div class="container">
+    <div class="col-sm-6 mb-3">
+        <label for="draftno" class="form-label">Draft ID</label>
+        <input type="number" class="form-control" id="draftid" name="draftid" value="{{ Session::get('DT_ID')}}" placeholder="1">
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="draftno" class="form-label">Draft Number/Version</label>
+        <input type="number" class="form-control" id="draftno" name="draftno" value="{{ Session::get('DT_DraftNumber')}}" placeholder="01">
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Draft Thesis Title</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ Session::get('DT_Title')}}" placeholder="Enter title of your draft">
+    </div>
+    <div class="row form-group">
+        <label for="startdate" class="col-sm-3 col-form-label">Draft Start Date</label>
         <div class="col-sm-6 mb-3">
-            <label for="draftno" class="form-label">Draft Number</label>
-            <input type="number" class="form-control" id="draftno" name="draftno" value="{{ Session::get('DT_DraftNumber')}}" placeholder="01">
-        </div>
-        <div class="mb-3">
-            <label for="title" class="form-label">Draft Thesis Title</label>
-            <input type="text" class="form-control" id="title" name="title" value="{{ Session::get('DT_Title')}}" placeholder="Enter title of your draft">
-        </div>
-        <div class="row form-group">
-            <label for="startdate" class="col-sm-3 col-form-label">Draft Start Date</label>
-            <div class="col-sm-6 mb-3">
-                <div class="input-group date">
-                    <input type="text" class="form-control" id="startdate" name="startdate" value="{{ Session::get('DT_StartDate')}}" placeholder="Select start date">
-                    <span class="input-group-text bg-white">
-                        <i class="fa fa-calendar"></i>
-                    </span>
-                </div>
+            <div class="input-group date">
+                <input type="text" class="form-control" id="startdate" name="startdate" value="{{ Session::get('DT_StartDate')}}" placeholder="Select start date">
+                <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                </span>
             </div>
         </div>
-        <div class="row form-group">
-            <label for="enddate" class="col-sm-3 col-form-label">Draft Complete Date</label>
-            <div class="col-sm-6 mb-3">
-                <div class="input-group date">
-                    <input type="text" class="form-control" id="enddate" name="enddate" value="{{ Session::get('DT_EndDate')}}" placeholder="Select complete date">
-                    <span class="input-group-text bg-white">
-                        <i class="fa fa-calendar"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="row form-group">
+        <label for="enddate" class="col-sm-3 col-form-label">Draft Complete Date</label>
         <div class="col-sm-6 mb-3">
-            <label for="pageno" class="form-label">Draft Pages</label>
-            <input type="number" class="form-control" id="pageno" name="pageno" value="{{ Session::get('DT_PagesNumber')}}" placeholder="121 pages">
-        </div>
-        <div class="col-sm-6 mb-3">
-            <label for="ddc" class="form-label">Draft Declaration Cycle</label>
-            <input type="number" class="form-control" id="ddc" name="ddc" value="{{ Session::get('DT_DDC')}}" placeholder="e.g 5 days">
-        </div>
-        <div class="row">
-            <div class="col-sm-1 mt-3">
-                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-            </div>
-            <div class="col-sm-1 mt-3">
-                <a href="#" class="btn btn-secondary">Back</a>
+            <div class="input-group date">
+                <input type="text" class="form-control" id="enddate" name="enddate" value="{{ Session::get('DT_EndDate')}}" placeholder="Select complete date">
+                <span class="input-group-text bg-white">
+                    <i class="fa fa-calendar"></i>
+                </span>
             </div>
         </div>
-    </form>
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="pageno" class="form-label">Draft Pages</label>
+        <input type="number" class="form-control" id="pageno" name="pageno" value="{{ Session::get('DT_PagesNumber')}}" placeholder="121 pages">
+    </div>
+    <div class="col-sm-6 mb-3">
+        <label for="ddc" class="form-label">Draft Declaration Cycle</label>
+        <input type="number" class="form-control" id="ddc" name="ddc" value="{{ Session::get('DT_DDC')}}" placeholder="e.g 5 days">
+    </div>
+    <div class="row">
+        <div class="col-sm-1 mt-3">
+            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+        </div>
+        <div class="col-sm-1 mt-3">
+            <a href="#" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</form>
 </div>
 
 <!-- jQuery -->
