@@ -10,7 +10,7 @@ class WeeklyFocusController extends Controller
 {
     public function AddWeeklyFocusView()
     {
-        return view('WeeklyFocus.AddWeeklyFocusView');
+        return view('manageWeeklyFocusView.AddWeeklyFocusView');
     }
 
     public function submitWeeklyFocusView(Request $request)
@@ -54,7 +54,7 @@ class WeeklyFocusController extends Controller
     public function ListWeeklyFocusView()
     {
         $weeklyFocus = WeeklyFocus::all();
-        return view('WeeklyFocus.ListWeeklyFocusView');
+        return view('manageWeeklyFocusView.ListWeeklyFocusView');
     }
 
 }

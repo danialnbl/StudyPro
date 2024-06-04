@@ -9,16 +9,16 @@ class WeeklyFocus extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'DT_DraftNumber';
+    //protected $primaryKey = 'DT_DraftNumber';
 
     protected $fillable = [
-        'DT_DraftNumber',
-        'DT_Title',
-        'DT_StartDate',
-        'DT_EndDate',
-        'DT_PagesNumber',
-        'DT_draftFile',
-        'DT_DDC',
+        'WF_FocusBlock', //ejas sini
+        'WF_AdminInfo',
+        'WF_FocusInfo',
+        'WF_SocialInfo',
+        'WF_RecoveryInfo',
+        //'WF_Feedback',
+        'WF_Date',
     ];
 
     protected $table = 'DraftThesis';

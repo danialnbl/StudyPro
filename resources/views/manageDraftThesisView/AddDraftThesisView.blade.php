@@ -41,10 +41,6 @@
                 </div>
             </div>
         </div>
-        <div class="mb-3">
-        <label for="draftfile" class="form-label">Upload Draft Thesis File</label>
-        <input class="form-control" type="file" id="formFile" name="draftfile" value="{{ Session::get('DT_draftFile')}}">
-        </div>
         <div class="col-sm-6 mb-3">
             <label for="pageno" class="form-label">Draft Pages</label>
             <input type="number" class="form-control" id="pageno" name="pageno" value="{{ Session::get('DT_PagesNumber')}}" placeholder="121 pages">

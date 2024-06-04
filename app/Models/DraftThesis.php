@@ -10,16 +10,16 @@ class DraftThesis extends Model
     use HasFactory;
 
     protected $fillable = [
-        //'WF_FocusBlock', //ejas sini
-        'WF_AdminInfo',
-        'WF_FocusInfo',
-        'WF_SocialInfo',
-        'WF_RecoverInfo',
-        //'WF_Feedback',
-        'WF_Date',
+        'DT_DraftNumber',
+        'DT_Title',
+        'DT_StartDate',
+        'DT_EndDate',
+        'DT_PagesNumber',
+        'DT_draftFile',
+        'DT_DDC',
     ];
 
-    protected $table = 'WeeklyFocus';
+    protected $table = 'draftthesis';
 
     public $timestamps = false; // If you don't have created_at and updated_at columns
 }

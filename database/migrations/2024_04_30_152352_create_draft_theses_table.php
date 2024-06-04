@@ -17,12 +17,15 @@ return new class extends Migration
             $table->integer('DT_DraftNumber');
             $table->date('DT_StartDate');
             $table->date('DT_EndDate');
-            $table->string('DT_draftFile')->nullable();
             $table->integer('DT_PagesNumber');
             $table->string('DT_Feedback');
+            $table->string('DT_TotalPages');
+            $table->string('DT_PrepDays');
             $table->integer('DT_DDC');
             $table->string('P_IC');
+            $table->string('M_IC');
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
+            $table->foreign('M_IC')->references('M_IC')->on('Mentor')->onDelete('cascade');
         });
     }
 
