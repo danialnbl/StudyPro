@@ -42,11 +42,11 @@ class UserController extends Controller
         // Pass the count to the view
         return view('dashboard.platinumDashboard', compact('expertCount'));
     }   
-    /*public function countPlatinum(){
+    public function countPlatinum(){
         
         $platinumCount = Platinum::count('P_IC');
         return view('dashboard.staffDashboard', compact('platinumCount'));
-    } */
+    }
 
     public function countPlat(){
         $platinumCount = Platinum::count();
