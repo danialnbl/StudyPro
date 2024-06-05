@@ -16,6 +16,7 @@ use App\Models\Mentor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class UserController extends Controller
@@ -662,6 +663,11 @@ class UserController extends Controller
 
 
     }
-
-
+    // REPORT
+    public function reportPlatinumView()
+    {
+            $data = ['platinum'=>Platinum::all()];
+            $pdf = Pdf::LoadView('manageProfile.ProfileReportView', $data);
+            return $pdf->download('profileReport.pdf');
+    }
 }

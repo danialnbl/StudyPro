@@ -11,7 +11,7 @@
     .card-custom .card-header {
         font-weight: bold;
         background-color: #FFFFFF;
-        color :#000000;
+        color: #000000;
     }
     .card-custom .card-body {
         background-color: rgba(0, 123, 255, 0.75);
@@ -36,21 +36,28 @@
 </style>
 <!--search-->
 <div class="pb-3">
-        <form class="d-flex" action="{{ route('searchProMT') }}" method="get">
-            <input class="form-control me-1" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Search</button>
-        </form>
-    </div>
-<!--profiles card-->
-@foreach($platinum as $platinum)
-<div class="card card-custom">
-    <div class="card-header">{{ $platinum->P_Name }}</div>
-    <div class="card-body">
-        <h5 class="card-title">{{ $platinum->P_IC }}</h5>
-        <p class="card-text">{{ $platinum->P_Status }}</p>
-        <a href="{{ route('detailPlatMT', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
-        <a href="#" class="btn">Expert & Publication Data</a>
-    </div>
+    <form class="d-flex mb-3" action="{{ route('searchProMT') }}" method="get">
+        <input class="form-control me-2" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
+        <button class="btn btn-secondary" type="submit">Search</button>
+    </form>
+    <a href="{{ route('reportStaff') }}" class="btn btn-primary">Generate PDF</a>
 </div>
+
+<!--profiles card-->
+<div class="row">
+@foreach($platinum as $platinum)
+    <div class="col-md-4">
+        <div class="card card-custom">
+            <div class="card-header">{{ $platinum->P_Name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ $platinum->P_IC }}</h5>
+                <p class="card-text">{{ $platinum->P_Status }}</p>
+                <a href="{{ route('detailPlatMT', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
+                <a href="#" class="btn">Expert & Publication Data</a>
+            </div>
+        </div>
+    </div>
 @endforeach
+</div>
 @endsection
+

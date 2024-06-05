@@ -132,6 +132,7 @@ Route::get('/editStaffProfile',[UserController::class, 'updateStaff'])->name('ed
 Route::put('/StaffEdit', [UserController::class, 'StaffProfilePost'])->name('staff.update');
 Route::get('/searchPlatST',[UserController::class, 'searchPlatST'])->name('searchProST');
 Route::get('/detailST/{P_IC}', [UserController::class, 'detailPlatST'])->name('detailPlatST');
+Route::get('/staffReport', [UserController::class, 'reportPlatinumView'])->name('reportStaff');
 
 Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 Route::get('/mentorProfile', [UserController::class, 'showMentor'])->name('showMT');
