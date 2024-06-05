@@ -1,5 +1,5 @@
 <!-- ======= Header ======= -->
-<header style="background-color:aqua;" id="header" class="header fixed-top d-flex align-items-center">
+<header style="background-color:#6AC1F2;" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/staffdashboard" class="logo d-flex align-items-center">

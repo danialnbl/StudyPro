@@ -4,7 +4,7 @@
     .card-custom {
         max-width: 18rem;
         background-color: #007bff;
-        color: white;
+        color: #000000;
         border: none;
         margin-bottom: 1rem;
     }
@@ -14,7 +14,7 @@
         color: #000000;
     }
     .card-custom .card-body {
-        background-color: rgba(0, 123, 255, 0.75);
+        background-color: #9DE3F9;
     }
     .card-custom .btn {
         background-color: white;

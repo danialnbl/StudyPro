@@ -66,10 +66,13 @@ Route::get('/searchReg', [UserController::class, 'searchReg'])->name('searchReg'
 
 //dashboard-nnti kena tukr controller
 Route ::get('/platinumdashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard')->middleware('platinum');
+Route::get('/platinumdashboard', [UserController::class, 'countExpert'])->name('countExpert');
 
 Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('StaffDashboard')->middleware('staff');
+Route::get('/staffdashboard', [UserController::class, 'countPlatinum'])->name('countPlatinum');
 
 Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard')->middleware('mentor');
+Route::get('/mentordashboard', [UserController::class, 'countPlat'])->name('countPlat');
 
 
 //Expert

@@ -7,7 +7,9 @@
       color: #69707a;
   }
   .img-account-profile {
-      height: 10rem;
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
   }
   .rounded-circle {
       border-radius: 50% !important;

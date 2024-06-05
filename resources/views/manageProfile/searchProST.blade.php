@@ -4,7 +4,7 @@
     .card-custom {
         max-width: 18rem;
         background-color: #007bff;
-        color: white;
+        color: #000000;
         border: none;
         margin-bottom: 1rem;
     }
@@ -14,7 +14,7 @@
         color: #000000;
     }
     .card-custom .card-body {
-        background-color: rgba(0, 123, 255, 0.75);
+        background-color: #9DE3F9;
     }
     .card-custom .btn {
         background-color: white;
@@ -54,7 +54,7 @@
                 <h5 class="card-title">{{ $platinum->P_IC }}</h5>
                 <p class="card-text">{{ $platinum->P_Status }}</p>
                 <a href="{{ route('detailPlatST', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
-                <a href="#" class="btn">Expert & Publication Data</a>
+                
             </div>
         </div>
     </div>
