@@ -7,7 +7,9 @@
       color: #69707a;
   }
   .img-account-profile {
-      height: 10rem;
+      width: 150px; /* Fixed width */
+      height: 150px; /* Fixed height */
+      object-fit: cover; /* Ensure the image covers the area without distortion */
   }
   .rounded-circle {
       border-radius: 50% !important;
@@ -44,7 +46,6 @@
       border-radius: 0.35rem;
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
-
   .nav-borders .nav-link.active {
       color: #0061f2;
       border-bottom-color: #0061f2;
@@ -92,7 +93,11 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="" alt="Profile Photo">
+                    <img class="img-account-profile rounded-circle mb-2" src="@if($fetchPic != '')
+                                {{ url('storage/'.$fetchPic->PI_FilePath)  }}
+                                @else
+                                {{ url('assets/defaultPP.png') }}
+                            @endif " alt="Profile Photo">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{ Auth::user()->name }}</div>
                     <!-- Profile picture upload button-->

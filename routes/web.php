@@ -124,18 +124,21 @@ Route::get('/platProfile', [UserController::class, 'showPlatinum'])->name('showP
 Route::get('/editPlatProfile',[UserController::class, 'updatePlatinum'])->name('editPP');
 Route::put('/editPlatEdit', [UserController::class, 'PlatinumProfilePost'])->name('platProfile.update');
 Route::get('/searchPlat',[UserController::class, 'searchPlat'])->name('searchProfile');
+Route::get('/detail/{P_IC}', [UserController::class, 'detailPlat'])->name('detailPlatinum');
 
 Route::get('/staffProfile',[UserController::class, 'staffProfile']);
 Route::get('/staffProfile', [UserController::class, 'showStaff'])->name('showST');
 Route::get('/editStaffProfile',[UserController::class, 'updateStaff'])->name('editST');
 Route::put('/StaffEdit', [UserController::class, 'StaffProfilePost'])->name('staff.update');
 Route::get('/searchPlatST',[UserController::class, 'searchPlatST'])->name('searchProST');
+Route::get('/detailST/{P_IC}', [UserController::class, 'detailPlatST'])->name('detailPlatST');
 
 Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 Route::get('/mentorProfile', [UserController::class, 'showMentor'])->name('showMT');
 Route::get('/editMentorProfile',[UserController::class, 'updateMentor'])->name('editMT');
 Route::put('/MentorEdit', [UserController::class, 'MentorProfilePost'])->name('mentor.update');
 Route::get('/searchPlatMT',[UserController::class, 'searchPlatMT'])->name('searchProMT');
+Route::get('/detailMT/{P_IC}', [UserController::class, 'detailPlatMT'])->name('detailPlatMT');
 
 //Route::get('/mentorProfile',[UserController::class, 'showMentor']);
 /*Auth::routes([
