@@ -24,35 +24,21 @@ class UserController extends Controller
 {
     //dashboard
     public function PlatDashboard(){
-        return view('dashboard.platinumDashboard');
+        $expertCount = Expert::count('E_ID');
+        return view('dashboard.platinumDashboard', compact('expertCount'));
     }
     public function StaffDashboard(){
-        return view('dashboard.staffDashboard');
+        $platinumCount = Platinum::count();
+        $expertCount = Expert::count();
+        $mentorCount = Mentor::count();
+        return view('dashboard.staffDashboard', compact('platinumCount','expertCount','mentorCount'));
     }
     public function MentorDashboard(){
-        return view('dashboard.mentorDashboard');
-    }
-    public function countExpert(){
-        // Assuming you want to count all experts; adjust the query as needed
-        $expertCount = Expert::count('E_ID');
-
-        //$wordlist = Expert::where('E_ID', '<=', $correctedComparisons)->get();
-        //$expertCount = $wordlist->count();
-    
-        // Pass the count to the view
-        return view('dashboard.platinumDashboard', compact('expertCount'));
-    }   
-    public function countPlatinum(){
-        
-        $platinumCount = Platinum::count('P_IC');
-        return view('dashboard.staffDashboard', compact('platinumCount'));
-    }
-
-    public function countPlat(){
         $platinumCount = Platinum::count();
         $expertCount = Expert::count();
         return view('dashboard.mentorDashboard', compact('platinumCount','expertCount'));
     }
+    
     //Login
     public function loginView()
     {

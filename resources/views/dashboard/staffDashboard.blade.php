@@ -18,6 +18,12 @@
             <h2>{{$expertCount}} <i class="fas fa-user"></i></h2>
         </div>
     </div>
+    <div class="card">
+        <div class="card-body">
+            <h3>Total Mentor </h3>
+            <h2>{{$mentorCount}} <i class="fas fa-user"></i></h2>
+        </div>
+    </div>
 </div>
 
 <style>
@@ -35,7 +41,7 @@
         margin: 20px;
         padding: 20px;
         background-image: url(''); 
-        background-color: #090A0A; 
+        background-color: #6AC1F2; 
         background-size: cover;
         background-position: center;
         border-radius: 10px;
