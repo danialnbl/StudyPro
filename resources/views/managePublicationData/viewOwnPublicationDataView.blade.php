@@ -43,7 +43,7 @@
                                         <td>{{ \Carbon\Carbon::parse($publication->PD_Date)->format('Y-m-d') }}</td>
                                         <td><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></td>
                                         <td>
-                                            <a href="{{ route('Editpublication', ['id' => $publication->PD_ID]) }}" class="btn btn-primary">Edit</a>
+                                            <a href="{{ route('Editpublication', ['id' => $publication->PD_ID]) }}" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('Delpublication', ['id' => $publication->PD_ID]) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')

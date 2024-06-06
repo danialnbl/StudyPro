@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-navigation mt-3">
-                        <button type="submit" class="btn btn-success float-right">Submit</button>
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
                     </div>
                 </form>
             </div>
