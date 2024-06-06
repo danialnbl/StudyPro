@@ -121,7 +121,7 @@
                             <tr>
                                 <th>Name</th>
                                 <td>
-                                    <input type="text" class="form-control" name="P_Name" value="{{ Auth::user()->name }}">
+                                {{$platinum->P_Name }}
                                 </td>
                             </tr>
                             <tr>

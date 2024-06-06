@@ -122,7 +122,7 @@
                             <tr>
                                 <th>Name</th>
                                 <td>
-                                    <input type="text" class="form-control" name="M_Name" value="{{ Auth::user()->name }}">
+                                {{$mentor->M_Name }}
                                 </td>
                             </tr>
                             <tr>

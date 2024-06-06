@@ -2,6 +2,7 @@
 
 @section('container')
 <div class="title">
+<img src=" {{ url('assets/StudyProDark.png') }}" alt="Logo" class="logo">
     <h1>WELCOME {{ Auth::user()->name }}!</h1>
 </div>
 
@@ -24,6 +25,14 @@
         text-align: center;
         margin-top: 20px;
         color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .title .logo {
+        margin-right: 10px; /* Adjust this value as needed */
+        height: 100px; /* Adjust this value as needed */
+        width:100px;
     }
     .dashboard {
         margin: 20px;
