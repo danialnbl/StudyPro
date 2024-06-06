@@ -33,12 +33,22 @@
     .search-bar .form-control {
         margin-right: 0.5rem;
     }
+    .btn-custom-search {
+        background-color: #28a745; /* Green background color */
+        color: white;
+        border: 1px solid #28a745;
+    }
+    .btn-custom-search:hover {
+        background-color: #218838; /* Darker green on hover */
+        color: white;
+        border: 1px solid #218838;
+    }
 </style>
 <!--search-->
 <div class="pb-3">
     <form class="d-flex mb-3" action="{{ route('searchProST') }}" method="get">
         <input class="form-control me-2" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
-        <button class="btn btn-secondary" type="submit">Search</button>
+        <button class="btn btn-custom-search" type="submit">Search</button>
     </form>
 
     <a href="{{ route('reportStaff') }}" class="btn btn-primary">Generate PDF</a>
@@ -61,3 +71,4 @@
 @endforeach
 </div>
 @endsection
+
