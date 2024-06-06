@@ -106,7 +106,7 @@ Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicati
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
-Route::post('/publicationAdd', [PublicationDataController::class, 'store'])->name('publicationAdd.store');
+Route::post('/publicationAdd', [PublicationDataController::class, 'storePublication'])->name('publicationAdd.store');
 
 // View own publications
 Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicationData'])->name('Mypublication.view');

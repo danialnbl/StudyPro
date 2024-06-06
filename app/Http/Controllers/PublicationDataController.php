@@ -19,7 +19,7 @@ class PublicationDataController extends Controller
         return view('managePublicationData.addPublicationDataView');
     }
 
-    public function store(Request $request)
+    public function storePublication(Request $request)
 {
     $request->validate([
         'PD_University' => 'required|string|max:255',
@@ -34,7 +34,7 @@ class PublicationDataController extends Controller
     if ($request->hasFile('PD_File')) {
         $file = $request->file('PD_File');
         $fileName = $file->getClientOriginalName();
-        $path = $file->storeAs('PublicationData', $fileName, 'public'); // Store file
+        $path = $file->storeAs('uploads/publicationData', $fileName, 'public'); // Store file
 
         // Save to database
         PublicationData::create([
