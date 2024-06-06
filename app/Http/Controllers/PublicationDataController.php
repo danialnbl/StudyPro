@@ -64,35 +64,35 @@ class PublicationDataController extends Controller
 
     public function viewOwnPublicationData()
     {
-        $publications = PublicationData::where('PD_ID', Auth::id())->get();
+        $publications = PublicationData::all();
         return view('managePublicationData.viewOwnPublicationDataView', compact('publications'));
     }
 
     public function editPublicationDataView($id)
     {
         $publication = PublicationData::findOrFail($id);
-        return view('managePublicationData.editPublicationDataView', compact('publication'));
+        return view('managePublicationData.editPublicationDataView', compact('publications'));
     }
 
     public function update(Request $request, $id)
     {
-        $publication = PublicationData::findOrFail($id);
-        $publication->PD_Title = $request->input('PD_Title');
-        $publication->PD_University = $request->input('PD_University');
-        $publication->PD_Author = $request->input('PD_Author');
-        $publication->PD_DOI = $request->input('PD_DOI');
-        $publication->PD_Type = $request->input('PD_Type');
+        $publications = PublicationData::findOrFail($id);
+        $publications->PD_Title = $request->input('PD_Title');
+        $publications->PD_University = $request->input('PD_University');
+        $publications->PD_Author = $request->input('PD_Author');
+        $publications->PD_DOI = $request->input('PD_DOI');
+        $publications->PD_Type = $request->input('PD_Type');
     
         if ($request->hasFile('PD_File')) {
-            Storage::delete($publication->PD_FilePath);
+            Storage::delete($publications->PD_FilePath);
             $file = $request->file('PD_File');
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('PublicationData', $fileName, 'public');
-            $publication->PD_FileName = $fileName;
-            $publication->PD_FilePath = $path;
+            $publications->PD_FileName = $fileName;
+            $publications->PD_FilePath = $path;
         }
     
-        $publication->save();
+        $publications->save();
         return redirect()->route('publications.my')->with('success', 'Publication updated successfully.');
     }
     
@@ -102,6 +102,6 @@ class PublicationDataController extends Controller
         $publication = PublicationData::findOrFail($id);
         Storage::delete($publication->PD_FilePath);
         $publication->delete();
-        return redirect()->route('publications.my')->with('success', 'Publication deleted successfully.');
+        return redirect()->route('Mypublication')->with('success', 'Publication deleted successfully.');
     }
 }

@@ -14,6 +14,7 @@ class PublicationData extends Model
         'PD_University',
         'PD_Type',
         'PD_Author',
+        'PD_DOI',
         'PD_FileName',
         'PD_FilePath',
         'PD_Date',

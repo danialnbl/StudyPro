@@ -39,7 +39,7 @@
                                         <td>{{ $publication->PD_Author }}</td>
                                         <td>{{ $publication->PD_DOI }}</td>
                                         <td>{{ $publication->PD_Type }}</td>
-                                        <td>{{ $publication->PD_Date->format('Y-m-d') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($publication->PD_Date)->format('Y-m-d') }}</td>
                                         <td><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></td>
                                     </tr>
                                 @endforeach

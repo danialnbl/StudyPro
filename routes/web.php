@@ -112,11 +112,12 @@ Route::post('/publicationAdd', [PublicationDataController::class, 'storePublicat
 Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicationData'])->name('Mypublication.view');
 
 // Edit and update publication
-Route::get('/Editpublication', [PublicationDataController::class, 'editPublicationData'])->name('Editpublications.edit');
+
+Route::get('/publications/edit/{id}', [PublicationDataController::class, 'editPublicationDataView'])->name('Editpublication');
 Route::put('/Updatepublication', [PublicationDataController::class, 'update'])->name('Updatepublication.update');
 
 // Delete publication
-Route::delete('/Delpublication', [PublicationDataController::class, 'destroy'])->name('Delpublication.destroy');
+Route::delete('/publications/delete/{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
 
 
