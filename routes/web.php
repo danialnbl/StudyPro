@@ -162,6 +162,8 @@ Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDra
 Route::post('/draftthesis/submit', [DraftThesisController::class, 'submitDraftThesis']);
 Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDraftThesis']);
 
+//integrate module 1 ,2,3
+Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
 
 
 

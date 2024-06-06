@@ -12,6 +12,7 @@ use App\Models\Picture;
 use App\Models\Staff;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
+use App\Models\PublicationData;
 use App\Models\Mentor;
 use App\Models\Expert;
 use Illuminate\Support\Facades\Auth;
@@ -680,5 +681,18 @@ class UserController extends Controller
     }
 
     //integrate with expert and publication data
+    public function showDetail($P_IC)
+{
+   // Fetch publication data and expert data based on P_IC
+   $publications = PublicationData::where('P_IC', $P_IC)->get();
+   $experts = Expert::where('P_IC', $P_IC)->get();
+
+   return view('integrate.viewExpertPDPlat', [
+       'publications' => $publications,
+       'experts' => $experts,
+       'P_IC' => $P_IC
+   ]);
+}
+
     
 }

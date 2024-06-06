@@ -63,7 +63,7 @@
                 <h5 class="card-title">{{ $platinum->P_IC }}</h5>
                 <p class="card-text">{{ $platinum->P_Status }}</p>
                 <a href="{{ route('detailPlatinum', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
-                <a href="#" class="btn">Expert & Publication Data</a>
+                <a href="{{ route('showDetail', ['P_IC' => $platinum->P_IC]) }}" class="btn">Expert & Publication Data</a>
             </div>
         </div>
     </div>
