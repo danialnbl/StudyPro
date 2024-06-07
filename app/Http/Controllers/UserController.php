@@ -46,10 +46,10 @@ class UserController extends Controller
         return view('Login.LoginView'); //
     }
 
-    public function ResetPasswordView()
+    /*public function ResetPasswordView()
     {
         return view('Login.ResetPasswordView'); //
-    }
+    }*/
 
     public function authenticate(Request $request)
     {
@@ -669,9 +669,6 @@ class UserController extends Controller
             return redirect()->route("login");
         }
 
-
-
-
     }
     // REPORT
     public function reportPlatinumView()
@@ -683,17 +680,29 @@ class UserController extends Controller
 
     //integrate with expert and publication data
     public function showDetail($P_IC)
-{
-   // Fetch publication data and expert data based on P_IC
-   $publications = PublicationData::where('P_IC', $P_IC)->get();
-   $experts = Expert::where('P_IC', $P_IC)->get();
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
 
-   return view('integrate.viewExpertPDPlat', [
-       'publications' => $publications,
-       'experts' => $experts,
-       'P_IC' => $P_IC
-   ]);
-}
+    return view('integrate.viewExpertPDPlat', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
+    public function showDetailPlat($P_IC)
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
+
+    return view('integrate.viewExpertPDMentor', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
 
     
 }

@@ -165,5 +165,7 @@ Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDr
 //integrate module 1 ,2,3
 Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
 
+Route::get('/showDetailMT/{P_IC}', [UserController::class, 'showDetailPlat'])->name('showDetailMT');
+
 
 
