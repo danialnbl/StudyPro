@@ -1,5 +1,5 @@
-@extends('layouts.main')
-@section('container')
+@extends('layouts.mentormain')
+@section('mentor')
 <style>
     .data-list {
         margin-top: 2rem;
