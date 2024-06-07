@@ -103,6 +103,7 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //publication
 // View all publications
 Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
+Route::get('/ViewpublicationM', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationM.view');
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);

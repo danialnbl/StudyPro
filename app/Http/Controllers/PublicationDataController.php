@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Platinum;
 use App\Models\Expert;
+use App\Models\Mentor;
+
 
 class PublicationDataController extends Controller
 {
@@ -64,6 +66,15 @@ class PublicationDataController extends Controller
         return view('managePublicationData.viewPublicationDataView', compact('publications'));
     }
 
+    public function viewPublicationDataM()
+    {
+        $platinumUserIds = Platinum::pluck('PD_ID')->toArray();
+    
+        $publications = PublicationData::whereIn('PD_ID', $platinumUserIds)->get();
+    
+        return view('managePublicationData.viewPublicationDataViewM', compact('publications'));
+    }
+    
     public function viewOwnPublicationData()
     {
         $publications = PublicationData::all();

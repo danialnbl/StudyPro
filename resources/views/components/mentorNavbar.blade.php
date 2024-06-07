@@ -139,5 +139,23 @@
             </ul>
         </li><!-- End Tables Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#publication-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-file-earmark-text"></i><span>Publication</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="publication-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/ViewpublicationM">
+                        <i class="bi bi-circle"></i><span>List of Publications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Generate Report</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+
     </ul>
 </aside><!-- End Sidebar-->
