@@ -1,6 +1,18 @@
 @extends('layouts.main')
 
 @section('container')
+<style>
+    .btn-custom-search {
+        background-color: #28a745; /* Green background color */
+        color: white;
+        border: 1px solid #28a745;
+    }
+    .btn-custom-search:hover {
+        background-color: #218838; /* Darker green on hover */
+        color: white;
+        border: 1px solid #218838;
+    }
+</style>
     <section class="vh-100 gradient-custom">
         @if(session()->has("success"))
             <div class="alert alert-success">
@@ -15,6 +27,13 @@
         <div class="card" style="border-radius: 15px;">
             <div class="card-body p-4 p-md-5">
                 <h3 class="pb-2 pb-md-0"><b>List of Publications</b></h3>
+                <form action="{{ route('SearchPublication.search') }}" method="GET" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search by title...">
+                        <button type="submit" class="btn btn-custom-search">Search</button>
+                    </div>
+                </form>
+                
                 @if($publications->isEmpty())
                     <p>No publications found.</p>
                 @else

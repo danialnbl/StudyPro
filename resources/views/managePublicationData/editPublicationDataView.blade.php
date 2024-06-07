@@ -59,9 +59,7 @@
                         </div>
                     </div>
                     <div class="form-navigation mt-3">
-                        <button type="button" class="previous btn btn-primary float-left">Previous</button>
-                        <button type="button" class="next btn btn-primary float-right">Next</button>
-                        <button type="submit" class="btn btn-success float-right">Update</button>
+                        <button type="submit" class="btn btn-primary float-right">Update</button>
                     </div>
                 </form>
             </div>

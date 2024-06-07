@@ -29,7 +29,7 @@ class PublicationDataController extends Controller
         'PD_Author' => 'required|string|max:255',
         'PD_DOI' => 'required|string|max:255',
         'PD_Type' => 'required|string|max:255',
-        'PD_File' => 'required|file|mimes:pdf|max:1000240', // 10MB max, adjust as needed
+        'PD_File' => 'required|file|mimes:pdf|max:1000240', // 1GB max
     ]);
 
     // Handle file upload
@@ -51,7 +51,7 @@ class PublicationDataController extends Controller
             'user_id' => Auth::id(), // Save the user ID
         ]);
 
-        return redirect()->back()->with('success', 'Publication added successfully!');
+        return redirect()->route('Mypublication.view')->with('success', 'Publication added successfully!');
     }
 
     return redirect()->back()->with('error', 'File not found!');
@@ -89,29 +89,29 @@ class PublicationDataController extends Controller
             'PD_File' => 'nullable|file|mimes:pdf|max:1000240', // Optional file validation
         ]);
         
-        $publications = PublicationData::findOrFail($PD_ID);
-        $publications->PD_Title = $request->input('PD_Title');
-        $publications->PD_University = $request->input('PD_University');
-        $publications->PD_Author = $request->input('PD_Author');
-        $publications->PD_DOI = $request->input('PD_DOI');
-        $publications->PD_Type = $request->input('PD_Type');
+        $publication = PublicationData::findOrFail($PD_ID);
+        $publication->PD_Title = $request->input('PD_Title');
+        $publication->PD_University = $request->input('PD_University');
+        $publication->PD_Author = $request->input('PD_Author');
+        $publication->PD_DOI = $request->input('PD_DOI');
+        $publication->PD_Type = $request->input('PD_Type');
     
         if ($request->hasFile('PD_File')) {
             // Delete the old file if it exists
-            if ($publications->PD_FilePath) {
-                Storage::delete($publications->PD_FilePath);
+            if ($publication->PD_FilePath) {
+                Storage::delete($publication->PD_FilePath);
             }
     
             $file = $request->file('PD_File');
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('PublicationData', $fileName, 'public');
-            $publications->PD_FileName = $fileName;
-            $publications->PD_FilePath = $path;
+            $publication->PD_FileName = $fileName;
+            $publication->PD_FilePath = $path;
         }
     
         // Save the updated publication to the database
-        $publications->save();
-        return redirect()->back()->with('success', 'Publication updated successfully!');
+        $publication->save();
+        return redirect()->route('Mypublication.view')->with('success', 'Publication updated successfully!');
     }
 
     public function destroy($id)
@@ -120,5 +120,24 @@ class PublicationDataController extends Controller
         Storage::delete($publication->PD_FilePath);
         $publication->delete();
         return redirect()->back()->with('success', 'Publication deleted successfully!');
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+        ]);
+
+        $search = $request->input('search');
+
+        $publications = PublicationData::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('PD_Title', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('managePublicationData.viewPublicationDataView', [
+            'publications' => $publications,
+        ]);
     }
 }
