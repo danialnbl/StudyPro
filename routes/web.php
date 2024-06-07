@@ -113,11 +113,11 @@ Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicat
 
 // Edit and update publication
 
-Route::get('/publications/edit/{id}', [PublicationDataController::class, 'editPublicationDataView'])->name('Editpublication');
-Route::put('/Updatepublication', [PublicationDataController::class, 'update'])->name('Updatepublication.update');
+Route::get('/Editpublication/{id}', [PublicationDataController::class, 'editPublicationDataView'])->name('Editpublication');
+Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update'])->name('Editpublication.update');
 
 // Delete publication
-Route::delete('/publications/delete/{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
+Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
 
 

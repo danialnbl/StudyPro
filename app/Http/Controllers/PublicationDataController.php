@@ -6,6 +6,8 @@ use App\Models\PublicationData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Platinum;
+use App\Models\Expert;
 
 class PublicationDataController extends Controller
 {
@@ -71,12 +73,23 @@ class PublicationDataController extends Controller
     public function editPublicationDataView($id)
     {
         $publication = PublicationData::findOrFail($id);
-        return view('managePublicationData.editPublicationDataView', compact('publications'));
+        $platinums = Platinum::all();
+        $experts = Expert::all();
+        return view('managePublicationData.editPublicationDataView', compact('publication', 'platinums', 'experts'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $PD_ID)
     {
-        $publications = PublicationData::findOrFail($id);
+        $request->validate([
+            'PD_University' => 'required|string|max:255',
+            'PD_Title' => 'required|string|max:255',
+            'PD_Author' => 'required|string|max:255',
+            'PD_DOI' => 'required|string|max:255',
+            'PD_Type' => 'required|string|max:255',
+            'PD_File' => 'nullable|file|mimes:pdf|max:1000240', // Optional file validation
+        ]);
+        
+        $publications = PublicationData::findOrFail($PD_ID);
         $publications->PD_Title = $request->input('PD_Title');
         $publications->PD_University = $request->input('PD_University');
         $publications->PD_Author = $request->input('PD_Author');
@@ -84,7 +97,11 @@ class PublicationDataController extends Controller
         $publications->PD_Type = $request->input('PD_Type');
     
         if ($request->hasFile('PD_File')) {
-            Storage::delete($publications->PD_FilePath);
+            // Delete the old file if it exists
+            if ($publications->PD_FilePath) {
+                Storage::delete($publications->PD_FilePath);
+            }
+    
             $file = $request->file('PD_File');
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('PublicationData', $fileName, 'public');
@@ -92,16 +109,16 @@ class PublicationDataController extends Controller
             $publications->PD_FilePath = $path;
         }
     
+        // Save the updated publication to the database
         $publications->save();
-        return redirect()->route('publications.my')->with('success', 'Publication updated successfully.');
+        return redirect()->back()->with('success', 'Publication updated successfully!');
     }
-    
 
     public function destroy($id)
     {
         $publication = PublicationData::findOrFail($id);
         Storage::delete($publication->PD_FilePath);
         $publication->delete();
-        return redirect()->route('Mypublication')->with('success', 'Publication deleted successfully.');
+        return redirect()->back()->with('success', 'Publication deleted successfully!');
     }
 }
