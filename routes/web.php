@@ -119,7 +119,8 @@ Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update']
 // Delete publication
 Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
-
+//search Publication
+Route::get('/search-publications', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
