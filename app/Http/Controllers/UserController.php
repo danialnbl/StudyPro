@@ -569,16 +569,40 @@ class UserController extends Controller
 
             return redirect('/staffProfile')->with('success', 'Staff profile updated successfully');
     }
-    public function searchPlatST(Request $request){
-        $search = $request->input('search');
-        $platinum = Platinum::query()
-        ->where('P_IC', 'LIKE', "%{$search}%")
-        ->orWhere('P_Program', 'LIKE', "%{$search}%")
-        ->orWhere('P_Name', 'LIKE', "%{$search}%")
-        ->orWhere('P_Status', 'LIKE', "%{$search}%")
-        ->get();
-        return view('manageProfile.searchProST', compact('platinum'));
+    public function searchPlatST(Request $request)
+{
+    $search = $request->input('search');
+    $batch = $request->input('P_Batch');
+    $status = $request->input('P_Status');
+
+    $query = Platinum::query();
+
+    if ($search) {
+        $query->where(function($q) use ($search) {
+            $q->where('P_IC', 'LIKE', "%{$search}%")
+              ->orWhere('P_Program', 'LIKE', "%{$search}%")
+              ->orWhere('P_Name', 'LIKE', "%{$search}%")
+              ->orWhere('P_Status', 'LIKE', "%{$search}%");
+        });
     }
+
+    if ($batch) {
+        $query->where('P_Batch', $batch);
+    }
+
+    if ($status) {
+        $query->where('P_Status', $status);
+    }
+
+    $platinum = $query->get();
+
+    // Fetch distinct batches and statuses for the filter dropdowns
+    $batches = Platinum::select('P_Batch')->distinct()->pluck('P_Batch');
+    $statuses = Platinum::select('P_Status')->distinct()->pluck('P_Status');
+
+    return view('manageProfile.searchProST', compact('platinum', 'batches', 'statuses'));
+}
+
     public function detailPlatST($P_IC){
         $platinum = Platinum::findOrFail($P_IC);
         //$platinum = Platinum ::all();
@@ -677,12 +701,44 @@ class UserController extends Controller
 
     }
     // REPORT
-    public function reportPlatinumView()
+    public function reportMentorView()
     {
             $data = ['platinum'=>Platinum::all()];
             $pdf = Pdf::LoadView('manageProfile.ProfileReportView', $data);
             return $pdf->download('profileReport.pdf');
     }
+    public function reportStaffView(Request $request)
+    {
+        $search = $request->input('search');
+        $batch = $request->input('P_Batch');
+        $status = $request->input('P_Status');
+
+        $query = Platinum::query();
+
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('P_IC', 'LIKE', "%{$search}%")
+                ->orWhere('P_Program', 'LIKE', "%{$search}%")
+                ->orWhere('P_Name', 'LIKE', "%{$search}%")
+                ->orWhere('P_Status', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($batch) {
+            $query->where('P_Batch', $batch);
+        }
+
+        if ($status) {
+            $query->where('P_Status', $status);
+        }
+
+        $platinum = $query->get();
+
+        $data = ['platinum' => $platinum];
+        $pdf = Pdf::loadView('manageProfile.staffReport', $data);
+        return $pdf->download('profileReport.pdf');
+    }
+
 
     //integrate with expert and publication data
     public function showDetail($P_IC)

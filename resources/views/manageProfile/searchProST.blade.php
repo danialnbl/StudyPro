@@ -44,31 +44,48 @@
         border: 1px solid #218838;
     }
 </style>
-<!--search-->
+
+<!-- Filter and Search Bar -->
 <div class="pb-3">
     <form class="d-flex mb-3" action="{{ route('searchProST') }}" method="get">
         <input class="form-control me-2" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
+
+        <select class="form-control me-2" name="P_Batch">
+            <option value="">Select Batch</option>
+            @foreach($batches as $batch)
+                <option value="{{ $batch }}" {{ request()->get('P_Batch') == $batch ? 'selected' : '' }}>{{ $batch }}</option>
+            @endforeach
+        </select>
+
+        <select class="form-control me-2" name="P_Status">
+            <option value="">Select Status</option>
+            @foreach($statuses as $status)
+                <option value="{{ $status }}" {{ request()->get('P_Status') == $status ? 'selected' : '' }}>{{ $status }}</option>
+            @endforeach
+        </select>
+
         <button class="btn btn-custom-search" type="submit">Search</button>
     </form>
 
-    <a href="{{ route('reportStaff') }}" class="btn btn-primary">Generate PDF</a>
+    <a href="{{ route('reportStaff', ['search' => request()->get('search'), 'P_Batch' => request()->get('P_Batch'), 'P_Status' => request()->get('P_Status')]) }}" class="btn btn-primary">Generate PDF</a>
 </div>
 
-<!--profiles card-->
+<!-- Profiles Card -->
 <div class="row">
 @foreach($platinum as $platinum)
     <div class="col-md-4">
         <div class="card card-custom">
             <div class="card-header">{{ $platinum->P_Name }}</div>
             <div class="card-body">
-                <h5 class="card-title">{{ $platinum->P_IC }}</h5>
-                <p class="card-text">{{ $platinum->P_Status }}</p>
+                <h5 class="card-title">NR IC: {{ $platinum->P_IC }}</h5>
+                <p class="card-text">Status: {{ $platinum->P_Status }}</p>
+                <p class="card-text">Batch: {{ $platinum->P_Batch }}</p>
                 <a href="{{ route('detailPlatST', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
-                
             </div>
         </div>
     </div>
 @endforeach
 </div>
 @endsection
+
 

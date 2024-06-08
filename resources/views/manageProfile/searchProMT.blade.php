@@ -50,7 +50,7 @@
         <input class="form-control me-2" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
         <button class="btn btn-custom-search" type="submit">Search</button>
     </form>
-    <a href="{{ route('reportStaff') }}" class="btn btn-primary">Generate PDF</a>
+    <a href="{{ route('reportMentor') }}" class="btn btn-primary">Generate PDF</a>
 </div>
 
 <!--profiles card-->
