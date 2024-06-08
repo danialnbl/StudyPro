@@ -60,10 +60,7 @@
                 <td>{{$item->WF_Date}}</td>
                 <td>        
                     <div class="gap-2 d-md-flex justify-content">
-                    <form action="{{ route('WeeklyFocus.edit', ['wf_id' => $item->WF_ID]) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                    <button type="submit" name="submit" class="btn btn-warning">Edit</button>
+                    <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
                     </form>
                     <form onsubmit="return confirm('Are you sure you want to delete?')" class="d-inline" action="{{ route('WeeklyFocus.delete', ['wf_id' => $item->WF_ID]) }}" method="POST">
                             @csrf
@@ -99,13 +96,14 @@
                 <td>{{$item->WF_Date}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
-                    <button class="btn btn-warning me-md-2" type="button">Edit</button>
+                    <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
+                    </form>
                     <form onsubmit="return confirm('Are you sure you want to delete?')" class="d-inline" action="{{ route('WeeklyFocus.delete', ['wf_id' => $item->WF_ID]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </div>
+                    </div>
                 </td>
             </tr>
             <?php $i++ ?>
@@ -134,13 +132,14 @@
                 <td>{{$item->WF_Date}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
-                    <button class="btn btn-warning me-md-2" type="button">Edit</button>
+                    <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
+                    </form>
                     <form onsubmit="return confirm('Are you sure you want to delete?')" class="d-inline" action="{{ route('WeeklyFocus.delete', ['wf_id' => $item->WF_ID]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </div>
+                    </div>
                 </td>
             </tr>
             <?php $i++ ?>
@@ -169,13 +168,14 @@
                 <td>{{$item->WF_Date}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
-                    <button class="btn btn-warning me-md-2" type="button">Edit</button>
+                    <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
+                    </form>
                     <form onsubmit="return confirm('Are you sure you want to delete?')" class="d-inline" action="{{ route('WeeklyFocus.delete', ['wf_id' => $item->WF_ID]) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="btn btn-danger">Delete</button>
                     </form>
-                </div>
+                    </div>
                 </td>
             </tr>
             <?php $i++ ?>
@@ -185,7 +185,6 @@
     </table>
 </div>
 </div>
-
 
 <!-- feedback from mentor and crmp -->
 

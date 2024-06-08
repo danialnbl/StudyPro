@@ -33,4 +33,20 @@ class WeeklyFocus extends Model
     {
         return $this->belongsTo(Platinum::class, 'P_IC', 'P_IC'); 
     }
+
+    public function getInputinfoAttribute()
+    {
+        switch ($this->WF_Block) {
+            case 'admin':
+                return $this->WF_AdminInfo;
+            case 'focus':
+                return $this->WF_FocusInfo;
+            case 'recovery':
+                return $this->WF_RecoveryInfo;
+            case 'social':
+                return $this->WF_SocialInfo;
+            default:
+                return null;
+        }
+    }
 }
