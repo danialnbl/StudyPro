@@ -1,5 +1,5 @@
 <!-- ======= Header ======= -->
-<header style="background-color:aqua;" id="header" class="header fixed-top d-flex align-items-center">
+<header style="background-color:#6AC1F2;" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/staffdashboard" class="logo d-flex align-items-center">
@@ -34,7 +34,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="/staffProfile">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -86,18 +86,13 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/searchPlatST">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/profile">
+                    <a href="/staffProfile">
                         <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>
                 </li>
             </ul>

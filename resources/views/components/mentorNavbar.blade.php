@@ -1,5 +1,5 @@
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header style="background-color:#D7FF96;" id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="/mentordashboard" class="logo d-flex align-items-center">
@@ -34,7 +34,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" href="/mentorProfile">
                             <i class="bi bi-person"></i>
                             <span>My Profile</span>
                         </a>
@@ -86,18 +86,13 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/searchPlatMT">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/profile">
+                    <a href="/mentorProfile">
                         <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>
                 </li>
             </ul>
@@ -109,11 +104,11 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/register">
-                        <i class="bi bi-circle"></i><span>Add new registration</span>
+                    <a href="/RegList">
+                        <i class="bi bi-circle"></i><span>List registration</span>
                     </a>
                 </li>
-                <li>
+                <!--<li>
                     <a href="/myexpert">
                         <i class="bi bi-circle"></i><span>Edit reigistration</span>
                     </a>
@@ -122,7 +117,7 @@
                     <a href="/expert">
                         <i class="bi bi-circle"></i><span>Delete registration</span>
                     </a>
-                </li>
+                </li>-->
             </ul>
         </li><!-- End Forms Nav -->
 
@@ -139,6 +134,24 @@
                 <li>
                     <a href="#">
                         <i class="bi bi-circle"></i><span>Approval</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#publication-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-file-earmark-text"></i><span>Publication</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="publication-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/ViewpublicationM">
+                        <i class="bi bi-circle"></i><span>List of Publications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Generate Report</span>
                     </a>
                 </li>
             </ul>

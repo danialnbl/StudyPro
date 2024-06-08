@@ -64,15 +64,15 @@ height: 100%;
             <input type="password" id="password" name="password" class="form-control form-control-lg" required autofocus/>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center">
+          <!--<div class="d-flex justify-content-between align-items-center">
             <a href="/loginReset" class="text-body">Forgot password?</a>
-          </div>
+          </div>-->
 
           <div class="text-center text-lg-start mt-4 pt-2">
             <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">First time user? <a href="/loginVerify"
-                class="link-danger">Verify account</a></p>
+            <!--<p class="small fw-bold mt-2 pt-1 mb-0">First time user? <a href="/loginVerify"
+                class="link-danger">Verify account</a></p>-->
           </div>
 
         </form>

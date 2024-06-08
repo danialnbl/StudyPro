@@ -1,5 +1,5 @@
-@extends('layouts.staffmain')
-@section('staff')
+@extends('layouts.mentormain')
+@section('mentor')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +22,7 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!-- FORM PENCARIAN -->
     <div class="pb-3">
-        <form class="d-flex" action="{{ route('searchPlatinum') }}" method="get">
+        <form class="d-flex" action="{{ route('searchReg') }}" method="get">
             <input class="form-control me-1" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
             <button class="btn btn-custom-search" type="submit">Search</button>
         </form>
@@ -47,9 +47,7 @@
                 <td>{{ $platinum->P_Status }}</td>
                 <td>
                     <div class="d-flex gap-2">
-                        <a href="{{ route('viewPlatinum', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-primary btn-sm">View</a>
-                        <a href="{{ route('editPlatinum', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{{ route('deletePlatinum', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{ route('viewReg', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-primary">View</a>
                     </div>
                 </td>
             </tr>

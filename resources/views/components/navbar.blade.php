@@ -86,18 +86,13 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/searchPlat">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/profile">
+                    <a href="/platProfile">
                         <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>
                 </li>
             </ul>
@@ -151,17 +146,17 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/publication">
                         <i class="bi bi-circle"></i><span>Add new publication</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/Mypublication">
                         <i class="bi bi-circle"></i><span>View my publications</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/Viewpublication">
                         <i class="bi bi-circle"></i><span>View all publications</span>
                     </a>
                 </li>

@@ -12,37 +12,47 @@ use App\Models\Picture;
 use App\Models\Staff;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
+use App\Models\PublicationData;
 use App\Models\Mentor;
+use App\Models\Expert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class UserController extends Controller
 {
     //dashboard
     public function PlatDashboard(){
-        return view('dashboard.platinumDashboard');
+        $expertCount = Expert::count('E_ID');
+        return view('dashboard.platinumDashboard', compact('expertCount'));
     }
     public function StaffDashboard(){
-        return view('dashboard.staffDashboard');
+        $platinumCount = Platinum::count();
+        $expertCount = Expert::count();
+        $mentorCount = Mentor::count();
+        return view('dashboard.staffDashboard', compact('platinumCount','expertCount','mentorCount'));
     }
     public function MentorDashboard(){
-        return view('dashboard.mentorDashboard');
+        $platinumCount = Platinum::count();
+        $expertCount = Expert::count();
+        return view('dashboard.mentorDashboard', compact('platinumCount','expertCount'));
     }
     public function CRMPDashboard(){
         return view('dashboard.CRMPDashboard');
     }
+    
     //Login
     public function loginView()
     {
         return view('Login.LoginView'); //
     }
 
-    public function ResetPasswordView()
+    /*public function ResetPasswordView()
     {
         return view('Login.ResetPasswordView'); //
-    }
+    }*/
 
     public function authenticate(Request $request)
     {
@@ -83,6 +93,35 @@ class UserController extends Controller
     {
         return view('manageRegistration.MentorRegistration');
     }
+    //reg list - mentor 
+    public function regList(){
+        return view('manageRegistration.regList');
+    }
+    public function showRegList(){
+        $platinum = Platinum ::all();
+        return view('manageRegistration.regList', compact('platinum'));
+    }
+    public function viewReg($P_IC){
+        $platinum = Platinum::findOrFail($P_IC);
+        //$platinum = Platinum ::all();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->PR_Id;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+        return view('manageRegistration.regDetail', compact('platinum','PlatEdu','PlatRef'));
+    }
+    public function searchReg(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+
+    return view('manageRegistration.regList', compact('platinum'));
+    }
+    
 
     public function PlatinumRegisterPost(Request $request)
     {
@@ -331,7 +370,7 @@ class UserController extends Controller
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->delete();
         return redirect('/PlatinumList')->with('status',"Data Deleted Successfully !");
     }
-// search in list
+// search in list - registration
     public function search(Request $request){
         $search = $request->input('search');
         $platinum = Platinum::query()
@@ -376,8 +415,7 @@ class UserController extends Controller
     {
         return view('manageProfile.mentorProfile');
     }
-    //display info on profile
-
+//  PLATINUM PROFILE 
     public function showPlatinum()
     {
         //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
@@ -385,10 +423,12 @@ class UserController extends Controller
         $platinum = Platinum::where('P_IC', $user->P_IC)->firstOrFail();
         $data1 = $platinum->PE_Id;
         $data2 = $platinum->PR_Id;
+        $data3 = $platinum->P_IC;
         $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
+        $fetchPic = Picture::where('P_IC',$data3)->first();
 
-        return view('manageProfile.ProfileView', compact('platinum', 'PlatEdu', 'PlatRef'));
+        return view('manageProfile.ProfileView', compact('platinum', 'PlatEdu', 'PlatRef','fetchPic'));
     }
     public function updatePlatinum()
     {
@@ -397,18 +437,19 @@ class UserController extends Controller
         $platinum = Platinum::where('P_IC', $user->P_IC)->firstOrFail();
         $data1 = $platinum->PE_Id;
         $data2 = $platinum->PR_Id;
+        $data3 = $platinum->P_IC;
         $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
         $PlatRef = PlatinumReferral::where('PR_Id',$data2)->first();
-       // $fetchPic = Picture::where('P_IC',$P_IC)->first();
+        $fetchPic = Picture::where('P_IC',$data3)->first();
 
-        return view('manageProfile.editProfileView', compact('platinum', 'PlatEdu', 'PlatRef'));
+        return view('manageProfile.editProfileView', compact('platinum', 'PlatEdu', 'PlatRef','fetchPic'));
     }
-    public function PlatinumProfilePost(Request $request,)
+    public function PlatinumProfilePost(Request $request)
     {
             // Validate the incoming request data
             $validatedData = $request->validate([
                 "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
-                "P_Name" => "required",
+                //"P_Name" => "required",
                 "P_PhoneNumber" => "required",
                 "P_Facebook" => "required",
                 "P_Address" => "required",
@@ -422,7 +463,7 @@ class UserController extends Controller
             $P_IC = Auth::user()->P_IC;
             // Retrieve the Platinum instance by P_IC
             $platinum = Platinum::findOrFail($P_IC);
-            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+           // $Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
 
             // Update related PlatinumEducation instance
             $platinum->education()->update([
@@ -434,12 +475,13 @@ class UserController extends Controller
 
             // Update Platinum instance
             $platinum->update([
-                "P_Name" => $validatedData['P_Name'],
+                //"P_Name" => $validatedData['P_Name'],
                 "P_PhoneNumber" => $validatedData['P_PhoneNumber'],
                 "P_Facebook" => $validatedData['P_Facebook'],
                 "P_Address" => $validatedData['P_Address'],
                 "P_Title" => $validatedData['P_Title'],
             ]);
+            $platinum->save();
             if ($request->hasFile('PI_File')) {
                 $picture = new Picture();
                 $file = $request->file('PI_File');
@@ -453,6 +495,168 @@ class UserController extends Controller
             }
 
             return redirect('/platProfile')->with('success', 'Platinum profile updated successfully');
+    }
+        //search profiles -platinum
+    public function searchPlat(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProfiles', compact('platinum'));
+    }
+
+    public function detailPlat($P_IC){
+        $platinum = Platinum::findOrFail($P_IC);
+        //$platinum = Platinum ::all();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum ->P_IC;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $fetchPic = Picture::where('P_IC',$data2)->first();
+        return view('manageProfile.searchDetailPT', compact('platinum','PlatEdu','fetchPic'));
+    }
+
+// STAFF PROFILE
+    public function showStaff()
+    {
+        
+        $user = Auth::user();
+        $staff = Staff::where('S_IC', $user->S_IC)->firstOrFail();
+        $data1 = $staff->S_IC;
+        $fetchPic = Picture::where('S_IC',$data1)->first();
+
+        return view('manageProfile.staffProfile', compact('staff','fetchPic'));
+    }
+    public function updateStaff()
+    {
+        $user = Auth::user();
+        $staff = Staff::where('S_IC', $user->S_IC)->firstOrFail();
+        $data1 = $staff->P_IC;
+        $fetchPic = Picture::where('S_IC',$data1)->first();
+
+        return view('manageProfile.editStaffProfile', compact('staff','fetchPic'));
+    }
+    public function StaffProfilePost(Request $request)
+    {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
+                "S_PhoneNumber" => "required",
+            ]);
+
+            $S_IC = Auth::user()->S_IC;
+            // Retrieve the Platinum instance by P_IC
+            $staff = Staff::findOrFail($S_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update staff instance
+            $staff->update([
+                "S_PhoneNumber" => $validatedData['S_PhoneNumber'],
+            ]);
+            if ($request->hasFile('PI_File')) {
+                $picture = new Picture();
+                $file = $request->file('PI_File');
+                $fileNamePic = time() . '_' . $file->getClientOriginalName();
+                $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+                $picture->PI_File = $fileNamePic;
+                $picture->PI_FilePath = $filePathPic;
+                $picture->PI_Type = "Staff";
+                $picture->S_IC = $staff->S_IC;;
+                $picture->save();
+            }
+
+            return redirect('/staffProfile')->with('success', 'Staff profile updated successfully');
+    }
+    public function searchPlatST(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProST', compact('platinum'));
+    }
+    public function detailPlatST($P_IC){
+        $platinum = Platinum::findOrFail($P_IC);
+        //$platinum = Platinum ::all();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum-> P_IC;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $fetchPic = Picture::where('P_IC',$data2)->first();
+        return view('manageProfile.searchDetailST', compact('platinum','PlatEdu','fetchPic'));
+    }
+// MENTOR PROFILE
+    public function showMentor()
+    {
+        
+        $user = Auth::user();
+        $mentor = Mentor::where('M_IC', $user->M_IC)->firstOrFail();
+        $data1 = $mentor->M_IC;
+        $fetchPic = Picture::where('M_IC',$data1)->first();
+
+        return view('manageProfile.mentorProfile', compact('mentor','fetchPic'));
+    }
+    public function updateMentor()
+    {
+        $user = Auth::user();
+        $mentor = Mentor::where('M_IC', $user->M_IC)->firstOrFail();
+        $data1 = $mentor->M_IC;
+        $fetchPic = Picture::where('M_IC',$data1)->first();
+
+        return view('manageProfile.editMentorProfile', compact('mentor','fetchPic'));
+    }
+    public function MentorProfilePost(Request $request,)
+    {
+            // Validate the incoming request data
+            $validatedData = $request->validate([
+                "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
+                "M_PhoneNumber" => "required",
+            ]);
+
+            $M_IC = Auth::user()->M_IC;
+            // Retrieve the Platinum instance by P_IC
+            $mentor = Mentor::findOrFail($M_IC);
+            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+
+            // Update staff instance
+            $mentor->update([
+                "M_PhoneNumber" => $validatedData['M_PhoneNumber'],
+            ]);
+            if ($request->hasFile('PI_File')) {
+                $picture = new Picture();
+                $file = $request->file('PI_File');
+                $fileNamePic = time() . '_' . $file->getClientOriginalName();
+                $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
+                $picture->PI_File = $fileNamePic;
+                $picture->PI_FilePath = $filePathPic;
+                $picture->PI_Type = "Mentor";
+                $picture->M_IC = $mentor->M_IC;
+                $picture->save();
+            }
+
+            return redirect('/mentorProfile')->with('success', 'Mentor profile updated successfully');
+    }
+    public function searchPlatMT(Request $request){
+        $search = $request->input('search');
+        $platinum = Platinum::query()
+        ->where('P_IC', 'LIKE', "%{$search}%")
+        ->orWhere('P_Program', 'LIKE', "%{$search}%")
+        ->orWhere('P_Name', 'LIKE', "%{$search}%")
+        ->orWhere('P_Status', 'LIKE', "%{$search}%")
+        ->get();
+        return view('manageProfile.searchProMT', compact('platinum'));
+    }
+    public function detailPlatMT($P_IC){
+        $platinum = Platinum::findOrFail($P_IC);
+        //$platinum = Platinum ::all();
+        $data1 = $platinum->PE_Id;
+        $data2 = $platinum->P_IC;
+        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
+        $fetchPic = Picture::where('P_IC',$data2)->first();
+        return view('manageProfile.searchDetailMT', compact('platinum','PlatEdu','fetchPic'));
     }
     //homepage
     public function staffmain()
@@ -471,10 +675,40 @@ class UserController extends Controller
             return redirect()->route("login");
         }
 
-
-
-
+    }
+    // REPORT
+    public function reportPlatinumView()
+    {
+            $data = ['platinum'=>Platinum::all()];
+            $pdf = Pdf::LoadView('manageProfile.ProfileReportView', $data);
+            return $pdf->download('profileReport.pdf');
     }
 
+    //integrate with expert and publication data
+    public function showDetail($P_IC)
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
 
+    return view('integrate.viewExpertPDPlat', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
+    public function showDetailPlat($P_IC)
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
+
+    return view('integrate.viewExpertPDMentor', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
+
+    
 }

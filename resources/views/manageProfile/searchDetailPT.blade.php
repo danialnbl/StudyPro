@@ -1,6 +1,5 @@
-@extends('layouts.staffmain')
-
-@section('staff')
+@extends('layouts.main')
+@section('container')
 <style>
   body {
       margin-top: 20px;
@@ -8,9 +7,9 @@
       color: #69707a;
   }
   .img-account-profile {
-      width: 150px; /* Fixed width */
-      height: 150px; /* Fixed height */
-      object-fit: cover; /* Ensure the image covers the area without distortion */
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
   }
   .rounded-circle {
       border-radius: 50% !important;
@@ -47,6 +46,7 @@
       border-radius: 0.35rem;
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
+
   .nav-borders .nav-link.active {
       color: #0061f2;
       border-bottom-color: #0061f2;
@@ -100,9 +100,9 @@
                                 {{ url('assets/defaultPP.png') }}
                             @endif " alt="Profile Photo">
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">{{ Auth::user()->name }}</div>
+                    <div class="small font-italic text-muted mb-4">{{ $platinum->P_Name }}</div>
                     <!-- Profile picture upload button-->
-                    <a href="{{route('editST')}}" class="btn btn-warning btn-sm">Edit Profile</a>
+                    <!--<a href="{{route('editPP')}}" class="btn btn-warning btn-sm">Edit Profile</a>-->
                 </div>
             </div>
         </div>
@@ -114,23 +114,47 @@
                     <table class="table">
                         <tr>
                             <td>Name</td>
-                            <td>{{ Auth::user()->name }}</td>
+                            <td>{{$platinum->P_Name}}</td>
                         </tr>
                         <tr>
                             <td>NR IC</td>
-                            <td>{{ $staff->S_IC }}</td>
+                            <td>{{ $platinum->P_IC }}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td>{{ $staff->S_Email }}</td>
+                            <td>{{ $platinum->P_Email }}</td>
                         </tr>
                         <tr>
                             <td>Contact Number</td>
-                            <td>{{ $staff->S_PhoneNumber }}</td>
+                            <td>{{ $platinum->P_PhoneNumber }}</td>
                         </tr>
                         <tr>
-                            <td>Staff ID</td>
-                            <td>{{ $staff->S_StaffID }}</td>
+                            <td>Facebook</td>
+                            <td>{{ $platinum->P_Facebook }}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>{{ $platinum->P_Address }}</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>{{ $platinum->P_Title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Education Institute</td>
+                            <td>{{ $PlatEdu->PE_EduInstitute }}</td>
+                        </tr>
+                        <tr>
+                            <td>Education Level</td>
+                            <td>{{ $PlatEdu->PE_EduLevel }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sponsorship</td>
+                            <td>{{ $PlatEdu->PE_Sponsorship}}</td>
+                        </tr>
+                        <tr>
+                            <td>Occupation</td>
+                            <td>{{ $PlatEdu->PE_Occupation }}</td>
                         </tr>
                     </table>
                 </div>

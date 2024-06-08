@@ -1,6 +1,6 @@
-@extends('layouts.staffmain')
+@extends('layouts.mentormain')
 
-@section('staff')
+@section('mentor')
 <style>
   body {
       margin-top: 20px;
@@ -94,15 +94,13 @@
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="@if($fetchPic != '')
+                    <img class="img-account-profile rounded-circle mb-2 profile-photo" src="@if($fetchPic != '')
                                 {{ url('storage/'.$fetchPic->PI_FilePath)  }}
                                 @else
                                 {{ url('assets/defaultPP.png') }}
                             @endif " alt="Profile Photo">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">{{ Auth::user()->name }}</div>
-                    <!-- Profile picture upload button-->
-                    <a href="{{route('editST')}}" class="btn btn-warning btn-sm">Edit Profile</a>
                 </div>
             </div>
         </div>
@@ -111,28 +109,43 @@
             <div class="card mb-4">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                    <table class="table">
-                        <tr>
-                            <td>Name</td>
-                            <td>{{ Auth::user()->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>NR IC</td>
-                            <td>{{ $staff->S_IC }}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>{{ $staff->S_Email }}</td>
-                        </tr>
-                        <tr>
-                            <td>Contact Number</td>
-                            <td>{{ $staff->S_PhoneNumber }}</td>
-                        </tr>
-                        <tr>
-                            <td>Staff ID</td>
-                            <td>{{ $staff->S_StaffID }}</td>
-                        </tr>
-                    </table>
+                    <form method="POST" action="{{ route('mentor.update') }}" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="form-group mb-3">
+                            <label for="PI_File">Upload Profile:</label>
+                            <input class="form-control" type="file" id="PI_File" name="PI_File" accept="image/png,image/jpeg">
+                        </div>
+
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <td>
+                                {{$mentor->M_Name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>NR IC</th>
+                                <td>{{$mentor->M_IC }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ Auth::user()->email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact Number</th>
+                                <td>
+                                    <input type="text" class="form-control" name="M_PhoneNumber" value="{{$mentor->M_PhoneNumber}}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mentor ID</td>
+                                <td>{{ $mentor->M_MentorID }}</td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -40,11 +40,11 @@
                                         <td>{{ $publication->PD_Author }}</td>
                                         <td>{{ $publication->PD_DOI }}</td>
                                         <td>{{ $publication->PD_Type }}</td>
-                                        <td>{{ $publication->PD_Date->format('Y-m-d') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($publication->PD_Date)->format('Y-m-d') }}</td>
                                         <td><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></td>
                                         <td>
-                                            <a href="{{ route('publications.edit', $publication->id) }}" class="btn btn-primary">Edit</a>
-                                            <form action="{{ route('publications.destroy', $publication->id) }}" method="POST" style="display:inline-block;">
+                                            <a href="/Editpublication/{{$publication->PD_ID}}"class="btn btn-warning">Edit</a>
+                                            <form action="{{ route('Delpublication', ['id' => $publication->PD_ID]) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this publication?');">Delete</button>

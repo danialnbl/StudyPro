@@ -53,17 +53,27 @@ Route::get('/view/{P_IC}', [UserController::class, 'viewPlat'])->name('viewPlati
 
 Route::get('/search', [UserController::class, 'search'])->name('searchPlatinum');
 
+Route::get('/RegList',[UserController::class, 'regList']);
+
+Route::get('/RegList',[UserController::class, 'showRegList']);
+
+Route::get('/viewReg/{P_IC}', [UserController::class, 'viewReg'])->name('viewReg');
+
+Route::get('/searchReg', [UserController::class, 'searchReg'])->name('searchReg');
+
 //Route::get('delete/{P_IC}',[UserController::class, 'deletePlatList']);
 
 
 //dashboard-nnti kena tukr controller
 Route ::get('/platinumdashboard',[UserController::class,'PlatDashboard'])->name('PlatDashboard')->middleware('platinum');
+//Route::get('/platinumdashboard', [UserController::class, 'countExpert'])->name('countExpert');
 
 Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('StaffDashboard')->middleware('staff');
 
 Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard')->middleware('mentor');
 
 Route ::get('/crmpdashboard',[UserController::class,'CRMPDashboard'])->name('CRMPDashboard');
+
 
 //Expert
 Route::get('/expert', [ExpertController::class, 'expertListView']);
@@ -94,37 +104,48 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //publication
 // View all publications
 Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
+Route::get('/ViewpublicationM', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationM.view');
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
-Route::post('/publicationAdd', [PublicationDataController::class, 'store'])->name('publicationAdd.store');
+Route::post('/publicationAdd', [PublicationDataController::class, 'storePublication'])->name('publicationAdd.store');
 
 // View own publications
 Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicationData'])->name('Mypublication.view');
 
 // Edit and update publication
-Route::get('/Editpublication', [PublicationDataController::class, 'editPublicationData'])->name('Editpublications.edit');
-Route::put('/Updatepublication', [PublicationDataController::class, 'update'])->name('Updatepublication.update');
+
+Route::get('/Editpublication/{id}', [PublicationDataController::class, 'editPublicationDataView'])->name('Editpublication');
+Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update'])->name('Editpublication.update');
 
 // Delete publication
-Route::delete('/Delpublication', [PublicationDataController::class, 'destroy'])->name('Delpublication.destroy');
+Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
-
+//search Publication
+Route::get('/search-publications', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
-
 Route::get('/platProfile', [UserController::class, 'showPlatinum'])->name('showPP');
-
 Route::get('/editPlatProfile',[UserController::class, 'updatePlatinum'])->name('editPP');
-
 Route::put('/editPlatEdit', [UserController::class, 'PlatinumProfilePost'])->name('platProfile.update');
+Route::get('/searchPlat',[UserController::class, 'searchPlat'])->name('searchProfile');
+Route::get('/detail/{P_IC}', [UserController::class, 'detailPlat'])->name('detailPlatinum');
 
 Route::get('/staffProfile',[UserController::class, 'staffProfile']);
-
-//Route::get('/staffProfile',[UserController::class, 'showStaff']);
+Route::get('/staffProfile', [UserController::class, 'showStaff'])->name('showST');
+Route::get('/editStaffProfile',[UserController::class, 'updateStaff'])->name('editST');
+Route::put('/StaffEdit', [UserController::class, 'StaffProfilePost'])->name('staff.update');
+Route::get('/searchPlatST',[UserController::class, 'searchPlatST'])->name('searchProST');
+Route::get('/detailST/{P_IC}', [UserController::class, 'detailPlatST'])->name('detailPlatST');
+Route::get('/staffReport', [UserController::class, 'reportPlatinumView'])->name('reportStaff');
 
 Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
+Route::get('/mentorProfile', [UserController::class, 'showMentor'])->name('showMT');
+Route::get('/editMentorProfile',[UserController::class, 'updateMentor'])->name('editMT');
+Route::put('/MentorEdit', [UserController::class, 'MentorProfilePost'])->name('mentor.update');
+Route::get('/searchPlatMT',[UserController::class, 'searchPlatMT'])->name('searchProMT');
+Route::get('/detailMT/{P_IC}', [UserController::class, 'detailPlatMT'])->name('detailPlatMT');
 
 //Route::get('/mentorProfile',[UserController::class, 'showMentor']);
 /*Auth::routes([
@@ -150,6 +171,10 @@ Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDra
 Route::post('/draftthesissubmit', [DraftThesisController::class, 'submitDraftThesis'])->name('DraftThesis.submit');
 Route::delete('/draftthesis/{draftid}', [DraftThesisController::class, 'DeleteDraftThesis'])->name('DraftThesis.delete');
 //edit
+//integrate module 1 ,2,3
+Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
+
+Route::get('/showDetailMT/{P_IC}', [UserController::class, 'showDetailPlat'])->name('showDetailMT');
 
 
 
