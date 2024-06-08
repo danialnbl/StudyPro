@@ -33,12 +33,22 @@
     .search-bar .form-control {
         margin-right: 0.5rem;
     }
+    .btn-custom-search {
+        background-color: #28a745; /* Green background color */
+        color: white;
+        border: 1px solid #28a745;
+    }
+    .btn-custom-search:hover {
+        background-color: #218838; /* Darker green on hover */
+        color: white;
+        border: 1px solid #218838;
+    }
 </style>
 <!--search-->
 <div class="pb-3">
     <form class="d-flex mb-3" action="{{ route('searchProMT') }}" method="get">
         <input class="form-control me-2" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
-        <button class="btn btn-secondary" type="submit">Search</button>
+        <button class="btn btn-custom-search" type="submit">Search</button>
     </form>
     <a href="{{ route('reportStaff') }}" class="btn btn-primary">Generate PDF</a>
 </div>
@@ -53,11 +63,12 @@
                 <h5 class="card-title">{{ $platinum->P_IC }}</h5>
                 <p class="card-text">{{ $platinum->P_Status }}</p>
                 <a href="{{ route('detailPlatMT', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
-                <a href="#" class="btn">Expert & Publication Data</a>
+                <a href="{{ route('showDetailMT', ['P_IC' => $platinum->P_IC]) }}" class="btn">Expert & Publication Data</a>
             </div>
         </div>
     </div>
 @endforeach
 </div>
 @endsection
+
 

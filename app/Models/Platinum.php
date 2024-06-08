@@ -20,6 +20,12 @@ class Platinum extends Model //implements MustVerifyEmail
         return $this->belongsTo(PlatinumReferral::class, 'PR_Id');
     }
 
+    //Define the relationship with Publication
+    public function publication()
+    {
+        return $this->belongsTo(PublicationData::class, 'PD_ID');
+    }
+
     use HasFactory;
     protected $primaryKey = 'P_IC';
     protected $table = 'Platinum';

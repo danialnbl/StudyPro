@@ -103,6 +103,7 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //publication
 // View all publications
 Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
+Route::get('/ViewpublicationM', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationM.view');
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
@@ -112,13 +113,15 @@ Route::post('/publicationAdd', [PublicationDataController::class, 'storePublicat
 Route::get('/Mypublication', [PublicationDataController::class, 'viewOwnPublicationData'])->name('Mypublication.view');
 
 // Edit and update publication
-Route::get('/Editpublication', [PublicationDataController::class, 'editPublicationData'])->name('Editpublications.edit');
-Route::put('/Updatepublication', [PublicationDataController::class, 'update'])->name('Updatepublication.update');
+
+Route::get('/Editpublication/{id}', [PublicationDataController::class, 'editPublicationDataView'])->name('Editpublication');
+Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update'])->name('Editpublication.update');
 
 // Delete publication
-Route::delete('/Delpublication', [PublicationDataController::class, 'destroy'])->name('Delpublication.destroy');
+Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
-
+//search Publication
+Route::get('/search-publications', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
@@ -161,6 +164,10 @@ Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDra
 Route::post('/draftthesis/submit', [DraftThesisController::class, 'submitDraftThesis']);
 Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDraftThesis']);
 
+//integrate module 1 ,2,3
+Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
+
+Route::get('/showDetailMT/{P_IC}', [UserController::class, 'showDetailPlat'])->name('showDetailMT');
 
 
 

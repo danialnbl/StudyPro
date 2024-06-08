@@ -12,6 +12,7 @@ use App\Models\Picture;
 use App\Models\Staff;
 use App\Models\PlatinumEducation;
 use App\Models\PlatinumReferral;
+use App\Models\PublicationData;
 use App\Models\Mentor;
 use App\Models\Expert;
 use Illuminate\Support\Facades\Auth;
@@ -45,10 +46,10 @@ class UserController extends Controller
         return view('Login.LoginView'); //
     }
 
-    public function ResetPasswordView()
+    /*public function ResetPasswordView()
     {
         return view('Login.ResetPasswordView'); //
-    }
+    }*/
 
     public function authenticate(Request $request)
     {
@@ -437,12 +438,12 @@ class UserController extends Controller
 
         return view('manageProfile.editProfileView', compact('platinum', 'PlatEdu', 'PlatRef','fetchPic'));
     }
-    public function PlatinumProfilePost(Request $request,)
+    public function PlatinumProfilePost(Request $request)
     {
             // Validate the incoming request data
             $validatedData = $request->validate([
                 "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
-                "P_Name" => "required",
+                //"P_Name" => "required",
                 "P_PhoneNumber" => "required",
                 "P_Facebook" => "required",
                 "P_Address" => "required",
@@ -456,7 +457,7 @@ class UserController extends Controller
             $P_IC = Auth::user()->P_IC;
             // Retrieve the Platinum instance by P_IC
             $platinum = Platinum::findOrFail($P_IC);
-            //$Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
+           // $Platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
 
             // Update related PlatinumEducation instance
             $platinum->education()->update([
@@ -468,12 +469,13 @@ class UserController extends Controller
 
             // Update Platinum instance
             $platinum->update([
-                "P_Name" => $validatedData['P_Name'],
+                //"P_Name" => $validatedData['P_Name'],
                 "P_PhoneNumber" => $validatedData['P_PhoneNumber'],
                 "P_Facebook" => $validatedData['P_Facebook'],
                 "P_Address" => $validatedData['P_Address'],
                 "P_Title" => $validatedData['P_Title'],
             ]);
+            $platinum->save();
             if ($request->hasFile('PI_File')) {
                 $picture = new Picture();
                 $file = $request->file('PI_File');
@@ -530,7 +532,7 @@ class UserController extends Controller
 
         return view('manageProfile.editStaffProfile', compact('staff','fetchPic'));
     }
-    public function StaffProfilePost(Request $request,)
+    public function StaffProfilePost(Request $request)
     {
             // Validate the incoming request data
             $validatedData = $request->validate([
@@ -667,9 +669,6 @@ class UserController extends Controller
             return redirect()->route("login");
         }
 
-
-
-
     }
     // REPORT
     public function reportPlatinumView()
@@ -680,5 +679,30 @@ class UserController extends Controller
     }
 
     //integrate with expert and publication data
+    public function showDetail($P_IC)
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
+
+    return view('integrate.viewExpertPDPlat', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
+    public function showDetailPlat($P_IC)
+    {
+    // Fetch publication data and expert data based on P_IC
+    $publications = PublicationData::where('P_IC', $P_IC)->get();
+    $experts = Expert::where('P_IC', $P_IC)->get();
+
+    return view('integrate.viewExpertPDMentor', [
+        'publications' => $publications,
+        'experts' => $experts,
+        'P_IC' => $P_IC
+    ]);
+    }
+
     
 }

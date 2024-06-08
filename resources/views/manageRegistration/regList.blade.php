@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyPro | Edit Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        .btn-custom-search {
+            background-color: #28a745; /* Green background color */
+            color: white;
+            border: 1px solid #28a745;
+        }
+        .btn-custom-search:hover {
+            background-color: #218838; /* Darker green on hover */
+            color: white;
+            border: 1px solid #218838;
+        }
+    </style>
 </head>
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -12,7 +24,7 @@
     <div class="pb-3">
         <form class="d-flex" action="{{ route('searchReg') }}" method="get">
             <input class="form-control me-1" type="search" name="search" value="{{ request()->get('search') }}" placeholder="Enter your keyword" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Search</button>
+            <button class="btn btn-custom-search" type="submit">Search</button>
         </form>
     </div>
 
@@ -35,7 +47,7 @@
                 <td>{{ $platinum->P_Status }}</td>
                 <td>
                     <div class="d-flex gap-2">
-                        <a href="{{ route('viewReg', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ route('viewReg', ['P_IC' => $platinum->P_IC]) }}" class="btn btn-primary">View</a>
                     </div>
                 </td>
             </tr>
