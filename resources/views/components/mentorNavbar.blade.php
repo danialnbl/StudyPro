@@ -150,7 +150,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/GenerateReportPublication">
                         <i class="bi bi-circle"></i><span>Generate Report</span>
                     </a>
                 </li>

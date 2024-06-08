@@ -126,6 +126,10 @@ Route::get('/Searchpublication', [PublicationDataController::class, 'search'])->
 // View publications by Platinum members for mentors
 Route::get('/ViewpublicationMentor', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationMentor.view');
 
+// Generate report
+Route::get('/GenerateReportPublication', [PublicationDataController::class, 'generateReportView'])->name('GenerateReportPublication.view');
+Route::post('/GenerateReportPublication', [PublicationDataController::class, 'generateReport'])->name('GenerateReportPublication.generate');
+
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
 Route::get('/platProfile', [UserController::class, 'showPlatinum'])->name('showPP');
