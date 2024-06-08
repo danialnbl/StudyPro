@@ -155,14 +155,15 @@ Route::get('/detailMT/{P_IC}', [UserController::class, 'detailPlatMT'])->name('d
 
 //weeklyfocus controller
 Route::get('/weeklyfocus', [WeeklyFocusController::class, 'index']);
-Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView'])->name('WeeklyFocus.add');;
+Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView'])->name('WeeklyFocus.add');
 Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView'])->name('WeeklyFocus.view');
 Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('WeeklyFocus.submit');
 Route::delete('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'DeleteWeeklyFocus'])->name('WeeklyFocus.delete');
 Route::get('/weeklyfocus/{wf_id}/edit', [WeeklyFocusController::class, 'EditWeeklyFocusForm'])->name('WeeklyFocus.editForm');
 Route::put('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'EditWeeklyFocusView'])->name('WeeklyFocus.edit');
+Route::get('/searchweeklyfocus', [WeeklyFocusController::class, 'SearchWeeklyFocusView'])->name('WeeklyFocus.search');
 
-Route::get('/feedbackwf',[WeeklyFocusController::class,'FeedbackWFView'])->name('WeeklyFocus.feedback');
+//Route::get('/feedbackwf',[WeeklyFocusController::class,'FeedbackWFView'])->name('WeeklyFocus.feedback');
 
 
 //draftthesis controller
@@ -170,7 +171,9 @@ Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerfor
 Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDraftThesisView']);
 Route::post('/draftthesissubmit', [DraftThesisController::class, 'submitDraftThesis'])->name('DraftThesis.submit');
 Route::delete('/draftthesis/{draftid}', [DraftThesisController::class, 'DeleteDraftThesis'])->name('DraftThesis.delete');
-//edit
+Route::put('/draftthesis/{draftid}/edit', [DraftThesisController::class, 'EditDraftThesisView'])->name('DraftThesis.edit');
+Route::get('/searchdraftthesis', [DraftThesisController::class, 'SearchDraftThesisView'])->name('DraftThesis.search');
+
 //integrate module 1 ,2,3
 Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
 

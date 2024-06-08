@@ -1,4 +1,3 @@
-<!-- mentor -->
 @extends('layouts.mentormain')
 @section('mentor')
 

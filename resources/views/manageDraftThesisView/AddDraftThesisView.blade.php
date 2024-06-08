@@ -33,10 +33,7 @@
             <label for="startdate" class="col-sm-3 col-form-label">Draft Start Date</label>
             <div class="col-sm-6 mb-3">
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="startdate" name="startdate" required>
-                    <span class="input-group-text bg-white">
-                        <i class="fa fa-calendar"></i>
-                    </span>
+                    <input type="date" class="form-control" id="startdate" name="startdate" required>
                 </div>
             </div>
         </div>
@@ -44,10 +41,7 @@
             <label for="enddate" class="col-sm-3 col-form-label">Draft Complete Date</label>
             <div class="col-sm-6 mb-3">
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="enddate" name="enddate" required>
-                    <span class="input-group-text bg-white">
-                        <i class="fa fa-calendar"></i>
-                    </span>
+                    <input type="date" class="form-control" id="enddate" name="enddate" required>
                 </div>
             </div>
         </div>
@@ -69,7 +63,7 @@
         </div>
         <div class="col-sm-6 mb-3">
             <label for="comment" class="form-label">Comments</label>
-            <input type="text" class="form-control" id="comment" name="comment" required>
+            <input type="text" class="form-control" id="comment" name="comment">
         </div>
         <div class="row">
             <div class="col-sm-1 mt-3">
@@ -86,19 +80,25 @@
 $(document).ready(function() {
     function calculateTotalPages() {
         var pageno = parseInt($('#pageno').val()) || 0;
-        $('#totalpages').val(pageno); // Only using pageno
+        $('#totalpages').val(pageno);
     }
 
     function calculatePrepDays() {
-        var startDate = $('#startdate').val();
-        var endDate = $('#enddate').val();
-        if (startDate && endDate) {
-            var start = moment(startDate, 'YYYY-MM-DD');
-            var end = moment(endDate, 'YYYY-MM-DD');
-            var prepDays = end.diff(start, 'days');
+    var startDate = $('#startdate').val();
+    var endDate = $('#enddate').val();
+    if (startDate && endDate) {
+        var start = moment(startDate, 'YYYY-MM-DD');
+        var end = moment(endDate, 'YYYY-MM-DD');
+        if (end.isBefore(start)) {
+            alert('End date cannot be before start date.');
+            $('#enddate').val('');
+            $('#prepdays').val('');
+        } else {
+            var prepDays = Math.abs(end.diff(start, 'days'));
             $('#prepdays').val(prepDays);
         }
     }
+}
 
     $('#pageno').on('input', calculateTotalPages);
     $('#enddate, #startdate').on('change', calculatePrepDays);
@@ -106,28 +106,26 @@ $(document).ready(function() {
     $('#draftForm').on('submit', function() {
         calculateTotalPages();
         calculatePrepDays();
+        var endDate = $('#enddate').val();
+        var startDate = $('#startdate').val();
+        if (endDate && startDate) {
+            var start = moment(startDate, 'YYYY-MM-DD');
+            var end = moment(endDate, 'YYYY-MM-DD');
+            if (end.isBefore(start)) {
+                alert('End date cannot be before start date.');
+                return false;
+            }
+        }
     });
 });
-</script>
 
+</script>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- jQuery UI Datepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <!-- Bootstrap Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-<!-- jQuery UI Datepicker Initialization -->
-<script>
-    $(document).ready(function() {
-        $('#startdate').datepicker({
-            dateFormat: 'dd-mm-yy' 
-        });
-        $('#enddate').datepicker({
-            dateFormat: 'dd-mm-yy' 
-        });
-    });
-</script>
 
 </body>
 </html>
