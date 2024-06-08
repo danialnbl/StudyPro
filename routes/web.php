@@ -63,6 +63,7 @@ Route ::get('/staffdashboard',[UserController::class,'StaffDashboard'])->name('S
 
 Route ::get('/mentordashboard',[UserController::class,'MentorDashboard'])->name('MentorDashboard')->middleware('mentor');
 
+Route ::get('/crmpdashboard',[UserController::class,'CRMPDashboard'])->name('CRMPDashboard');
 
 //Expert
 Route::get('/expert', [ExpertController::class, 'expertListView']);
@@ -133,16 +134,22 @@ Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
 
 //weeklyfocus controller
 Route::get('/weeklyfocus', [WeeklyFocusController::class, 'index']);
-Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView']);
-Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView']);
-Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('submitWeeklyFocus');;
+Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView'])->name('WeeklyFocus.add');;
+Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView'])->name('WeeklyFocus.view');
+Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('WeeklyFocus.submit');
+Route::delete('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'DeleteWeeklyFocus'])->name('WeeklyFocus.delete');
+Route::get('/weeklyfocus/{wf_id}/edit', [WeeklyFocusController::class, 'EditWeeklyFocusForm'])->name('WeeklyFocus.editForm');
+Route::put('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'EditWeeklyFocusView'])->name('WeeklyFocus.edit');
+
+Route::get('/feedbackwf',[WeeklyFocusController::class,'FeedbackWFView'])->name('WeeklyFocus.feedback');
+
 
 //draftthesis controller
-Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerformanceView']);
+Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerformanceView'])->name('DraftThesis.view');
 Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDraftThesisView']);
-Route::post('/draftthesis/submit', [DraftThesisController::class, 'submitDraftThesis']);
-Route::delete('/draftthesis/{draftno}', [DraftThesisController::class, 'DeleteDraftThesis']);
-
+Route::post('/draftthesissubmit', [DraftThesisController::class, 'submitDraftThesis'])->name('DraftThesis.submit');
+Route::delete('/draftthesis/{draftid}', [DraftThesisController::class, 'DeleteDraftThesis'])->name('DraftThesis.delete');
+//edit
 
 
 

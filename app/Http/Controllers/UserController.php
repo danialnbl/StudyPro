@@ -30,6 +30,9 @@ class UserController extends Controller
     public function MentorDashboard(){
         return view('dashboard.mentorDashboard');
     }
+    public function CRMPDashboard(){
+        return view('dashboard.CRMPDashboard');
+    }
     //Login
     public function loginView()
     {
@@ -56,6 +59,9 @@ class UserController extends Controller
                 return to_route('StaffDashboard');
             }elseif (Auth::user()->LA_Role == 2){
                 return to_route('MentorDashboard');
+            }elseif (Auth::user()->LA_Role == 3){
+                return to_route('CRMPDashboard');
+
             }else{
                 return redirect()->route("login")->with("error", "Something wrong with role!");
             }

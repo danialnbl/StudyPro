@@ -1,29 +1,164 @@
+@extends('layouts.mentormain')
+@section('mentor')
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Weekly Focus Feedback</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <style>
+        .box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <title>Weekly Focus</title>
 </head>
 
 <body>
-    <h2>Weekly Focus Feedback</h2>
-    <p>Enter your feedback for your beloved Platinum!</p>
-    <div>
-        <label for="exampleFormControlTextarea1" class="form-label">CRMP Feedback</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter your description"></textarea>
+@if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+@endif
+<div class="container">
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="d-inline-block">My Weekly Focus List</h1>
     </div>
-    <br><br>
-    <input class="btn btn-primary" type="submit" value="Submit">
+    <div class="col-md-4 text-right">
+        <div class="pb-3">
+            <a href="{{url('addweeklyfocus')}}" class="btn btn-primary">Add Weekly Focus Info</a>
+        </div>
+    </div>
+</div>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<div class="box">
+<h3>Admin Info</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col-md-1">#</th>
+                <th scope="col-md-6">Admin Info List</th>
+                <th scope="col-md-3">Date</th>            
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($weeklyFocus as $i => $item)
+            @if (!empty($item->WF_AdminInfo))
+            <tr>
+                <td>{{$i+1}}</td>
+                <td>{{ $item->WF_AdminInfo }}</td>
+                <td>{{$item->WF_Date}}</td>
+            </tr>
+            <?php $i++ ?>
+            @endif
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+<h3>Focus Info</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col-md-1">#</th>
+                <th scope="col-md-5">Focus Info List</th>
+                <th scope="col-md-3">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($weeklyFocus as $i => $item)
+            @if (!empty($item->WF_FocusInfo))
+            <tr>
+                <td>{{$i+1}}</td>
+                <td>{{ $item->WF_FocusInfo }}</td>
+                <td>{{$item->WF_Date}}</td>
+            </tr>
+            <?php $i++ ?>
+            @endif
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+<h3>Recovery Info</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col-md-1">#</th>
+                <th scope="col-md-5">Recovery Info List</th>
+                <th scope="col-md-3">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($weeklyFocus as $i => $item)
+            @if (!empty($item->WF_RecoveryInfo))
+            <tr>
+                <td>{{$i+1}}</td>
+                <td>{{ $item->WF_RecoveryInfo }}</td>
+                <td>{{$item->WF_Date}}</td>
+            </tr>
+            <?php $i++ ?>
+            @endif
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+<h3>Social Info</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col-md-1">#</th>
+                <th scope="col-md-5">Social Info List</th>
+                <th scope="col-md-3">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($weeklyFocus as $i => $item)
+            @if (!empty($item->WF_SocialInfo))
+            <tr>
+                <td>{{$i+1}}</td>
+                <td>{{ $item->WF_SocialInfo }}</td>
+                <td>{{$item->WF_Date}}</td>
+                </div>
+                </td>
+            </tr>
+            <?php $i++ ?>
+            @endif
+            @endforeach
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div class="mb-3">
+  <label for="WeeklyFocusComment" class="form-label">Comment </label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- jQuery UI Datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+@endsection

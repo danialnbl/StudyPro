@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('WeeklyFocus', function (Blueprint $table) {
             $table->increments('WF_ID');
             $table->date('WF_Date');
-            $table->string('WF_FocusBlock');
+            $table->string('WF_FocusBlock')->nullable()->change();
             $table->string('WF_FocusInfo');
             $table->string('WF_AdminInfo');
             $table->string('WF_SocialInfo');
             $table->string('WF_RecoveryInfo');
-            $table->string('WF_Feedback');
-            $table->string('M_IC');
-            $table->string('P_IC');
+            $table->string('WF_Feedback')->nullable();
+            $table->string('M_IC')->nullable();
+            $table->string('P_IC')->nullable();
             $table->foreign('M_IC')->references('M_IC')->on('Mentor')->onDelete('cascade');
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
         });

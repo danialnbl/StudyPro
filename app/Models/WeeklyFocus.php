@@ -9,7 +9,8 @@ class WeeklyFocus extends Model
 {
     use HasFactory;
 
-    //protected $primaryKey = 'DT_DraftNumber';
+    protected $table = 'WeeklyFocus';
+    protected $primaryKey = 'wf_id';
 
     protected $fillable = [
         'WF_FocusBlock', //ejas sini
@@ -21,7 +22,15 @@ class WeeklyFocus extends Model
         'WF_Date',
     ];
 
-    protected $table = 'WeeklyFocus';
-
     public $timestamps = false; // If you don't have created_at and updated_at columns
+
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class, 'M_IC', 'M_IC'); 
+    }
+
+    public function platinum()
+    {
+        return $this->belongsTo(Platinum::class, 'P_IC', 'P_IC'); 
+    }
 }
