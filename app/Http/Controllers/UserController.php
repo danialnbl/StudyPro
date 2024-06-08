@@ -152,7 +152,7 @@ class UserController extends Controller
             "PE_ProgramFee" => "required|numeric",
             "PE_EduLevel" => "required",
             "PE_Occupation" => "required",
-            "referral" => "required|string",
+            "referral" => "required|string", 
             "PR_Name" => "required_if:referral,yes",
             "PR_Batch" => "required_if:referral,yes"
         ]);
