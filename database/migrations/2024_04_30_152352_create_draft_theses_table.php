@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('DraftThesis', function (Blueprint $table) {
+        Schema::create('draftthesis', function (Blueprint $table) {
             $table->increments('DT_ID');
             $table->string('DT_Title');
             $table->integer('DT_DraftNumber');
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('DT_TotalPages');
             $table->string('DT_PrepDays');
             $table->integer('DT_DDC');
-            $table->string('P_IC');
-            $table->string('M_IC');
+            $table->string('P_IC')->nullable();
+            $table->string('M_IC')->nullable();
             $table->foreign('P_IC')->references('P_IC')->on('Platinum')->onDelete('cascade');
             $table->foreign('M_IC')->references('M_IC')->on('Mentor')->onDelete('cascade');
         });
@@ -34,7 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //Schema::dropIfExists('draft_theses');
-        Schema::dropIfExists('DraftThesis');
+        Schema::dropIfExists('draftthesis');
     }
 };

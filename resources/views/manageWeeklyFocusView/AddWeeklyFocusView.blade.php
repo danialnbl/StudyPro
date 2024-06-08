@@ -9,7 +9,7 @@
 
 <body>
 <h1 class="text-center">Add Weekly Focus</h1>
-<form id="weeklyFocusForm" method="POST" action="{{ route('submitWeeklyFocus') }}">
+<form id="weeklyFocusForm" method="POST" action="{{ route('WeeklyFocus.submit') }}">
 @csrf
 <fieldset class="row mb-3">
 <legend class="col-form-label col-sm-2 pt-0">Weekly Focus Block</legend>
@@ -43,7 +43,7 @@
 <div id="inputFields">
     <div class="row mb-3">
         <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputinfo[]">
+            <input type="text" class="form-control" name="inputinfo[]" required>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
         <label for="wfdate" class="col-sm-3 col-form-label">Weekly Focus Date</label>
         <div class="col-sm-6 mb-3">
             <div class="input-group date">
-                <input type="text" class="form-control" id="date" name="date" value="{{ old('date') }}" placeholder="Select Date">
+                <input type="text" class="form-control" id="date" name="date" required>
                 <span class="input-group-text bg-white">
                     <i class="fa fa-calendar"></i>
                 </span>

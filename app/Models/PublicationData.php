@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class PublicationData extends Model
 {
+    //Define the inverse relationship with Publication
+    public function platinum()
+    {
+        return $this->belongsTo(Platinum::class, 'PD_ID');
+    }
     use HasFactory;
 
     protected $fillable = [
