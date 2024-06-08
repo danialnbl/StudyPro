@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Platinum;
 use App\Models\Expert;
 use App\Models\Mentor;
-
+use App\Models\User;
 
 class PublicationDataController extends Controller
 {
@@ -77,6 +77,8 @@ class PublicationDataController extends Controller
     
     public function viewOwnPublicationData()
     {
+        $user = Auth::user();
+        $publications = PublicationData::where('P_IC', $user->P_IC)->firstOrFail();
         $publications = PublicationData::all();
         return view('managePublicationData.viewOwnPublicationDataView', compact('publications'));
     }
