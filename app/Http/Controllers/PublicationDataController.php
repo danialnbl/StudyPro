@@ -25,39 +25,41 @@ class PublicationDataController extends Controller
 
     public function storePublication(Request $request)
 {
-    $request->validate([
+    // Validate request data
+    $validatedData = $request->validate([
         'PD_University' => 'required|string|max:255',
         'PD_Title' => 'required|string|max:255',
         'PD_Author' => 'required|string|max:255',
         'PD_DOI' => 'required|string|max:255',
         'PD_Type' => 'required|string|max:255',
-        'PD_File' => 'required|file|mimes:pdf|max:1000240', // 1GB max
+        'PD_File' => 'required|file|mimes:pdf|max:1000240',
     ]);
-
+    $userID = Auth::user()->P_IC;
     // Handle file upload
     if ($request->hasFile('PD_File')) {
         $file = $request->file('PD_File');
-        $fileName = $file->getClientOriginalName();
+        $fileName = uniqid() . '_' . $file->getClientOriginalName(); // Use a unique name to avoid overwrite
         $path = $file->storeAs('uploads/publicationData', $fileName, 'public'); // Store file
 
-        // Save to database
-        PublicationData::create([
-            'PD_University' => $request->PD_University,
-            'PD_Title' => $request->PD_Title,
-            'PD_Author' => $request->PD_Author,
-            'PD_DOI' => $request->PD_DOI,
-            'PD_Type' => $request->PD_Type,
-            'PD_FileName' => $fileName,
-            'PD_FilePath' => $path,
-            'PD_Date' => now(), // or use your own date format
-            'user_id' => Auth::id(), // Save the user ID
-        ]);
+        // Create a new PublicationData instance and populate it with data
+        $publication = new PublicationData();
+        $publication->PD_University = $validatedData['PD_University'];
+        $publication->PD_Title = $validatedData['PD_Title'];
+        $publication->PD_Author = $validatedData['PD_Author'];
+        $publication->PD_DOI = $validatedData['PD_DOI'];
+        $publication->PD_Type = $validatedData['PD_Type'];
+        $publication->PD_FileName = $fileName;
+        $publication->PD_FilePath = $path;
+        $publication->PD_Date = now(); // or use your own date format
+        $publication->P_IC = $userID; // Save the user ID
+        $publication->save();
 
         return redirect()->route('Mypublication.view')->with('success', 'Publication added successfully!');
     }
 
-    return redirect()->back()->with('error', 'File not found!');
+    return redirect()->back()->with('error', 'File upload failed!');
 }
+
 
 
     public function viewPublicationData()
@@ -77,9 +79,13 @@ class PublicationDataController extends Controller
     
     public function viewOwnPublicationData()
     {
+        // Get the currently authenticated user
         $user = Auth::user();
-        $publications = PublicationData::where('P_IC', $user->P_IC)->firstOrFail();
-        $publications = PublicationData::all();
+
+        // Fetch publications that belong to the authenticated user based on P_IC
+        $publications = PublicationData::where('P_IC', $user->P_IC)->get();
+
+        // Return the view with the filtered publications
         return view('managePublicationData.viewOwnPublicationDataView', compact('publications'));
     }
 
