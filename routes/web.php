@@ -104,7 +104,6 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //publication
 // View all publications
 Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
-Route::get('/ViewpublicationM', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationM.view');
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
@@ -122,7 +121,10 @@ Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update']
 Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
 //search Publication
-Route::get('/search-publications', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
+Route::get('/Searchpublication', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
+
+// View publications by Platinum members for mentors
+Route::get('/ViewpublicationMentor', [PublicationDataController::class, 'viewPublicationDataMentor'])->name('ViewPublicationMentor.view');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
