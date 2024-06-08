@@ -144,6 +144,7 @@ class ExpertController extends Controller
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
+            "PD_DOI" => "required",
             "PI_File" => "nullable|mimes:jpeg,jpg,png,gif",
             'PD_File' => 'required|mimes:pdf|max:10048',
         ]);
@@ -176,6 +177,7 @@ class ExpertController extends Controller
         $publicationData->PD_University = $validatedData['E_University'];
         $publicationData->PD_Type = $validatedData['PD_Type'];
         $publicationData->PD_Author = $validatedData['E_Name'];
+        $publicationData->PD_DOI = $validatedData['PD_DOI'];
 
         //PDF File
         $file = $request->file('PD_File');

@@ -157,4 +157,32 @@ class PublicationDataController extends Controller
             'publications' => $publications,
         ]);
     }
+
+    public function generateReportView()
+{
+    $platinums = Platinum::all();
+    return view('managePublicationData.generateReportPublicationDataView', compact('platinums'));
+}
+
+public function generateReport(Request $request)
+{
+    $request->validate([
+        'P_Name' => 'required|exists:platinum,P_Name',
+    ]);
+
+    $P_Name = $request->input('P_Name');
+
+    // Get the platinum name
+    $platinum = Platinum::where('P_Name', $P_Name)->first();
+    // Fetch publications that belong to the specified platinum name 
+    $publications = PublicationData::where('P_IC', $platinum->P_IC)->get();
+    // Count the number of publications
+    $publicationCount = $publications->count();
+    // Return the view with the report data
+    $platinums = Platinum::all(); // Ensure we pass the $platinums variable again
+    return view('managePublicationData.generateReportPublicationDataView', compact('platinum', 'publications', 'publicationCount', 'platinums'));
+}
+
+    
+
 }
