@@ -1,6 +1,5 @@
 @extends('layouts.mentormain')
 @section('mentor')
-@section('container')
 <style>
     .btn-custom-search {
         background-color: #28a745; /* Green background color */

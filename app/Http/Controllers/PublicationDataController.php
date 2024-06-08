@@ -70,11 +70,9 @@ class PublicationDataController extends Controller
 
     public function viewPublicationDataM()
     {
-        $platinumUserIds = Platinum::pluck('PD_ID')->toArray();
+        $publications = PublicationData::all();
     
-        $publications = PublicationData::whereIn('PD_ID', $platinumUserIds)->get();
-    
-        return view('managePublicationData.viewPublicationDataViewM', compact('publications'));
+        return view('managePublicationData.viewPublicationDataViewMentor', compact('publications'));
     }
     
     public function viewOwnPublicationData()
