@@ -49,7 +49,7 @@
             @foreach($publications as $publication)
                 <div class="data-item">
                     <h3>{{ $publication->PD_Author }}</h3>
-                    <p>{{ $publication->PD_File }}</p>
+                    <p><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></p>
                 </div>
             @endforeach
         @endif
