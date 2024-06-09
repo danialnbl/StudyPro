@@ -1,10 +1,21 @@
 @php
     $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+    $set = Auth::user()->LA_Role === 2 ? 'mentor' : (Auth::user()->LA_Role === 3 ? 'crmp' : 'container');
 @endphp
 
 @extends($layout)
 
- @section(Auth::user()->LA_Role === 2 ? 'mentor' : 'container')
+@section($set)
+    @if(session()->has("success"))
+        <div class="alert alert-success">
+            {{ session()->get("success") }}
+        </div>
+    @endif
+    @if(session()->has("fail"))
+        <div class="alert alert-danger">
+            {{ session()->get("fail") }}
+        </div>
+    @endif
         <div class="pagetitle">
             <h1>Profile</h1>
             <nav>
@@ -82,7 +93,7 @@
                                             @if($Expert -> P_IC == Auth::user()->P_IC)
                                                 <div class="d-flex flex-row-reverse mb-3">
                                                     <button type="button" class="btn btn-primary align-items-end" data-bs-toggle="modal" data-bs-target="#addPaperModal">
-                                                        Add new paper
+                                                        Add new publication
                                                     </button>
                                                 </div>
                                                 <!-- Modal Add New Paper -->
@@ -92,14 +103,18 @@
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Add new paper</h5>
+                                                                <h5 class="modal-title">Add new publication</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                                                                <h3 class=" pb-2 pb-md-0"><b>Expert Publication</b></h3>
                                                                 <div class="col-12">
                                                                     <label for="PD_Title">Publication Title:</label>
                                                                     <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="PD_DOI">Publication DOI:</label>
+                                                                    <input type="text" class="form-control mb-3" id="PD_DOI" name="PD_DOI" required>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <label for="PD_Date" class=" col-form-label">Publication Date</label>
@@ -143,14 +158,18 @@
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">Edit paper</h5>
+                                                                    <h5 class="modal-title">Edit publication</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                                                                    <h3 class=" pb-2 pb-md-0"><b>Expert Publication</b></h3>
                                                                     <div class="col-12">
                                                                         <label for="PD_Title">Publication Title:</label>
                                                                         <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" value="{{$publication->PD_Title}}" required>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_DOI">Publication DOI:</label>
+                                                                        <input type="text" class="form-control mb-3" id="PD_DOI" name="PD_DOI" value="{{$publication->PD_DOI}}" required>
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label for="PD_Date" class=" col-form-label">Publication Date</label>
@@ -188,6 +207,7 @@
                                                         <th scope="col">Publications Title</th>
                                                         <th scope="col">Type</th>
                                                         <th scope="col">Author</th>
+                                                        <th scope="col">DOI</th>
                                                         @if($Expert -> P_IC == Auth::user()->P_IC)
                                                             <th class="text-center" scope="col">Edit</th>
                                                             <th class="text-center" scope="col">Delete</th>
@@ -205,6 +225,7 @@
                                                                 </td>
                                                                 <td>{{$publication->PD_Type}}</td>
                                                                 <td>{{$publication->PD_Author}}</td>
+                                                                <td>{{$publication->PD_DOI}}</td>
                                                                 @if($Expert -> P_IC == Auth::user()->P_IC)
                                                                     <td class="text-center">
                                                                         <a class="opn btn btn-success"
