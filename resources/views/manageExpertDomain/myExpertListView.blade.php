@@ -47,7 +47,7 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a class="opn btn btn-success"
+                            <a class="opn btn btn-warning"
                                 href="/expertEdit/{{$expert->E_ID}}">
                                 <i class="bi bi-pencil-square"></i>
                                 Edit

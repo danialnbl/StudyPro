@@ -127,12 +127,12 @@
 {{--                        <textarea name="address" class="form-control mb-3" cols="30" rows="5" required></textarea>--}}
 {{--                    </div>--}}
                     <div class="form-navigation mt-3">
-                        <button type="button" class="previous btn btn-primary float-left">Previous</button>
+                        <button type="button" class="previous btn btn-warning float-left">Previous</button>
                         <button type="button" class="next btn btn-primary float-right">Next </button>
 {{--                        <button id="addMore" name="addMore" type="button" class="addMore btn btn-primary float-right">--}}
 {{--                            Add More Research Paper--}}
 {{--                        </button>--}}
-                        <button type="submit" class="btn btn-success float-right">Submit</button>
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
                     </div>
                 </form>
             </div>

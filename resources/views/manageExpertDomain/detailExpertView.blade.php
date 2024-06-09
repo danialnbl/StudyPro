@@ -244,7 +244,7 @@
                                                                 <td>{{$publication->PD_DOI}}</td>
                                                                 @if($Expert -> P_IC == Auth::user()->P_IC)
                                                                     <td class="text-center">
-                                                                        <a class="opn btn btn-success"
+                                                                        <a class="opn btn btn-warning"
                                                                            href="#editModal{{$publication->PD_ID}}" data-bs-toggle="modal" >
                                                                             <i class="bi bi-pencil-square"></i>
                                                                             Edit
