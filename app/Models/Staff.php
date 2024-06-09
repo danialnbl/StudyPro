@@ -18,4 +18,11 @@ class Staff extends Model
         'S_PhoneNumber',
         'S_StaffID'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'S_IC' => 'string',
+        ];
+    }
 }
