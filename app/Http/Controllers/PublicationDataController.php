@@ -208,6 +208,25 @@ public function searchMentor(Request $request)
         $pdf = PDF::loadView('managePublicationData.publicationReportView', compact('platinum', 'publications', 'publicationCount'));
         return $pdf->download('publicationReport.pdf');
     }
+
+    public function Mentorsearch(Request $request)
+    {
+        $request->validate([
+            'Mentorsearch' => 'nullable|string|max:255',
+        ]);
+
+        $search = $request->input('Mentorsearch');
+
+        $publications = PublicationData::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('PD_Title', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('managePublicationData.viewPublicationDataViewMentor', [
+            'publications' => $publications,
+        ]);
+    }
    
 
 }
