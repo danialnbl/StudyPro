@@ -90,11 +90,6 @@
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/mentorProfile">
-                        <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
             </ul>
         </li><!-- End Components Nav -->
 
