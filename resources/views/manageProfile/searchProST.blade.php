@@ -72,20 +72,42 @@
 
 <!-- Profiles Card -->
 <div class="row">
-@foreach($platinum as $platinum)
+@foreach($platinum as $platinumMember)
     <div class="col-md-4">
         <div class="card card-custom">
-            <div class="card-header">{{ $platinum->P_Name }}</div>
+            <div class="card-header">{{ $platinumMember->P_Name }}</div>
             <div class="card-body">
-                <h5 class="card-title">NR IC: {{ $platinum->P_IC }}</h5>
-                <p class="card-text">Status: {{ $platinum->P_Status }}</p>
-                <p class="card-text">Batch: {{ $platinum->P_Batch }}</p>
-                <a href="{{ route('detailPlatST', ['P_IC' => $platinum->P_IC]) }}" class="btn">Details</a>
+                <h5 class="card-title">NR IC: {{ $platinumMember->P_IC }}</h5>
+                <p class="card-text">Status: {{ $platinumMember->P_Status }}</p>
+                <p class="card-text">Batch: {{ $platinumMember->P_Batch }}</p>
+                <a href="{{ route('detailPlatST', ['P_IC' => $platinumMember->P_IC]) }}" class="btn">Details</a>
+            </div>
+        </div>
+    </div>
+@endforeach
+@foreach($staff as $staffMember)
+    <div class="col-md-4">
+        <div class="card card-custom">
+            <div class="card-header">{{ $staffMember->S_Name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Staff ID: {{ $staffMember->S_StaffID }}</h5>
+                <p class="card-text">Email: {{ $staffMember->S_Email }}</p>
+                <a href="{{ route('detailStaffST', ['S_IC' => $staffMember->S_IC]) }}" class="btn">Details</a>
+            </div>
+        </div>
+    </div>
+@endforeach
+@foreach($mentor as $mentorMember)
+    <div class="col-md-4">
+        <div class="card card-custom">
+            <div class="card-header">{{ $mentorMember->M_Name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Mentor ID: {{ $mentorMember->M_MentorID }}</h5>
+                <p class="card-text">Email: {{ $mentorMember->M_Email }}</p>
+                <a href="{{ route('detailMentorST', ['M_IC' => $mentorMember->M_IC]) }}" class="btn">Details</a>
             </div>
         </div>
     </div>
 @endforeach
 </div>
 @endsection
-
-

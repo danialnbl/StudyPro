@@ -42,13 +42,6 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
-                        </a>
-                    </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -92,6 +85,19 @@
                 </li>
             </ul>
         </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#expert-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-file-earmark-person"></i><span>Expert</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="expert-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/expert">
+                        <i class="bi bi-circle"></i><span>View all experts</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">

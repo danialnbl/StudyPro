@@ -18,4 +18,10 @@ class Mentor extends Model
         'M_PhoneNumber',
         'M_MentorID'
     ];
+    protected function casts(): array
+    {
+        return [
+            'M_IC' => 'string',
+        ];
+    }
 }

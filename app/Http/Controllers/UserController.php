@@ -40,9 +40,10 @@ class UserController extends Controller
         return view('dashboard.mentorDashboard', compact('platinumCount','expertCount'));
     }
     public function CRMPDashboard(){
-        return view('dashboard.CRMPDashboard');
+        $expertCount = Expert::count('E_ID');
+        return view('dashboard.CRMPDashboard', compact('expertCount'));
     }
-    
+
     //Login
     public function loginView()
     {
@@ -93,7 +94,7 @@ class UserController extends Controller
     {
         return view('manageRegistration.MentorRegistration');
     }
-    //reg list - mentor 
+    //reg list - mentor
     public function regList(){
         return view('manageRegistration.regList');
     }
@@ -121,7 +122,7 @@ class UserController extends Controller
 
     return view('manageRegistration.regList', compact('platinum'));
     }
-    
+
 
     public function PlatinumRegisterPost(Request $request)
     {
@@ -152,7 +153,7 @@ class UserController extends Controller
             "PE_ProgramFee" => "required|numeric",
             "PE_EduLevel" => "required",
             "PE_Occupation" => "required",
-            "referral" => "required|string", 
+            "referral" => "required|string",
             "PR_Name" => "required_if:referral,yes",
             "PR_Batch" => "required_if:referral,yes"
         ]);
@@ -415,7 +416,7 @@ class UserController extends Controller
     {
         return view('manageProfile.mentorProfile');
     }
-//  PLATINUM PROFILE 
+//  PLATINUM PROFILE
     public function showPlatinum()
     {
         //$platinum = Platinum::where('P_IC', $P_IC)->firstOrFail();
@@ -521,7 +522,7 @@ class UserController extends Controller
 // STAFF PROFILE
     public function showStaff()
     {
-        
+
         $user = Auth::user();
         $staff = Staff::where('S_IC', $user->S_IC)->firstOrFail();
         $data1 = $staff->S_IC;
@@ -570,52 +571,78 @@ class UserController extends Controller
             return redirect('/staffProfile')->with('success', 'Staff profile updated successfully');
     }
     public function searchPlatST(Request $request)
-{
-    $search = $request->input('search');
-    $batch = $request->input('P_Batch');
-    $status = $request->input('P_Status');
+    {
+        $search = $request->input('search');
+        $batch = $request->input('P_Batch');
+        $status = $request->input('P_Status');
 
-    $query = Platinum::query();
+        $platinumQuery = Platinum::query();
+        $staffQuery = Staff::query();
+        $mentorQuery = Mentor::query(); // Assuming you have a Mentor model
 
-    if ($search) {
-        $query->where(function($q) use ($search) {
-            $q->where('P_IC', 'LIKE', "%{$search}%")
-              ->orWhere('P_Program', 'LIKE', "%{$search}%")
-              ->orWhere('P_Name', 'LIKE', "%{$search}%")
-              ->orWhere('P_Status', 'LIKE', "%{$search}%");
-        });
+        if ($search) {
+            $platinumQuery->where(function($q) use ($search) {
+                $q->where('P_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Program', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Status', 'LIKE', "%{$search}%");
+            });
+
+            $staffQuery->where(function($q) use ($search) {
+                $q->where('S_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('S_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('S_Email', 'LIKE', "%{$search}%");
+            });
+
+            $mentorQuery->where(function($q) use ($search) {
+                $q->where('M_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('M_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('M_Email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($batch) {
+            $platinumQuery->where('P_Batch', $batch);
+        }
+
+        if ($status) {
+            $platinumQuery->where('P_Status', $status);
+        }
+
+        $platinum = $platinumQuery->get();
+        $staff = $staffQuery->get();
+        $mentor = $mentorQuery->get();
+
+        // Fetch distinct batches and statuses for the filter dropdowns
+        $batches = Platinum::select('P_Batch')->distinct()->pluck('P_Batch');
+        $statuses = Platinum::select('P_Status')->distinct()->pluck('P_Status');
+
+        return view('manageProfile.searchProST', compact('platinum', 'staff', 'mentor', 'batches', 'statuses'));
     }
-
-    if ($batch) {
-        $query->where('P_Batch', $batch);
-    }
-
-    if ($status) {
-        $query->where('P_Status', $status);
-    }
-
-    $platinum = $query->get();
-
-    // Fetch distinct batches and statuses for the filter dropdowns
-    $batches = Platinum::select('P_Batch')->distinct()->pluck('P_Batch');
-    $statuses = Platinum::select('P_Status')->distinct()->pluck('P_Status');
-
-    return view('manageProfile.searchProST', compact('platinum', 'batches', 'statuses'));
-}
 
     public function detailPlatST($P_IC){
         $platinum = Platinum::findOrFail($P_IC);
-        //$platinum = Platinum ::all();
-        $data1 = $platinum->PE_Id;
-        $data2 = $platinum-> P_IC;
-        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
-        $fetchPic = Picture::where('P_IC',$data2)->first();
+        $PlatEdu = PlatinumEducation::where('PE_Id',$platinum->PE_Id)->first();
+        $fetchPic = Picture::where('P_IC', $platinum->P_IC)->first();
         return view('manageProfile.searchDetailST', compact('platinum','PlatEdu','fetchPic'));
     }
+
+    public function detailStaffST($S_IC){
+        $staff = Staff::findOrFail($S_IC);
+        $fetchPic = Picture::where('S_IC', $staff->S_IC)->first();
+        return view('manageProfile.searchDetailST', compact('staff', 'fetchPic'));
+    }
+
+    public function detailMentorST($M_IC){
+        $mentor = Mentor::findOrFail($M_IC);
+        $fetchPic = Picture::where('M_IC', $mentor->M_IC)->first();
+        return view('manageProfile.searchDetailST', compact('mentor', 'fetchPic'));
+    }
+
 // MENTOR PROFILE
     public function showMentor()
     {
-        
+
         $user = Auth::user();
         $mentor = Mentor::where('M_IC', $user->M_IC)->firstOrFail();
         $data1 = $mentor->M_IC;
@@ -663,24 +690,74 @@ class UserController extends Controller
 
             return redirect('/mentorProfile')->with('success', 'Mentor profile updated successfully');
     }
-    public function searchPlatMT(Request $request){
+
+    public function searchPlatMT(Request $request)
+    {
         $search = $request->input('search');
-        $platinum = Platinum::query()
-        ->where('P_IC', 'LIKE', "%{$search}%")
-        ->orWhere('P_Program', 'LIKE', "%{$search}%")
-        ->orWhere('P_Name', 'LIKE', "%{$search}%")
-        ->orWhere('P_Status', 'LIKE', "%{$search}%")
-        ->get();
-        return view('manageProfile.searchProMT', compact('platinum'));
+        $batch = $request->input('P_Batch');
+        $status = $request->input('P_Status');
+
+        $platinumQuery = Platinum::query();
+        $staffQuery = Staff::query();
+        $mentorQuery = Mentor::query(); // Assuming you have a Mentor model
+
+        if ($search) {
+            $platinumQuery->where(function($q) use ($search) {
+                $q->where('P_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Program', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('P_Status', 'LIKE', "%{$search}%");
+            });
+
+            $staffQuery->where(function($q) use ($search) {
+                $q->where('S_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('S_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('S_Email', 'LIKE', "%{$search}%");
+            });
+
+            $mentorQuery->where(function($q) use ($search) {
+                $q->where('M_IC', 'LIKE', "%{$search}%")
+                  ->orWhere('M_Name', 'LIKE', "%{$search}%")
+                  ->orWhere('M_Email', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($batch) {
+            $platinumQuery->where('P_Batch', $batch);
+        }
+
+        if ($status) {
+            $platinumQuery->where('P_Status', $status);
+        }
+
+        $platinum = $platinumQuery->get();
+        $staff = $staffQuery->get();
+        $mentor = $mentorQuery->get();
+
+        // Fetch distinct batches and statuses for the filter dropdowns
+        $batches = Platinum::select('P_Batch')->distinct()->pluck('P_Batch');
+        $statuses = Platinum::select('P_Status')->distinct()->pluck('P_Status');
+
+        return view('manageProfile.searchProMT', compact('platinum', 'staff', 'mentor', 'batches', 'statuses'));
     }
+
     public function detailPlatMT($P_IC){
         $platinum = Platinum::findOrFail($P_IC);
-        //$platinum = Platinum ::all();
-        $data1 = $platinum->PE_Id;
-        $data2 = $platinum->P_IC;
-        $PlatEdu = PlatinumEducation::where('PE_Id',$data1)->first();
-        $fetchPic = Picture::where('P_IC',$data2)->first();
+        $PlatEdu = PlatinumEducation::where('PE_Id',$platinum->PE_Id)->first();
+        $fetchPic = Picture::where('P_IC', $platinum->P_IC)->first();
         return view('manageProfile.searchDetailMT', compact('platinum','PlatEdu','fetchPic'));
+    }
+
+    public function detailStaffMT($S_IC){
+        $staff = Staff::findOrFail($S_IC);
+        $fetchPic = Picture::where('S_IC', $staff->S_IC)->first();
+        return view('manageProfile.searchDetailMT', compact('staff', 'fetchPic'));
+    }
+
+    public function detailMentorMT($M_IC){
+        $mentor = Mentor::findOrFail($M_IC);
+        $fetchPic = Picture::where('M_IC', $mentor->M_IC)->first();
+        return view('manageProfile.searchDetailMT', compact('mentor', 'fetchPic'));
     }
     //homepage
     public function staffmain()
@@ -701,54 +778,87 @@ class UserController extends Controller
 
     }
     // REPORT
-    public function reportMentorView()
-    {
-            $data = ['platinum'=>Platinum::all()];
-            $pdf = Pdf::LoadView('manageProfile.ProfileReportView', $data);
-            return $pdf->download('profileReport.pdf');
+    public function reportMentorView(Request $request)
+{
+    $query = Platinum::query();
+
+    // Apply filters based on search queries
+    if ($request->has('search')) {
+        $query->where('P_Name', 'like', '%' . $request->input('search') . '%');
     }
+    if ($request->has('P_Batch')) {
+        $query->where('P_Batch', $request->input('P_Batch'));
+    }
+    if ($request->has('P_Status')) {
+        $query->where('P_Status', $request->input('P_Status'));
+    }
+
+    // Fetch filtered data
+    $platinum = $query->get();
+
+    $data = ['platinum' => $platinum];
+    $pdf = Pdf::LoadView('manageProfile.ProfileReportView', $data);
+    return $pdf->download('profileReport.pdf');
+}
+
     public function reportStaffView(Request $request)
-    {
-        $search = $request->input('search');
-        $batch = $request->input('P_Batch');
-        $status = $request->input('P_Status');
+{
+    $search = $request->input('search');
+    $batch = $request->input('P_Batch');
+    $status = $request->input('P_Status');
 
-        $query = Platinum::query();
+    $platinumQuery = Platinum::query();
+    $staffQuery = Staff::query();
+    $mentorQuery = Mentor::query();
 
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('P_IC', 'LIKE', "%{$search}%")
-                ->orWhere('P_Program', 'LIKE', "%{$search}%")
-                ->orWhere('P_Name', 'LIKE', "%{$search}%")
-                ->orWhere('P_Status', 'LIKE', "%{$search}%");
-            });
-        }
+    if ($search) {
+        $platinumQuery->where(function($q) use ($search) {
+            $q->where('P_IC', 'LIKE', "%{$search}%")
+              ->orWhere('P_Program', 'LIKE', "%{$search}%")
+              ->orWhere('P_Name', 'LIKE', "%{$search}%")
+              ->orWhere('P_Status', 'LIKE', "%{$search}%");
+        });
 
-        if ($batch) {
-            $query->where('P_Batch', $batch);
-        }
+        $staffQuery->where(function($q) use ($search) {
+            $q->where('S_IC', 'LIKE', "%{$search}%")
+              ->orWhere('S_Name', 'LIKE', "%{$search}%")
+              ->orWhere('S_Email', 'LIKE', "%{$search}%");
+        });
 
-        if ($status) {
-            $query->where('P_Status', $status);
-        }
-
-        $platinum = $query->get();
-
-        $data = ['platinum' => $platinum];
-        $pdf = Pdf::loadView('manageProfile.staffReport', $data);
-        return $pdf->download('profileReport.pdf');
+        $mentorQuery->where(function($q) use ($search) {
+            $q->where('M_IC', 'LIKE', "%{$search}%")
+              ->orWhere('M_Name', 'LIKE', "%{$search}%")
+              ->orWhere('M_Email', 'LIKE', "%{$search}%");
+        });
     }
+
+    if ($batch) {
+        $platinumQuery->where('P_Batch', $batch);
+    }
+
+    if ($status) {
+        $platinumQuery->where('P_Status', $status);
+    }
+
+    $platinum = $platinumQuery->get();
+    $staff = $staffQuery->get();
+    $mentor = $mentorQuery->get();
+
+    $data = ['platinum' => $platinum, 'staff' => $staff, 'mentor' => $mentor];
+    $pdf = Pdf::loadView('manageProfile.staffReport', $data);
+    return $pdf->download('profileReport.pdf');
+}
 
 
     //integrate with expert and publication data
-    
+
 
 public function showDetail($P_IC)
     {
         // Fetch publication data and expert data based on P_IC
         $publications = PublicationData::where('P_IC', $P_IC)->get();
         $experts = Expert::where('P_IC', $P_IC)->get();
-        
+
         // Assume you want to get publications of experts related to this P_IC
         $expertIds = $experts->pluck('E_ID');
         $expertPublications = PublicationData::whereIn('E_ID', $expertIds)->get();
@@ -761,7 +871,7 @@ public function showDetail($P_IC)
         ]);
     }
 
-    
+
 
     public function showDetailPlat($P_IC)
 {
@@ -782,5 +892,5 @@ public function showDetail($P_IC)
 }
 
 
-    
+
 }

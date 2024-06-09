@@ -1,6 +1,11 @@
-@extends('layouts.main')
+@php
+    $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+    $set = Auth::user()->LA_Role === 2 ? 'mentor' : (Auth::user()->LA_Role === 3 ? 'crmp' : 'container');
+@endphp
 
-@section('container')
+@extends($layout)
+
+@section($set)
     <section class="vh-100 gradient-custom">
         @if(session()->has("success"))
             <div class="alert alert-success">
@@ -79,7 +84,7 @@
                     <div class="form-navigation mt-3">
                         <button type="button" class="previous btn btn-primary float-left">Previous</button>
                         <button type="button" class="next btn btn-primary float-right">Next </button>
-                        <button type="submit" class="btn btn-success float-right">Update</button>
+                        <button type="submit" class="btn btn-primary float-right">Update</button>
                     </div>
                 </form>
                 @endforeach

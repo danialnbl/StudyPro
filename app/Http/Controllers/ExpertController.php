@@ -20,6 +20,7 @@ class ExpertController extends Controller
     public function expertListView()
     {
         return view('manageExpertDomain.expertListView', [
+            //return expert data
             'expert' => Expert::all(),
         ]);
     }
@@ -27,6 +28,7 @@ class ExpertController extends Controller
     public function reportExpertView()
     {
         $data = ['experts'=>Expert::all()];
+        // Load PDF and Download
         $pdf = Pdf::LoadView('manageExpertDomain.reportExpertView', $data);
         return $pdf->download('expertList.pdf');
     }
@@ -70,6 +72,7 @@ class ExpertController extends Controller
             $fileNamePic = time() . '_' . $file->getClientOriginalName();
             $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
 
+            //update data
             $ExpertPic->update([
                 "PI_File" => $fileNamePic,
                 "PI_FilePath" => $filePathPic,
@@ -92,18 +95,24 @@ class ExpertController extends Controller
 
         // Validate the incoming request data
         $validatedData = $request->validate([
+            "PD_University" => "required",
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
+            "PD_Author" => "required",
+            "PD_DOI" => "required",
         ]);
 
 //        $Experts = Expert::where('E_ID', $E_ID)->get();
         $PublicationData = PublicationData::findOrFail($PD_ID);
 
         $PublicationData->update([
+                "PD_University" => $validatedData['PD_University'],
                 "PD_Title" => $validatedData['PD_Title'],
                 "PD_Date" => $validatedData['PD_Date'],
                 "PD_Type" => $validatedData['PD_Type'],
+                "PD_Author" => $validatedData['PD_Author'],
+                "PD_DOI" => $validatedData['PD_DOI'],
         ]);
 
         return redirect('/myexpert')->with('success', 'Expert publication updated successfully');
@@ -111,6 +120,7 @@ class ExpertController extends Controller
 
     public function detailExpertView($E_ID)
     {
+        //fetch all data
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
         $fetchPublication = PublicationData::where('E_ID', $E_ID)->get();
@@ -124,6 +134,7 @@ class ExpertController extends Controller
     {
         $userID = Auth::user()->P_IC;
 
+        //display data
         $fetchExpert = Expert::where('P_IC', $userID)->get();
 
         return view('manageExpertDomain.myExpertListView', [
@@ -141,6 +152,8 @@ class ExpertController extends Controller
             "E_Email" => "required|email",
             "E_PhoneNumber" => "required",
             "E_Domain" => "required",
+            "PD_University" => "required",
+            "PD_Author" => "required",
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
@@ -174,9 +187,9 @@ class ExpertController extends Controller
 
         $publicationData = new PublicationData();
         $publicationData->PD_Title = $validatedData['PD_Title'];
-        $publicationData->PD_University = $validatedData['E_University'];
+        $publicationData->PD_University = $validatedData['PD_University'];
         $publicationData->PD_Type = $validatedData['PD_Type'];
-        $publicationData->PD_Author = $validatedData['E_Name'];
+        $publicationData->PD_Author = $validatedData['PD_Author'];
         $publicationData->PD_DOI = $validatedData['PD_DOI'];
 
         //PDF File
@@ -202,9 +215,12 @@ class ExpertController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
+            "PD_University" => "required",
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
+            "PD_Author" => "required",
+            "PD_DOI" => "required",
             'PD_File' => 'required|mimes:pdf|max:10048',
         ]);
 
@@ -213,10 +229,11 @@ class ExpertController extends Controller
 
         if($Experts!= null){
             $publicationData = new PublicationData();
+            $publicationData->PD_DOI = $validatedData['PD_DOI'];
             $publicationData->PD_Title = $validatedData['PD_Title'];
-            $publicationData->PD_University = $Experts->E_University;
+            $publicationData->PD_University = $validatedData['PD_University'];
             $publicationData->PD_Type = $validatedData['PD_Type'];
-            $publicationData->PD_Author = $Experts->E_Name;
+            $publicationData->PD_Author = $validatedData['PD_Author'];
 
             //PDF File
             $file = $request->file('PD_File');
@@ -230,11 +247,11 @@ class ExpertController extends Controller
 
             if ($publicationData->save()) {
                 // Redirect with success message
-                return redirect()->route("detailExpertView", $E_ID)->with("success", "Success to add expert!");
+                return redirect()->route("detailExpertView", $E_ID)->with("success", "Success to add publication!");
             }
         }
         // Redirect with error message
-        return redirect()->route("detailExpertView", $E_ID)->with("error", "Failed to add expert!");
+        return redirect()->route("detailExpertView", $E_ID)->with("error", "Failed to add publication!");
     }
 
 
@@ -256,9 +273,9 @@ class ExpertController extends Controller
         try {
             PublicationData::where('PD_ID', $PD_ID)->delete();
             // Redirect with success message
-            return redirect()->route("detailExpertView", $Expert)->with("success", "Success to delete expert!");
+            return redirect()->route("detailExpertView", $Expert)->with("success", "Success to delete expert publication!");
         } catch (\Exception $e){
-            return redirect()->route("detailExpertView", $Expert)->with("fail", "Failed to delete expert!");
+            return redirect()->route("detailExpertView", $Expert)->with("fail", "Failed to delete expert publication!");
         }
     }
 }

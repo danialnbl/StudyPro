@@ -1,6 +1,11 @@
-@extends('layouts.main')
+@php
+    $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+    $set = Auth::user()->LA_Role === 2 ? 'mentor' : (Auth::user()->LA_Role === 3 ? 'crmp' : 'container');
+@endphp
 
-@section('container')
+@extends($layout)
+
+@section($set)
     <section class="vh-100 gradient-custom">
         @if(session()->has("success"))
             <div class="alert alert-success">
@@ -76,10 +81,18 @@
                         </div>
                     </div>
                     <div class="form-section add-more" id="add-more">
-                        <h3 class=" pb-2 pb-md-0"><b>Expert Research</b></h3>
+                        <h3 class=" pb-2 pb-md-0"><b>Expert Publication</b></h3>
+                        <div class="col-12">
+                            <label for="PD_University">Publication University Name:</label>
+                            <input type="text" class="form-control mb-3" id="PD_University" name="PD_University" required>
+                        </div>
                         <div class="col-12">
                             <label for="PD_Title">Publication Title:</label>
                             <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="PD_Author">Author Name:</label>
+                            <input type="text" class="form-control mb-3" id="PD_Author" name="PD_Author" required>
                         </div>
                         <div class="col-12">
                             <label for="PD_DOI">Publication DOI:</label>
@@ -114,12 +127,12 @@
 {{--                        <textarea name="address" class="form-control mb-3" cols="30" rows="5" required></textarea>--}}
 {{--                    </div>--}}
                     <div class="form-navigation mt-3">
-                        <button type="button" class="previous btn btn-primary float-left">Previous</button>
+                        <button type="button" class="previous btn btn-warning float-left">Previous</button>
                         <button type="button" class="next btn btn-primary float-right">Next </button>
 {{--                        <button id="addMore" name="addMore" type="button" class="addMore btn btn-primary float-right">--}}
 {{--                            Add More Research Paper--}}
 {{--                        </button>--}}
-                        <button type="submit" class="btn btn-success float-right">Submit</button>
+                        <button type="submit" class="btn btn-primary float-right">Submit</button>
                     </div>
                 </form>
             </div>

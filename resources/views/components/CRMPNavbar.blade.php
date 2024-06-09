@@ -21,12 +21,12 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth::user()->name}}</span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6></h6>
+                        <h6>{{Auth::user()->name}}</h6>
                         <span>CRMP</span>
                     </li>
                     <li>
@@ -41,13 +41,6 @@
                     </li>
                     <li>
                         <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-gear"></i>
-                            <span>Account Settings</span>
-                        </a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -74,7 +67,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="/platinumdashboard">
+            <a class="nav-link " href="/crmpdashboard">
                 <i class="bi bi-grid"></i>
                 <span>Home</span>
             </a>
@@ -86,13 +79,8 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/searchPlat">
                         <i class="bi bi-circle"></i><span>Search Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>
                 </li>
             </ul>
@@ -146,17 +134,17 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/publication">
                         <i class="bi bi-circle"></i><span>Add new publication</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/Mypublication">
                         <i class="bi bi-circle"></i><span>View my publications</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/Viewpublication">
                         <i class="bi bi-circle"></i><span>View all publications</span>
                     </a>
                 </li>
