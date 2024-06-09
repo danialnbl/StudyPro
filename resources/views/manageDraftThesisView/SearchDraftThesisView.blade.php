@@ -27,7 +27,7 @@
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $platinum->P_Name }}</td>
-          <td><button class="btn btn-primary">Draft Thesis Performance</button></td>
+          <td><a href="/feedbackdt"><button class="btn btn-primary">Draft Thesis Progress</button></a></td>
         </tr>
       @empty
         <tr>

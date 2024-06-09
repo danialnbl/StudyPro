@@ -124,17 +124,17 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-bar-chart"></i><span>CRMP Approval</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-bar-chart"></i><span>Progress</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Platinum Group</span>
+                    <a href="/searchweeklyfocus">
+                        <i class="bi bi-circle"></i><span>Weekly focus</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Approval</span>
+                    <a href="/searchdraftthesis">
+                        <i class="bi bi-circle"></i><span>Draft thesis performance</span>
                     </a>
                 </li>
             </ul>

@@ -121,13 +121,18 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/platinumgroup">
                         <i class="bi bi-circle"></i><span>Platinum Group</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Approval</span>
+                    <a href="/crmpassign">
+                        <i class="bi bi-circle"></i><span>Assign New CRMP</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/crmplist">
+                        <i class="bi bi-circle"></i><span>CRMP List</span>
                     </a>
                 </li>
             </ul>

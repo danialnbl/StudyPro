@@ -81,4 +81,10 @@ class ManageCRMPController extends Controller
         ->with('crmp', $platinum);
     }
 
+    public function MyCRMP(Request $request){
+        $platinum = Platinum::where('P_IC', $request->P_IC)->first();
+
+        return view('manageCRMPView.MyCRMP')->with('platinums', $platinum);
+        }
+    
 }
