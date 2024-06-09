@@ -40,7 +40,6 @@
     </div>
 </div>
 
-
 <div class="box">
 <h3>Admin Info</h3>
     <table class="table">
@@ -194,7 +193,7 @@
 </div>
 </div>
 
-<!-- feedback from mentor and crmp -->
+<!-- get feedback from mentor and crmp -->
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>

@@ -199,11 +199,10 @@ public function searchMentor(Request $request)
             return redirect()->back()->with('error', 'Platinum member not found!');
         }
 
-        // Fetch publications that belong to the specified platinum member 
+        // Fetch publications that belong to the specified platinum 
         $publications = PublicationData::where('P_IC', $platinum->P_IC)->get();
         // Count the number of publications
         $publicationCount = $publications->count();
-
         // Return the PDF view
         $pdf = PDF::loadView('managePublicationData.publicationReportView', compact('platinum', 'publications', 'publicationCount'));
         return $pdf->download('publicationReport.pdf');

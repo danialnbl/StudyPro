@@ -120,8 +120,6 @@ class WeeklyFocusController extends Controller
                 break;
         }
 
-
-
         if (Auth::check()) {
             $user = Auth::user();
 
@@ -137,7 +135,6 @@ class WeeklyFocusController extends Controller
                 $weeklyFocus->M_IC = null;
             }
         }
-
         $weeklyFocus->save();
         return redirect()->route('WeeklyFocus.view')->with('success', 'Weekly Focus updated successfully.');
     }
@@ -161,6 +158,8 @@ class WeeklyFocusController extends Controller
     public function FeedbackWFView(){   
         $platinum = Platinum::all();
         $weeklyFocus = WeeklyFocus::all();
+
+        //validatedData[WF_Feedback]
 
         return view('manageWeeklyFocusView.FeedbackWFView')
             ->with('weeklyFocus', $weeklyFocus)

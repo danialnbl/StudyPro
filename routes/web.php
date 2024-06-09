@@ -95,8 +95,6 @@ Route::post('/paperAdd/{EP_ID}', [ExpertController::class, 'PaperAddPost'])->nam
 Route::put('/expertEdit/{E_ID}', [ExpertController::class, 'ExpertEditPost'])->name('expertEdit.update');
 Route::put('/publicationEdit/{PD_ID}', [ExpertController::class, 'PublicationEditPost'])->name('publicationEdit.update');
 
-
-
 //Expert delete, edit, update
 Route::get('/expertDelete/{E_ID}', [ExpertController::class, 'deleteExpert']);
 Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
