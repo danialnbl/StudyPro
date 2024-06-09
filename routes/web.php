@@ -121,7 +121,8 @@ Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'
 
 //search Publication
 Route::get('/Searchpublication', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
-
+Route::get('/SearchPublicationM', [PublicationDataController::class, 'searchMentor'])->name('SearchPublicationM.search');
+Route::get('/Mentorsearching', [PublicationDataController::class, 'Mentorsearch'])->name('SearchPublicationMentor.search');
 // View publications by Platinum members for mentors
 Route::get('/ViewpublicationMentor', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationMentor.view');
 

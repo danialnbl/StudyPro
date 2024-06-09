@@ -165,30 +165,67 @@ class PublicationDataController extends Controller
     return view('managePublicationData.generateReportPublicationDataView', compact('platinums'));
 }
 
-public function generateReport(Request $request)
-{
-    $request->validate([
-        'P_Name' => 'required|exists:platinum,P_Name',
-    ]);
+public function searchMentor(Request $request)
+    {
+        $request->validate([
+            'P_Name' => 'nullable|string|max:255',
+        ]);
 
-    $P_Name = $request->input('P_Name');
+        $P_Name = $request->input('SearchM');
 
-    // Get the platinum name
-    $platinum = Platinum::where('P_Name', $P_Name)->first();
-    
-    if (!$platinum) {
-        return redirect()->back()->with('error', 'Platinum member not found!');
+        $platinums = Platinum::query()
+            ->when($P_Name, function ($query, $P_Name) {
+                return $query->where('P_Name', 'like', '%' . $P_Name . '%');
+            })
+            ->get();
+
+        return view('managePublicationData.generateReportPublicationDataView', [
+            'platinums' => $platinums,
+        ]);
     }
 
-    // Fetch publications that belong to the specified platinum name 
-    $publications = PublicationData::where('P_IC', $platinum->P_IC)->get();
-    // Count the number of publications
-    $publicationCount = $publications->count();
+    public function generateReport(Request $request)
+    {
+        $request->validate([
+            'P_Name' => 'required|exists:platinum,P_Name',
+        ]);
 
-    // Return the PDF view
-    $pdf = pdf::loadView('managePublicationData.publicationReportView', compact('platinum', 'publications', 'publicationCount'));
-    return $pdf->download('publicationReport.pdf');
-}
+        $P_Name = $request->input('P_Name');
+
+        // Get the platinum member by name
+        $platinum = Platinum::where('P_Name', $P_Name)->first();
+
+        if (!$platinum) {
+            return redirect()->back()->with('error', 'Platinum member not found!');
+        }
+
+        // Fetch publications that belong to the specified platinum 
+        $publications = PublicationData::where('P_IC', $platinum->P_IC)->get();
+        // Count the number of publications
+        $publicationCount = $publications->count();
+        // Return the PDF view
+        $pdf = PDF::loadView('managePublicationData.publicationReportView', compact('platinum', 'publications', 'publicationCount'));
+        return $pdf->download('publicationReport.pdf');
+    }
+
+    public function Mentorsearch(Request $request)
+    {
+        $request->validate([
+            'Mentorsearch' => 'nullable|string|max:255',
+        ]);
+
+        $search = $request->input('Mentorsearch');
+
+        $publications = PublicationData::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('PD_Title', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('managePublicationData.viewPublicationDataViewMentor', [
+            'publications' => $publications,
+        ]);
+    }
    
 
 }

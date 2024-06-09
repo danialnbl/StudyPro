@@ -90,11 +90,6 @@
                         <i class="bi bi-circle"></i><span>Search Profile</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/platProfile">
-                        <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
             </ul>
         </li><!-- End Components Nav -->
 
