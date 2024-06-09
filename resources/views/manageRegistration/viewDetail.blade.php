@@ -143,7 +143,7 @@
                     </tr>
                 </table>
             </div>
-
+            @if($PlatRef)
             <div class="table-section">
                 <div class="section-title">Referral Information</div>
                 <table>
@@ -157,6 +157,21 @@
                     </tr>
                 </table>
             </div>
+            @else
+            <div class="table-section">
+                <div class="section-title">Referral Information</div>
+                <table>
+                    <tr>
+                        <th>PR Name</th>
+                        <td>Not Available</td>
+                    </tr>
+                    <tr>
+                        <th>PR Batch</th>
+                        <td>Not Available</td>
+                    </tr>
+                </table>
+            </div>
+            @endif
 
             <div class="table-section">
                 <div class="section-title">Educational Information</div>
