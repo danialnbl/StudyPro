@@ -91,11 +91,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/profile">
-                        <i class="bi bi-circle"></i><span>View Profile</span>
-                    </a>
-                </li>
-                <li>
                     <a href="#">
                         <i class="bi bi-circle"></i><span>Edit Profile</span>
                     </a>

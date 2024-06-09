@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'platinum' => \App\Http\Middleware\AuthCheck::class,
             'staff' => \App\Http\Middleware\StaffCheck::class,
             'mentor' => \App\Http\Middleware\MentorCheck::class,
+            'mentorPlat' => \App\Http\Middleware\MentorPlatCheck::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
