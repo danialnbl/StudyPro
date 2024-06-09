@@ -10,6 +10,7 @@ use App\Models\Platinum;
 use App\Models\Expert;
 use App\Models\Mentor;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PublicationDataController extends Controller
 {
@@ -174,15 +175,20 @@ public function generateReport(Request $request)
 
     // Get the platinum name
     $platinum = Platinum::where('P_Name', $P_Name)->first();
+    
+    if (!$platinum) {
+        return redirect()->back()->with('error', 'Platinum member not found!');
+    }
+
     // Fetch publications that belong to the specified platinum name 
     $publications = PublicationData::where('P_IC', $platinum->P_IC)->get();
     // Count the number of publications
     $publicationCount = $publications->count();
-    // Return the view with the report data
-    $platinums = Platinum::all(); // Ensure we pass the $platinums variable again
-    return view('managePublicationData.generateReportPublicationDataView', compact('platinum', 'publications', 'publicationCount', 'platinums'));
-}
 
-    
+    // Return the PDF view
+    $pdf = pdf::loadView('managePublicationData.publicationReportView', compact('platinum', 'publications', 'publicationCount'));
+    return $pdf->download('publicationReport.pdf');
+}
+   
 
 }

@@ -129,6 +129,7 @@ Route::get('/ViewpublicationMentor', [PublicationDataController::class, 'viewPub
 // Generate report
 Route::get('/GenerateReportPublication', [PublicationDataController::class, 'generateReportView'])->name('GenerateReportPublication.view');
 Route::post('/GenerateReportPublication', [PublicationDataController::class, 'generateReport'])->name('GenerateReportPublication.generate');
+Route::get('/publicationReport', [UserController::class, 'publicationReport'])->name('reportPublication');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);
