@@ -27,7 +27,7 @@
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $platinum->P_Name }}</td>
-          <td><button class="btn btn-primary">Weekly Focus</button></td>
+          <td><a href="/feedbackwf"><button class="btn btn-primary">Weekly Focus</button></a></td>
         </tr>
       @empty
         <tr>

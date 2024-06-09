@@ -115,13 +115,23 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/viewweeklyfocus">
                         <i class="bi bi-circle"></i><span>Weekly focus</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/viewdraftthesis">
                         <i class="bi bi-circle"></i><span>Draft thesis performance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/listplatinumwf">
+                        <i class="bi bi-circle"></i><span>My Platinum Weekly Focus</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/listplatinumdt">
+                        <i class="bi bi-circle"></i><span>My Platinum Draft thesis performance</span>
                     </a>
                 </li>
             </ul>

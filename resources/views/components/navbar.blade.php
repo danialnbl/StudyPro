@@ -115,12 +115,17 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="#">
+                    <a href="/mycrmp">
+                        <i class="bi bi-circle"></i><span>My CRMP</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/viewweeklyfocus">
                         <i class="bi bi-circle"></i><span>Weekly focus</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/viewdraftthesis">
                         <i class="bi bi-circle"></i><span>Draft thesis performance</span>
                     </a>
                 </li>

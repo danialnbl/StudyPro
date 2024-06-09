@@ -190,12 +190,12 @@ Route::get('/listplatinumdt',[DraftThesisController::class,'ListPlatinumDTView']
 Route::get('/crmplist',[ManageCRMPController::class, 'CRMPListView']);
 Route::get('/crmpassign',[ManageCRMPController::class, 'CRMPAssignView']);
 Route::post('/crmpassign/update', [ManageCRMPController::class, 'updateCRMPStatus']);
-Route::post('/platinumgroup',[ManageCRMPController::class, 'PlatinumGroupView']);
+Route::get('/platinumgroup',[ManageCRMPController::class, 'PlatinumGroupView']);
 Route::get('/searchplatinum',[ManageCRMPController::class, 'SearchPlatinumView']);
 Route::get('/crmpprofile',[ManageCRMPController::class, 'CRMPProfileView'])->name('crmp.profile');
 Route::get('/crmpreport',[ManageCRMPController::class, 'CRMPReport'])->name('generatecrmpreport');;
 Route::get('/generatecrmppdf', [ManageCRMPController::class, 'generateReportCRMP']);
-
+Route::get('/mycrmp', [ManageCRMPController::class, 'MyCRMP']);
 
 //integrate module 1 ,2,3
 Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
