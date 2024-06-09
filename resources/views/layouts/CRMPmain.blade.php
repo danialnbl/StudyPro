@@ -16,15 +16,15 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('css/stepper.css') }}"> --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- Scripts --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"
-        integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     {{-- DataTable --}}
     <script src="https://cdn.datatables.net/2.0.6/js/dataTables.min.js"></script>
@@ -104,7 +104,96 @@
     {{-- Document Ready --}}
     <script>
         $(document).ready(function() {
+            $('#myTable').dataTable({
+                responsive: true
+            });
 
+            $("#imagePreview").hide();
+            $("#PI_File").on("change",function(e){
+                var arrTemp = this.value.split('\\');
+                document.getElementById("imagePreview").value = arrTemp[arrTemp.length - 1];
+                let idImgShow = 'imagePreview';
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#' + idImgShow + '').attr('src', e.target.result);
+                        $('#' + idImgShow + '').show();
+                    }
+
+                    reader.readAsDataURL(this.files[0]);
+                    $("#imagePreview").show();
+                }
+            })
+
+        });
+
+        //addMoreButn
+        var i = 0;
+        $('#addMore').click(function() {
+            ++i;
+            $('.add-more').append(
+                `
+                <div class="row col-12 mb-2">
+                    <div class="col-11">
+                        <input class="form-control" type="file" id="RP_File_[` + i + `]" name="RP_File_[` + i + `]" required>
+                    </div>
+                    <div class="col-1">
+                        <button id="removeMore" name="removeMore" type="button" class=" btn btn-danger ml-5 remove-table-row">
+                            X
+                        </button>
+                    </div>
+                </div>
+                `
+            )
+        })
+
+        $(document).on('click', '.remove-table-row', function() {
+            $(this).closest('.col-12').remove();
+        })
+
+
+        //Form Section function
+        $(function() {
+            var $sections = $('.form-section');
+
+            function navigateTo(index) {
+
+                $sections.removeClass('current').eq(index).addClass('current');
+
+                $('.form-navigation .previous').toggle(index > 0);
+                var atTheEnd = index >= $sections.length - 1;
+                $('.form-navigation .next').toggle(!atTheEnd);
+                $('.form-navigation [Type=submit]').toggle(atTheEnd);
+                $('.form-navigation .addMore').toggle(index == 1);
+
+                const step = document.querySelector('.step' + index);
+
+
+
+            }
+
+            function curIndex() {
+
+                return $sections.index($sections.filter('.current'));
+            }
+
+            $('.form-navigation .previous').click(function() {
+                navigateTo(curIndex() - 1);
+            });
+
+            $('.form-navigation .next').click(function() {
+                $('.expert-form').parsley().whenValidate({
+                    group: 'block-' + curIndex()
+                }).done(function() {
+                    navigateTo(curIndex() + 1);
+                });
+
+            });
+
+            $sections.each(function(index, section) {
+                $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+            });
+            navigateTo(0);
         });
     </script>
 

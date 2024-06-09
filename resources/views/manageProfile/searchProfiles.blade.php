@@ -1,5 +1,11 @@
-@extends('layouts.main')
-@section('container')
+@php
+    $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+    $set = Auth::user()->LA_Role === 2 ? 'mentor' : (Auth::user()->LA_Role === 3 ? 'crmp' : 'container');
+@endphp
+
+@extends($layout)
+
+@section($set)
 <style>
     .card-custom {
         max-width: 18rem;

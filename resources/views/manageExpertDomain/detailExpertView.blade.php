@@ -1,6 +1,10 @@
-@extends('layouts.main')
+@php
+    $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+@endphp
 
-@section('container')
+@extends($layout)
+
+ @section(Auth::user()->LA_Role === 2 ? 'mentor' : 'container')
         <div class="pagetitle">
             <h1>Profile</h1>
             <nav>

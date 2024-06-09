@@ -21,7 +21,7 @@ class MentorPlatCheck
             $user = Auth::user();
 
             // Check the user's role (assuming 'LA_Role' is a valid attribute)
-            if ($user->LA_Role == 0 || $user->LA_Role == 2) {
+            if ($user->LA_Role == 0 || $user->LA_Role == 2 || $user->LA_Role == 3) {
                 return $next($request); // Allow the request to proceed
             }
         }

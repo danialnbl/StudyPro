@@ -20,6 +20,7 @@ class ExpertController extends Controller
     public function expertListView()
     {
         return view('manageExpertDomain.expertListView', [
+            //return expert data
             'expert' => Expert::all(),
         ]);
     }
@@ -27,6 +28,7 @@ class ExpertController extends Controller
     public function reportExpertView()
     {
         $data = ['experts'=>Expert::all()];
+        // Load PDF and Download
         $pdf = Pdf::LoadView('manageExpertDomain.reportExpertView', $data);
         return $pdf->download('expertList.pdf');
     }
@@ -70,6 +72,7 @@ class ExpertController extends Controller
             $fileNamePic = time() . '_' . $file->getClientOriginalName();
             $filePathPic = $file->storeAs('uploads/profilePic', $fileNamePic, 'public');
 
+            //update data
             $ExpertPic->update([
                 "PI_File" => $fileNamePic,
                 "PI_FilePath" => $filePathPic,
@@ -111,6 +114,7 @@ class ExpertController extends Controller
 
     public function detailExpertView($E_ID)
     {
+        //fetch all data
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
         $fetchPublication = PublicationData::where('E_ID', $E_ID)->get();
@@ -124,6 +128,7 @@ class ExpertController extends Controller
     {
         $userID = Auth::user()->P_IC;
 
+        //display data
         $fetchExpert = Expert::where('P_IC', $userID)->get();
 
         return view('manageExpertDomain.myExpertListView', [

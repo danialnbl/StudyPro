@@ -1,6 +1,11 @@
-@extends('layouts.main')
+@php
+    $layout = Auth::user()->LA_Role === 2 ? 'layouts.mentormain' : (Auth::user()->LA_Role === 3 ? 'layouts.CRMPmain' : 'layouts.main');
+    $set = Auth::user()->LA_Role === 2 ? 'mentor' : (Auth::user()->LA_Role === 3 ? 'crmp' : 'container');
+@endphp
 
-@section('container')
+@extends($layout)
+
+@section($set)
 <style>
     .btn-custom-search {
         background-color: #28a745; /* Green background color */
@@ -33,7 +38,7 @@
                         <button type="submit" class="btn btn-custom-search">Search</button>
                     </div>
                 </form>
-                
+
                 @if($publications->isEmpty())
                     <p>No publications found.</p>
                 @else
