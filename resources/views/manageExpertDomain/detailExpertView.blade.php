@@ -109,8 +109,16 @@
                                                             <div class="modal-body">
                                                                 <h3 class=" pb-2 pb-md-0"><b>Expert Publication</b></h3>
                                                                 <div class="col-12">
+                                                                    <label for="PD_University">Publication University Name:</label>
+                                                                    <input type="text" class="form-control mb-3" id="PD_University" name="PD_University" required>
+                                                                </div>
+                                                                <div class="col-12">
                                                                     <label for="PD_Title">Publication Title:</label>
                                                                     <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="PD_Author">Author Name:</label>
+                                                                    <input type="text" class="form-control mb-3" id="PD_Author" name="PD_Author" required>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <label for="PD_DOI">Publication DOI:</label>
@@ -164,8 +172,16 @@
                                                                 <div class="modal-body">
                                                                     <h3 class=" pb-2 pb-md-0"><b>Expert Publication</b></h3>
                                                                     <div class="col-12">
+                                                                        <label for="PD_University">Publication University Name:</label>
+                                                                        <input type="text" class="form-control mb-3" id="PD_University" name="PD_University" value="{{$publication->PD_University}}" required>
+                                                                    </div>
+                                                                    <div class="col-12">
                                                                         <label for="PD_Title">Publication Title:</label>
                                                                         <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" value="{{$publication->PD_Title}}" required>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <label for="PD_Author">Author Name:</label>
+                                                                        <input type="text" class="form-control mb-3" id="PD_Author" name="PD_Author" value="{{$publication->PD_Author}}" required>
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <label for="PD_DOI">Publication DOI:</label>

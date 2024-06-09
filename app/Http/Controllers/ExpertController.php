@@ -95,9 +95,11 @@ class ExpertController extends Controller
 
         // Validate the incoming request data
         $validatedData = $request->validate([
+            "PD_University" => "required",
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
+            "PD_Author" => "required",
             "PD_DOI" => "required",
         ]);
 
@@ -105,9 +107,11 @@ class ExpertController extends Controller
         $PublicationData = PublicationData::findOrFail($PD_ID);
 
         $PublicationData->update([
+                "PD_University" => $validatedData['PD_University'],
                 "PD_Title" => $validatedData['PD_Title'],
                 "PD_Date" => $validatedData['PD_Date'],
                 "PD_Type" => $validatedData['PD_Type'],
+                "PD_Author" => $validatedData['PD_Author'],
                 "PD_DOI" => $validatedData['PD_DOI'],
         ]);
 
@@ -211,9 +215,11 @@ class ExpertController extends Controller
     {
         // Validate the incoming request data
         $validatedData = $request->validate([
+            "PD_University" => "required",
             "PD_Title" => "required",
             "PD_Date" => "required",
             "PD_Type" => "required",
+            "PD_Author" => "required",
             "PD_DOI" => "required",
             'PD_File' => 'required|mimes:pdf|max:10048',
         ]);
@@ -225,9 +231,9 @@ class ExpertController extends Controller
             $publicationData = new PublicationData();
             $publicationData->PD_DOI = $validatedData['PD_DOI'];
             $publicationData->PD_Title = $validatedData['PD_Title'];
-            $publicationData->PD_University = $Experts->E_University;
+            $publicationData->PD_University = $validatedData['PD_University'];
             $publicationData->PD_Type = $validatedData['PD_Type'];
-            $publicationData->PD_Author = $Experts->E_Name;
+            $publicationData->PD_Author = $validatedData['PD_Author'];
 
             //PDF File
             $file = $request->file('PD_File');
