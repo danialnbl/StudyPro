@@ -130,4 +130,17 @@ class DraftThesisController extends Controller
         return view('manageDraftThesisView.SearchDraftThesisView')->with('platinums', $platinum);
     }
 
+    public function FeedbackDTView(){
+        $draftThesis = DraftThesis::all();
+
+        return view('manageDraftThesisView.FeedbackDTView')
+            ->with('draftThesis', $draftThesis);
+    }
+
+    public function ListPlatinumDTView(){
+        $platinum = Platinum::where('P_Status', 'Platinum')->get();
+
+        return view('manageDraftThesisView.ListPlatinumDTView')->with('platinums', $platinum);
+    }
+
 }

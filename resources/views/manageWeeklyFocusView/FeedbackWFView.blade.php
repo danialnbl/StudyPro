@@ -7,9 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <style>
         .box {
@@ -31,16 +29,9 @@
 @endif
 <div class="container">
 <div class="row">
-    <div class="col-md-8">
-        <h1 class="d-inline-block">My Weekly Focus List</h1>
-    </div>
-    <div class="col-md-4 text-right">
-        <div class="pb-3">
-            <a href="{{url('addweeklyfocus')}}" class="btn btn-primary">Add Weekly Focus Info</a>
-        </div>
-    </div>
+<div class="col-md-8">
+    <h1 class="d-inline-block">My Weekly Focus List</h1>
 </div>
-
 
 <div class="box">
 <h3>Admin Info</h3>
@@ -49,7 +40,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-6">Admin Info List</th>
-                <th scope="col-md-3">Date</th>            
+                <th scope="col-md-3">Start Date</th>        
+                <th scope="col-md-3">Complete Date</th>     
             </tr>
         </thead>
         <tbody>
@@ -58,7 +50,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_AdminInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
             </tr>
             <?php $i++ ?>
             @endif
@@ -74,7 +67,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Focus Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">End Date</th>
             </tr>
         </thead>
         <tbody>
@@ -83,7 +77,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_FocusInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
             </tr>
             <?php $i++ ?>
             @endif
@@ -99,7 +94,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Recovery Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -108,7 +104,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_RecoveryInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
             </tr>
             <?php $i++ ?>
             @endif
@@ -124,7 +121,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Social Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -133,7 +131,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_SocialInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
                 </div>
                 </td>
             </tr>
@@ -145,10 +144,12 @@
 </div>
 </div>
 
+<!-- Feedback from crmp + mentor -->
 <div class="mb-3">
-  <label for="WeeklyFocusComment" class="form-label">Comment </label>
+  <label for="WeeklyFocusComment" class="form-label">Feedback :</label>
   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 </div>
+<button class="btn btn-primary">Send Feedback</button>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
