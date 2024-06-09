@@ -72,4 +72,13 @@ class ManageCRMPController extends Controller
         return $pdf->download('generatecrmpreport.pdf');
     }
 
+    public function PlatinumGroupView(){
+        $crmp = Platinum::where('P_Status', 'CRMP')->get();
+        $platinum = Platinum::where('P_Status', 'Platinum')->get();
+
+        return view('manageCRMPView.PlatinumGroupView')
+        ->with('platinums', $platinum)
+        ->with('crmp', $platinum);
+    }
+
 }
