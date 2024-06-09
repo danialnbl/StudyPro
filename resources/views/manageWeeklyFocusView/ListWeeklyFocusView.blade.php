@@ -48,7 +48,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-6">Admin Info List</th>
-                <th scope="col-md-3">Date</th>            
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>               
             </tr>
         </thead>
         <tbody>
@@ -57,7 +58,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_AdminInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
                 <td>        
                     <div class="gap-2 d-md-flex justify-content">
                     <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
@@ -84,7 +86,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Focus Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -93,7 +96,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_FocusInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
                     <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
@@ -120,7 +124,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Recovery Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -129,7 +134,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_RecoveryInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
                     <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
@@ -156,7 +162,8 @@
             <tr>
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-5">Social Info List</th>
-                <th scope="col-md-3">Date</th>
+                <th scope="col-md-3">Start Date</th>
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -165,7 +172,8 @@
             <tr>
                 <td>{{$i+1}}</td>
                 <td>{{ $item->WF_SocialInfo }}</td>
-                <td>{{$item->WF_Date}}</td>
+                <td>{{$item->WF_StartDate}}</td>
+                <td>{{$item->WF_EndDate}}</td>
                 <td>
                 <div class="gap-2 d-md-flex justify-content">
                     <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>

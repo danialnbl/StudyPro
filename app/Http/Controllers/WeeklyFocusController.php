@@ -22,15 +22,17 @@ class WeeklyFocusController extends Controller
     public function submitWeeklyFocusView(Request $request)
     {
         $validatedData = $request->validate([
-            'date' => 'required|date',
+            'startdate' => 'required|date',
+            'enddate' => 'required|date',
             'block' => 'required|string',
             'inputinfo' => 'required|array',
             'inputinfo.*' => 'required|string',
         ]);
 
         $weeklyFocus = new WeeklyFocus();
-        $weeklyFocus->WF_Date = $validatedData['date'];
-        $weeklyFocus->WF_Block = $validatedData['block'];
+        $weeklyFocus->WF_StartDate = $validatedData['startdate'];
+        $weeklyFocus->WF_EndDate = $validatedData['enddate'];
+        $weeklyFocus->WF_FocusBlock = $validatedData['block'];
         $weeklyFocus->WF_AdminInfo = '';
         $weeklyFocus->WF_FocusInfo = '';
         $weeklyFocus->WF_SocialInfo = '';
@@ -51,20 +53,13 @@ class WeeklyFocusController extends Controller
                 break;
         }
 
+        $platinum = Platinum::all();
+        $mentor = Mentor::all();
+
         if (Auth::check()) {
             $user = Auth::user();
-
-            if ($user->platinum) {
-                $weeklyFocus->P_IC = $user->platinum->P_IC;
-            } else {
-                $weeklyFocus->P_IC = null;
-            }
-
-            if ($user->mentor) {
-                $weeklyFocus->M_IC = $user->mentor->M_IC;
-            } else {
-                $weeklyFocus->M_IC = null;
-            }
+            $weeklyFocus->P_IC = $user->platinum->P_IC ?? null;
+            $weeklyFocus->M_IC = $user->mentor->M_IC ?? null;
         }
 
         $weeklyFocus->save();
@@ -95,14 +90,16 @@ class WeeklyFocusController extends Controller
     public function EditWeeklyFocusView(Request $request, $wf_id)
     {
         $validatedData = $request->validate([
-            'date' => 'required|date',
+            'startdate' => 'required|date',
+            'enddate' => 'required|date',
             'block' => 'required|string',
             'inputinfo' => 'required|array',
             'inputinfo.*' => 'required|string',
         ]);
 
-        $weeklyFocus->WF_Date = $validatedData['date'];
-        $weeklyFocus->WF_Block = $validatedData['block'];
+        $weeklyFocus->WF_StartDate = $validatedData['startdate'];
+        $weeklyFocus->WF_EndDate = $validatedData['enddate'];
+        $weeklyFocus->WF_FocusBlock = $validatedData['block'];
         $weeklyFocus->WF_AdminInfo = '';
         $weeklyFocus->WF_FocusInfo = '';
         $weeklyFocus->WF_SocialInfo = '';
@@ -122,6 +119,8 @@ class WeeklyFocusController extends Controller
                 $weeklyFocus->WF_SocialInfo = implode(', ', $validatedData['inputinfo']);
                 break;
         }
+
+
 
         if (Auth::check()) {
             $user = Auth::user();
@@ -158,13 +157,21 @@ class WeeklyFocusController extends Controller
         return view('manageWeeklyFocusView.SearchWeeklyFocusView')->with('platinums', $platinum);
     }
 
+    //not finished yet
+    public function FeedbackWFView(){   
+        $platinum = Platinum::all();
+        $weeklyFocus = WeeklyFocus::all();
 
-    
-    // public function FeedbackWFView(){
-        
-    // return view('manageWeeklyFocusView.FeedbackWFView')->with('weeklyFocus', $weeklyFocus);
-    
-    // }
+        return view('manageWeeklyFocusView.FeedbackWFView')
+            ->with('weeklyFocus', $weeklyFocus)
+            ->with('platinums', $platinum);
+    }
+
+    public function ListPlatinumWFView(){
+        $platinum = Platinum::where('P_Status', 'Platinum')->get();
+
+        return view('manageWeeklyFocusView.ListPlatinumWFView')->with('platinums', $platinum);
+    }
 
 }
 

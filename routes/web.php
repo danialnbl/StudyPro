@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\PublicationDataController;
 use App\Http\Controllers\DraftThesisController;
 use App\Http\Controllers\WeeklyFocusController;
+use App\Http\Controllers\ManageCRMPController;
 
 Route::get('/', [UserController::class, 'logout']);
 
@@ -155,7 +156,6 @@ Route::get('/mentorReport', [UserController::class, 'reportMentorView'])->name('
 
 
 //weeklyfocus controller
-Route::get('/weeklyfocus', [WeeklyFocusController::class, 'index']);
 Route::get('/addweeklyfocus', [WeeklyFocusController::class, 'AddWeeklyFocusView'])->name('WeeklyFocus.add');
 Route::get('/viewweeklyfocus', [WeeklyFocusController::class, 'ListWeeklyFocusView'])->name('WeeklyFocus.view');
 Route::post('/submitweeklyfocus', [WeeklyFocusController::class, 'submitWeeklyFocusView'])->name('WeeklyFocus.submit');
@@ -163,9 +163,8 @@ Route::delete('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'DeleteWeek
 Route::get('/weeklyfocus/{wf_id}/edit', [WeeklyFocusController::class, 'EditWeeklyFocusForm'])->name('WeeklyFocus.editForm');
 Route::put('/weeklyfocus/{wf_id}', [WeeklyFocusController::class, 'EditWeeklyFocusView'])->name('WeeklyFocus.edit');
 Route::get('/searchweeklyfocus', [WeeklyFocusController::class, 'SearchWeeklyFocusView'])->name('WeeklyFocus.search');
-
-//Route::get('/feedbackwf',[WeeklyFocusController::class,'FeedbackWFView'])->name('WeeklyFocus.feedback');
-
+Route::get('/feedbackwf',[WeeklyFocusController::class,'FeedbackWFView'])->name('WeeklyFocus.feedback');
+Route::get('/listplatinumwf',[WeeklyFocusController::class,'ListPlatinumWFView'])->name('WeeklyFocus.platinum');
 
 //draftthesis controller
 Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerformanceView'])->name('DraftThesis.view');
@@ -174,6 +173,19 @@ Route::post('/draftthesissubmit', [DraftThesisController::class, 'submitDraftThe
 Route::delete('/draftthesis/{draftid}', [DraftThesisController::class, 'DeleteDraftThesis'])->name('DraftThesis.delete');
 Route::put('/draftthesis/{draftid}/edit', [DraftThesisController::class, 'EditDraftThesisView'])->name('DraftThesis.edit');
 Route::get('/searchdraftthesis', [DraftThesisController::class, 'SearchDraftThesisView'])->name('DraftThesis.search');
+Route::get('/feedbackdt',[DraftThesisController::class,'FeedbackDTView'])->name('DraftThesis.feedback');
+Route::get('/listplatinumdt',[DraftThesisController::class,'ListPlatinumDTView'])->name('DraftThesis.platinum');
+
+//crmp controller
+Route::get('/crmplist',[ManageCRMPController::class, 'CRMPListView']);
+Route::get('/crmpassign',[ManageCRMPController::class, 'CRMPAssignView']);
+Route::post('/crmpassign/update', [ManageCRMPController::class, 'updateCRMPStatus']);
+Route::post('/platinumgroup',[ManageCRMPController::class, 'PlatinumGroupView']);
+Route::get('/searchplatinum',[ManageCRMPController::class, 'SearchPlatinumView']);
+Route::get('/crmpprofile',[ManageCRMPController::class, 'CRMPProfileView'])->name('crmp.profile');
+Route::get('/crmpreport',[ManageCRMPController::class, 'CRMPReport'])->name('generatecrmpreport');;
+Route::get('/generatecrmppdf', [ManageCRMPController::class, 'generateReportCRMP']);
+
 
 //integrate module 1 ,2,3
 Route::get('/showDetail/{P_IC}', [UserController::class, 'showDetail'])->name('showDetail');
