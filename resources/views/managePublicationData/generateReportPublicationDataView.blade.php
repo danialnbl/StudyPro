@@ -14,12 +14,9 @@
     }
 </style>
 <div class="container">
-    <h1>Generate Publication Report</h1>
-
-    {{-- Search Form --}}
     <div class="card" style="border-radius: 15px;">
         <div class="card-body p-4 p-md-5">
-            <h3 class="pb-2 pb-md-0"><b>List of Publications</b></h3>
+            <h3 class="pb-2 pb-md-0"><b>Generate Publications Report</b></h3>
             <form action="{{ route('SearchPublicationM.search') }}" method="GET" class="mb-3">
                 <div class="input-group">
                     <input type="text" name="SearchM" class="form-control" placeholder="Search by name...">

@@ -24,7 +24,6 @@
                     <th>DOI</th>
                     <th>Type</th>
                     <th>Date</th>
-                    <th>File</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,12 +35,6 @@
                         <td>{{ $publication->PD_DOI }}</td>
                         <td>{{ $publication->PD_Type }}</td>
                         <td>{{ $publication->PD_Date }}</td>
-                        <td>
-                            @if ($publication->PD_FilePath)
-                                <a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">View File</a>
-                            @else
-                                No File Attached
-                            @endif
                         </td>
                     </tr>
                 @endforeach
