@@ -82,6 +82,10 @@
                             <input type="text" class="form-control mb-3" id="PD_Title" name="PD_Title" required>
                         </div>
                         <div class="col-12">
+                            <label for="PD_DOI">Publication DOI:</label>
+                            <input type="text" class="form-control mb-3" id="PD_DOI" name="PD_DOI" required>
+                        </div>
+                        <div class="col-12">
                             <label for="PD_Date" class="col-sm-2 col-form-label">Publication Date</label>
                             <input type="date" class="form-control mb-3" name="PD_Date" id="PD_Date">
                         </div>

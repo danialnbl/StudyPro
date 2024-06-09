@@ -52,6 +52,13 @@ class Platinum extends Model //implements MustVerifyEmail
         'P_Status',
         'P_Title'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'P_IC' => 'string',
+        ];
+    }
 }
 
 

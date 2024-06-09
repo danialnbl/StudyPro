@@ -77,17 +77,17 @@ Route ::get('/crmpdashboard',[UserController::class,'CRMPDashboard'])->name('CRM
 
 
 //Expert
-Route::get('/expert', [ExpertController::class, 'expertListView']);
+Route::get('/expert', [ExpertController::class, 'expertListView'])->middleware('mentorPlat');
 
-Route::get('/expertDetail/{E_ID}', [ExpertController::class, 'detailExpertView'])->name('detailExpertView');
+Route::get('/expertDetail/{E_ID}', [ExpertController::class, 'detailExpertView'])->name('detailExpertView')->middleware('mentorPlat');
 
-Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpertView');
+Route::get('/myexpert', [ExpertController::class, 'myExpertView'])->name('myExpertView')->middleware('platinum');
 
-Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert');
-Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert');
+Route::get('/expertAdd', [ExpertController::class, 'addExpertView'])->name('addExpert')->middleware('platinum');
+Route::get('/expertEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editExpert')->middleware('platinum');
 //Route::get('/expertPublicationEdit/{E_ID}', [ExpertController::class, 'editExpertView'])->name('editPublicationExpert');
 
-Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name('reportExpert');
+Route::get('/expertReport', [ExpertController::class, 'reportExpertView'])->name('reportExpert')->middleware('mentorPlat');
 
 //Expert Post
 Route::post('/expertAdd', [ExpertController::class, 'ExpertAddPost'])->name('expertAdd.submit');
@@ -105,7 +105,6 @@ Route::get('/paperDelete/{EP_ID}', [ExpertController::class, 'deletePaper']);
 //publication
 // View all publications
 Route::get('/Viewpublication', [PublicationDataController::class, 'viewPublicationData'])->name('ViewPublication.view');
-Route::get('/ViewpublicationM', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationM.view');
 
 // Add publication
 Route::get('/publication', [PublicationDataController::class, 'addPublicationData']);
@@ -123,7 +122,15 @@ Route::put('/Editpublication/{id}', [PublicationDataController::class, 'update']
 Route::delete('/Mypublication{id}', [PublicationDataController::class, 'destroy'])->name('Delpublication');
 
 //search Publication
-Route::get('/search-publications', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
+Route::get('/Searchpublication', [PublicationDataController::class, 'search'])->name('SearchPublication.search');
+
+// View publications by Platinum members for mentors
+Route::get('/ViewpublicationMentor', [PublicationDataController::class, 'viewPublicationDataM'])->name('ViewPublicationMentor.view');
+
+// Generate report
+Route::get('/GenerateReportPublication', [PublicationDataController::class, 'generateReportView'])->name('GenerateReportPublication.view');
+Route::post('/GenerateReportPublication', [PublicationDataController::class, 'generateReport'])->name('GenerateReportPublication.generate');
+Route::get('/publicationReport', [UserController::class, 'publicationReport'])->name('reportPublication');
 
 //Profile
 Route::get('/platProfile',[UserController::class, 'ProfileView']);

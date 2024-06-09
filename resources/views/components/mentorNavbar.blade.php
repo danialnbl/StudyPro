@@ -145,12 +145,12 @@
             </a>
             <ul id="publication-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/ViewpublicationM">
+                    <a href="/ViewpublicationMentor">
                         <i class="bi bi-circle"></i><span>List of Publications</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/GenerateReportPublication">
                         <i class="bi bi-circle"></i><span>Generate Report</span>
                     </a>
                 </li>

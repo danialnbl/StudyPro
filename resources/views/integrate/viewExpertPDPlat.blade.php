@@ -1,4 +1,5 @@
 @extends('layouts.main')
+
 @section('container')
 <style>
     .data-list {
@@ -49,21 +50,21 @@
             @foreach($publications as $publication)
                 <div class="data-item">
                     <h3>{{ $publication->PD_Author }}</h3>
-                    <p>{{ $publication->PD_File }}</p>
+                    <p><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></p>
                 </div>
             @endforeach
         @endif
     </div>
 
     <div class="data-list">
-        <h2>Experts</h2>
-        @if($experts->isEmpty())
-            <p>No experts found for this user.</p>
+        <h2>Expert Publications</h2>
+        @if($expertPub->isEmpty())
+            <p>No expert publications found for this user.</p>
         @else
-            @foreach($experts as $expert)
+            @foreach($expertPub as $publication)
                 <div class="data-item">
-                    <h3>{{ $expert->E_Name }}</h3>
-                    <p>{{ $expert->E_Domain }}</p>
+                    <h3>{{ $publication->PD_Author }}</h3>
+                    <p><a href="{{ Storage::url($publication->PD_FilePath) }}" target="_blank">{{ $publication->PD_FileName }}</a></p>
                 </div>
             @endforeach
         @endif
@@ -72,5 +73,3 @@
     <a href="{{ url()->previous() }}" class="btn btn-secondary mt-4">Back</a>
 </div>
 @endsection
-
-

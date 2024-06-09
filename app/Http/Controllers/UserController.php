@@ -152,7 +152,7 @@ class UserController extends Controller
             "PE_ProgramFee" => "required|numeric",
             "PE_EduLevel" => "required",
             "PE_Occupation" => "required",
-            "referral" => "required|string",
+            "referral" => "required|string", 
             "PR_Name" => "required_if:referral,yes",
             "PR_Batch" => "required_if:referral,yes"
         ]);
@@ -741,30 +741,46 @@ class UserController extends Controller
 
 
     //integrate with expert and publication data
-    public function showDetail($P_IC)
+    
+
+public function showDetail($P_IC)
     {
+        // Fetch publication data and expert data based on P_IC
+        $publications = PublicationData::where('P_IC', $P_IC)->get();
+        $experts = Expert::where('P_IC', $P_IC)->get();
+        
+        // Assume you want to get publications of experts related to this P_IC
+        $expertIds = $experts->pluck('E_ID');
+        $expertPublications = PublicationData::whereIn('E_ID', $expertIds)->get();
+
+        return view('integrate.viewExpertPDPlat', [
+            'publications' => $publications,
+            'experts' => $experts,
+            'P_IC' => $P_IC,
+            'expertPub' => $expertPublications
+        ]);
+    }
+
+    
+
+    public function showDetailPlat($P_IC)
+{
     // Fetch publication data and expert data based on P_IC
     $publications = PublicationData::where('P_IC', $P_IC)->get();
     $experts = Expert::where('P_IC', $P_IC)->get();
 
-    return view('integrate.viewExpertPDPlat', [
-        'publications' => $publications,
-        'experts' => $experts,
-        'P_IC' => $P_IC
-    ]);
-    }
-    public function showDetailPlat($P_IC)
-    {
-    // Fetch publication data and expert data based on P_IC
-    $publications = PublicationData::where('P_IC', $P_IC)->get();
-    $experts = Expert::where('P_IC', $P_IC)->get();
+    // Fetch publications of experts related to this P_IC
+    $expertIds = $experts->pluck('E_ID');
+    $expertPublications = PublicationData::whereIn('E_ID', $expertIds)->get();
 
     return view('integrate.viewExpertPDMentor', [
         'publications' => $publications,
         'experts' => $experts,
-        'P_IC' => $P_IC
+        'P_IC' => $P_IC,
+        'expertPub' => $expertPublications
     ]);
-    }
+}
+
 
     
 }
