@@ -100,9 +100,15 @@
                                 {{ url('assets/defaultPP.png') }}
                             @endif " alt="Profile Photo">
                     <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">{{ $platinum->P_Name }}</div>
-                    <!-- Profile picture upload button-->
-                    <!--<a href="{{route('editPP')}}" class="btn btn-warning btn-sm">Edit Profile</a>-->
+                    <div class="small font-italic text-muted mb-4">
+                        @if(isset($platinum))
+                            {{ $platinum->P_Name }}
+                        @elseif(isset($staff))
+                            {{ $staff->S_Name }}
+                        @elseif(isset($mentor))
+                            {{ $mentor->M_Name }}
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,50 +118,88 @@
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
                     <table class="table">
-                        <tr>
-                            <td>Name</td>
-                            <td>{{$platinum->P_Name}}</td>
-                        </tr>
-                        <tr>
-                            <td>NR IC</td>
-                            <td>{{ $platinum->P_IC }}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>{{ $platinum->P_Email }}</td>
-                        </tr>
-                        <tr>
-                            <td>Contact Number</td>
-                            <td>{{ $platinum->P_PhoneNumber }}</td>
-                        </tr>
-                        <tr>
-                            <td>Facebook</td>
-                            <td>{{ $platinum->P_Facebook }}</td>
-                        </tr>
-                        <tr>
-                            <td>Address</td>
-                            <td>{{ $platinum->P_Address }}</td>
-                        </tr>
-                        <tr>
-                            <td>Title</td>
-                            <td>{{ $platinum->P_Title }}</td>
-                        </tr>
-                        <tr>
-                            <td>Education Institute</td>
-                            <td>{{ $PlatEdu->PE_EduInstitute }}</td>
-                        </tr>
-                        <tr>
-                            <td>Education Level</td>
-                            <td>{{ $PlatEdu->PE_EduLevel }}</td>
-                        </tr>
-                        <tr>
-                            <td>Sponsorship</td>
-                            <td>{{ $PlatEdu->PE_Sponsorship}}</td>
-                        </tr>
-                        <tr>
-                            <td>Occupation</td>
-                            <td>{{ $PlatEdu->PE_Occupation }}</td>
-                        </tr>
+                        @if(isset($platinum))
+                            <tr>
+                                <td>Name</td>
+                                <td>{{$platinum->P_Name}}</td>
+                            </tr>
+                            <tr>
+                                <td>NR IC</td>
+                                <td>{{ $platinum->P_IC }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ $platinum->P_Email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Contact Number</td>
+                                <td>{{ $platinum->P_PhoneNumber }}</td>
+                            </tr>
+                            <tr>
+                                <td>Facebook</td>
+                                <td>{{ $platinum->P_Facebook }}</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>{{ $platinum->P_Address }}</td>
+                            </tr>
+                            <tr>
+                                <td>Title</td>
+                                <td>{{ $platinum->P_Title }}</td>
+                            </tr>
+                            <tr>
+                                <td>Education Institute</td>
+                                <td>{{ $PlatEdu->PE_EduInstitute }}</td>
+                            </tr>
+                            <tr>
+                                <td>Education Level</td>
+                                <td>{{ $PlatEdu->PE_EduLevel }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sponsorship</td>
+                                <td>{{ $PlatEdu->PE_Sponsorship}}</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation</td>
+                                <td>{{ $PlatEdu->PE_Occupation }}</td>
+                            </tr>
+                        @elseif(isset($staff))
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ $staff->S_Name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Staff ID</td>
+                                <td>{{ $staff->S_StaffID }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ $staff->S_Email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{ $staff->S_PhoneNumber }}</td>
+                            </tr>
+                            
+                        @elseif(isset($mentor))
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ $mentor->M_Name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Staff ID</td>
+                                <td>{{ $mentor->M_MentorID }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ $mentor->M_Email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>{{ $mentor->M_PhoneNumber }}</td>
+                            </tr>
+                            
+                        @endif
                     </table>
                 </div>
             </div>

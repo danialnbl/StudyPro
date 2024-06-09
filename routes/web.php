@@ -147,6 +147,8 @@ Route::get('/editStaffProfile',[UserController::class, 'updateStaff'])->name('ed
 Route::put('/StaffEdit', [UserController::class, 'StaffProfilePost'])->name('staff.update');
 Route::get('/searchPlatST',[UserController::class, 'searchPlatST'])->name('searchProST');
 Route::get('/detailST/{P_IC}', [UserController::class, 'detailPlatST'])->name('detailPlatST');
+Route::get('/detailStaffST/{S_IC}', [UserController::class, 'detailStaffST'])->name('detailStaffST');
+Route::get('/detailMentorST/{M_IC}', [UserController::class, 'detailMentorST'])->name('detailMentorST');
 Route::get('/staffReport', [UserController::class, 'reportStaffView'])->name('reportStaff');
 
 Route::get('/mentorProfile',[UserController::class, 'mentorProfile']);
@@ -155,6 +157,8 @@ Route::get('/editMentorProfile',[UserController::class, 'updateMentor'])->name('
 Route::put('/MentorEdit', [UserController::class, 'MentorProfilePost'])->name('mentor.update');
 Route::get('/searchPlatMT',[UserController::class, 'searchPlatMT'])->name('searchProMT');
 Route::get('/detailMT/{P_IC}', [UserController::class, 'detailPlatMT'])->name('detailPlatMT');
+Route::get('/detailStaffMT/{S_IC}', [UserController::class, 'detailStaffMT'])->name('detailStaffMT');
+Route::get('/detailMentorMT/{M_IC}', [UserController::class, 'detailMentorMT'])->name('detailMentorMT');
 Route::get('/mentorReport', [UserController::class, 'reportMentorView'])->name('reportMentor');
 
 //Route::get('/mentorProfile',[UserController::class, 'showMentor']);
