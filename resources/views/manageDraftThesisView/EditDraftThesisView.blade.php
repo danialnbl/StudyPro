@@ -68,7 +68,7 @@
         </div>
         <div class="row">
             <div class="col-sm-1 mt-3">
-                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" name="submit">Update</button>
             </div>
             <div class="col-sm-1 mt-3">
                 <a href="#" class="btn btn-secondary">Back</a>

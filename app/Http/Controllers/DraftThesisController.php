@@ -49,6 +49,15 @@ class DraftThesisController extends Controller
         $draftThesis->DT_Feedback = $validatedData['comment'];
         $draftThesis->DT_TotalPages = $totalPages;
         $draftThesis->DT_PrepDays = $prepDays;
+
+        $platinum = Platinum::all();
+        $mentor = Mentor::all();
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            $draftThesis->P_IC = $user->platinum->P_IC ?? null;
+            $draftThesis->M_IC = $user->mentor->M_IC ?? null;
+        }
     
         $draftThesis->save();
         return redirect()->route('DraftThesis.view')->with('success', 'Draft Thesis added successfully.');
@@ -100,24 +109,17 @@ class DraftThesisController extends Controller
             $draftThesis->DT_EndDate = $validatedData['enddate'];
             $draftThesis->DT_PagesNumber = $validatedData['pageno'];
             $draftThesis->DT_DDC = $validatedData['ddc'];
-            $draftThesis->DT_Feedback = $validatedData['comment'];
+            $draftThesis->DT_Feedback = $validatedData['comment'] ?? '';
             $draftThesis->DT_TotalPages = $totalPages;
             $draftThesis->DT_PrepDays = $prepDays;
 
+            $platinum = Platinum::all();
+            $mentor = Mentor::all();
+    
             if (Auth::check()) {
                 $user = Auth::user();
-    
-                if ($user->platinum) {
-                    $weeklyFocus->P_IC = $user->platinum->P_IC;
-                } else {
-                    $weeklyFocus->P_IC = null;
-                }
-    
-                if ($user->mentor) {
-                    $weeklyFocus->M_IC = $user->mentor->M_IC;
-                } else {
-                    $weeklyFocus->M_IC = null;
-                }
+                $draftThesis->P_IC = $user->platinum->P_IC ?? null;
+                $draftThesis->M_IC = $user->mentor->M_IC ?? null;
             }
     
             $draftThesis->save();
