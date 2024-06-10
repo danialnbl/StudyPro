@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery UI CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+{{--    <meta charset="UTF-8">--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--}}
+{{--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">--}}
+{{--    <!-- Bootstrap CSS -->--}}
+{{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">--}}
+{{--    <!-- jQuery UI CSS -->--}}
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">--}}
     <style>
         .box {
             border: 1px solid #ddd;
@@ -48,7 +48,7 @@
                 <th scope="col-md-1">#</th>
                 <th scope="col-md-6">Admin Info List</th>
                 <th scope="col-md-3">Start Date</th>
-                <th scope="col-md-3">Complete Date</th>               
+                <th scope="col-md-3">Complete Date</th>
             </tr>
         </thead>
         <tbody>
@@ -59,7 +59,7 @@
                 <td>{{ $item->WF_AdminInfo }}</td>
                 <td>{{$item->WF_StartDate}}</td>
                 <td>{{$item->WF_EndDate}}</td>
-                <td>        
+                <td>
                     <div class="gap-2 d-md-flex justify-content">
                     <a href="{{ route('WeeklyFocus.editForm', ['wf_id' => $item->WF_ID]) }}" class="btn btn-warning">Edit</a>
                     </form>

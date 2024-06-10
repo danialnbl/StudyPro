@@ -1,9 +1,9 @@
 @extends('layouts.main')
 @section('container')
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- jQuery UI CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+{{--        <!-- Bootstrap CSS -->--}}
+{{--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">--}}
+{{--        <!-- jQuery UI CSS -->--}}
+{{--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">--}}
 
 <body>
 @if(session('success'))
@@ -12,14 +12,14 @@
     </div>
 @endif
 
-<!-- Add more draft thesis --> 
+<!-- Add more draft thesis -->
 <div class="row">
   <div class="col-md-8">
     <h1 class="d-inline-block">My Draft Thesis Performance</h1>
   </div>
     <div class="col-md-4 text-right">
       <div class="pb-3">
-      <a href="{{url('draftthesis/adddraftthesis')}}" class="btn btn-primary">Add Draft Thesis</a> 
+      <a href="{{url('draftthesis/adddraftthesis')}}" class="btn btn-primary">Add Draft Thesis</a>
       </div>
   </div>
 </div>
