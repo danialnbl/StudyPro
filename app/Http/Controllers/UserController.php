@@ -209,7 +209,12 @@ class UserController extends Controller
             $newUser->email = $validatedData['P_Email'];
             $newUser->password = Hash::make($validatedData['P_IC']);
             $newUser->P_IC = $validatedData['P_IC'];
-            $newUser->LA_Role = 0;
+
+            if($validatedData['P_Status'] == "Platinum"){
+                $newUser->LA_Role = 0;
+            }else{
+                $newUser->LA_Role = 3;
+            }
 
             if ($newUser->save()) {
                 // Redirect with success message
