@@ -1,5 +1,5 @@
 <!-- crmp + its platinum list -->
- @extends('layouts.staff')
+ @extends('layouts.staffmain')
  @section('staff')
  <!DOCTYPE html>
  <html lang="en">
@@ -13,9 +13,26 @@
     <h1>Platinum Group by CRMP</h1>
     <h3>Crmp Name : </h3>
 
-    <table class="table hover">
-
-    </table>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Platinum Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  @forelse($platinums as $platinum)
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $platinum->P_Name }}</td>
+        </tr>
+      @empty
+        <tr>
+          <td colspan="3">No results found</td>
+        </tr>
+      @endforelse
+  </tbody>
+</table>
  </body>
  </html>
  @endsection

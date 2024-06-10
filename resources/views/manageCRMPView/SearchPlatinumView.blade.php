@@ -39,7 +39,6 @@
           </div>
           </td>
           <td><button class="btn btn-primary">Confirm</button></td>
-
         </tr>
       @empty
         <tr>
