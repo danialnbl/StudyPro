@@ -6,7 +6,6 @@
 <head>
     <title>Assign Platinum as CRMP</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -44,7 +43,7 @@ $(document).ready(function(){
         var P_IC = $(this).data('p_ic');
         console.log("P_IC: ", P_IC); // Debug: Check the value of P_IC
         var token = $('meta[name="csrf-token"]').attr('content');
-        
+
         $.ajax({
             url: '/crmpassign/update',
             type: 'POST',

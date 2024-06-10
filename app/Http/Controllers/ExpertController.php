@@ -44,10 +44,9 @@ class ExpertController extends Controller
     {
         $Experts = Expert::where('E_ID', $E_ID)->get();
         $ExpertPic = Picture::where('E_ID', $E_ID)->get()->first();
-        $ExpertResearchs = ExpertResearch::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.editExpertView',
-            compact('Experts','ExpertResearchs','ExpertPic'));
+            compact('Experts','ExpertPic'));
     }
 
     public function ExpertEditPost(Request $request, $E_ID)
@@ -122,12 +121,11 @@ class ExpertController extends Controller
     {
         //fetch all data
         $Experts = Expert::where('E_ID', $E_ID)->get();
-        $fetchPapers = ExpertPaper::where('E_ID', $E_ID)->get();
         $fetchPublication = PublicationData::where('E_ID', $E_ID)->get();
         $fetchPic = Picture::where('E_ID',$E_ID)->first();
 
         return view('manageExpertDomain.detailExpertView',
-            compact('Experts','fetchPapers','fetchPic','fetchPublication'));
+            compact('Experts','fetchPic','fetchPublication'));
     }
 
     public function myExpertView()
