@@ -53,14 +53,13 @@
     </tbody>
 </table>
     <div class="mt-3">
-        <strong>Total Pages: </strong>{{$totalPages}}
+        <strong>Total Pages: </strong>{{$totalpages}}
     </div>
-</div>
 
 <!-- Feedback from crmp + mentor -->
 <div class="mb-3">
-  <label for="DraftThesisComment" class="form-label">Feedback :</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  <label for="DraftThesisComment" class="form-label"></label>
+  <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
 </div>
 <button class="btn btn-primary">Send Feedback</button>
 

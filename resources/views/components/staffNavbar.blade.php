@@ -131,7 +131,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/crmplist">
+                    <a href="/searchplatinum">
                         <i class="bi bi-circle"></i><span>CRMP List</span>
                     </a>
                 </li>

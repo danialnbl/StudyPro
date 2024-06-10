@@ -151,8 +151,12 @@ class DraftThesisController extends Controller
 
     public function FeedbackDTView(){
         $draftThesis = DraftThesis::all();
-
+    
+        // Calculate the total pages
+        $totalpages = $draftThesis->sum('DT_PagesNumber');
+    
         return view('manageDraftThesisView.FeedbackDTView')
+            ->with('totalpages', $totalpages)
             ->with('draftThesis', $draftThesis);
     }
 

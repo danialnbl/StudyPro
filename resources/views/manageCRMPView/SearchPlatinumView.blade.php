@@ -38,7 +38,9 @@
             </ul>
           </div>
           </td>
-          <td><button class="btn btn-primary">Confirm</button></td>
+          <td>
+            <a href="/platinumgroup"><button class="btn btn-primary">Confirm</button></a>
+          </td>
         </tr>
       @empty
         <tr>

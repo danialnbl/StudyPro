@@ -62,7 +62,10 @@
     </div>
 </div>
 
-<!--comment section  -->
+<div class="mb-3">
+  <label for="DraftThesisComment" class="form-label">Feedback :</label>
+  <textarea class="form-control" id="comment" name="comment" rows="3" value=""></textarea>
+</div>
 
 </body>
 </html>
