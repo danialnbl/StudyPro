@@ -116,11 +116,11 @@
 
 {{-- Document Ready --}}
 <script>
-    // $(document).ready(function() {
-    //     $('#myTable').dataTable({
-    //         responsive: true
-    //     });
-    // });
+    $(document).ready(function() {
+        $('#myTable').dataTable({
+            responsive: true
+        });
+    });
 </script>
 
 </html>
