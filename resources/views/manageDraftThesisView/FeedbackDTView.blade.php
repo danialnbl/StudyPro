@@ -15,7 +15,7 @@
 <!-- Add more draft thesis --> 
 <div class="row">
   <div class="col-md-8">
-    <h1 class="d-inline-block">My Draft Thesis Performance</h1>
+    <h1 class="d-inline-block">Draft Thesis Performance</h1>
   </div>
 </div>
 

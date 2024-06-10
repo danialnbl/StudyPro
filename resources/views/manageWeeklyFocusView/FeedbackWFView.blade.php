@@ -30,7 +30,7 @@
 <div class="container">
 <div class="row">
 <div class="col-md-8">
-    <h1 class="d-inline-block">My Weekly Focus List</h1>
+    <h1 class="d-inline-block">Weekly Focus List</h1>
 </div>
 
 <div class="box">
