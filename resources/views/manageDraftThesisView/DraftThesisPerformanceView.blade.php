@@ -46,7 +46,7 @@
                 <td>{{ $item->DT_PrepDays }}</td>
                 <td>{{ $item->DT_PagesNumber }}</td>
                 <td>
-                    <a href="{{ route('DraftThesis.edit', ['draftid' => $item->DT_ID]) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('DraftThesis.editForm', ['draftid' => $item->DT_ID]) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form onsubmit="return confirm('sure to delete?')" class="d-inline" action="{{ route('DraftThesis.delete', ['draftid' => $item->DT_ID]) }}" method="POST">
                         @csrf
                         @method('DELETE')

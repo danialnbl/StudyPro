@@ -72,9 +72,8 @@ class DraftThesisController extends Controller
         return redirect()->route('DraftThesis.view')->with('success', 'Data has been deleted successfully.');
     }
 
-    public function EditDraftThesisView(Request $request, $draft_id){
+    public function EditDraftThesisView(Request $request, $draftid){
         \Log::info('Request Method: ' . $request->method());
-        try {
             $validatedData = $request->validate([
                 'draftno' => 'required|numeric',
                 'title' => 'required|string|max:255',
@@ -86,7 +85,7 @@ class DraftThesisController extends Controller
             ]);
     
             // Find the draft thesis by ID
-            $draftThesis = DraftThesis::findOrFail($draft_id);
+            $draftThesis = DraftThesis::findOrFail($draftid);
     
             // Calculate the total pages and preparation days
             $totalPages = $validatedData['pageno'];
@@ -104,16 +103,34 @@ class DraftThesisController extends Controller
             $draftThesis->DT_Feedback = $validatedData['comment'];
             $draftThesis->DT_TotalPages = $totalPages;
             $draftThesis->DT_PrepDays = $prepDays;
+
+            if (Auth::check()) {
+                $user = Auth::user();
+    
+                if ($user->platinum) {
+                    $weeklyFocus->P_IC = $user->platinum->P_IC;
+                } else {
+                    $weeklyFocus->P_IC = null;
+                }
+    
+                if ($user->mentor) {
+                    $weeklyFocus->M_IC = $user->mentor->M_IC;
+                } else {
+                    $weeklyFocus->M_IC = null;
+                }
+            }
     
             $draftThesis->save();
-    
             return redirect()->route('DraftThesis.view')->with('success', 'Draft Thesis updated successfully.');
-        } catch (ModelNotFoundException $e) {
+    }   
+    
+    public function EditDraftThesisForm($draftid){
+        $draftThesis = DraftThesis::find($draftid);
+        if (!$draftThesis) {
             return redirect()->route('DraftThesis.view')->with('error', 'Draft Thesis not found.');
-        } catch (\Exception $e) {
-            return redirect()->route('DraftThesis.view')->with('error', 'Failed to update Draft Thesis.');
         }
-    }        
+        return view('manageDraftThesisView.EditDraftThesisView', compact('draftThesis'));
+    }
 
     public function SearchDraftThesisView(Request $request)
     {

@@ -139,6 +139,7 @@ class WeeklyFocusController extends Controller
         return redirect()->route('WeeklyFocus.view')->with('success', 'Weekly Focus updated successfully.');
     }
 
+
     public function SearchWeeklyFocusView(Request $request)
     {
         // Retrieve the search input

@@ -181,7 +181,8 @@ Route::get('/viewdraftthesis', [DraftThesisController::class, 'DraftThesisPerfor
 Route::get('/draftthesis/adddraftthesis', [DraftThesisController::class, 'AddDraftThesisView']);
 Route::post('/draftthesissubmit', [DraftThesisController::class, 'submitDraftThesis'])->name('DraftThesis.submit');
 Route::delete('/draftthesis/{draftid}', [DraftThesisController::class, 'DeleteDraftThesis'])->name('DraftThesis.delete');
-Route::put('/draftthesis/{draftid}/edit', [DraftThesisController::class, 'EditDraftThesisView'])->name('DraftThesis.edit');
+Route::get('/draftthesis/{draftid}/edit', [DraftThesisController::class, 'EditDraftThesisForm'])->name('DraftThesis.editForm');
+Route::put('/draftthesis/{draftid}', [DraftThesisController::class, 'EditDraftThesisView'])->name('DraftThesis.edit');
 Route::get('/searchdraftthesis', [DraftThesisController::class, 'SearchDraftThesisView'])->name('DraftThesis.search');
 Route::get('/feedbackdt',[DraftThesisController::class,'FeedbackDTView'])->name('DraftThesis.feedback');
 Route::get('/listplatinumdt',[DraftThesisController::class,'ListPlatinumDTView'])->name('DraftThesis.platinum');
